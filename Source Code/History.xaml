@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="App3.History"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Name="Grid" Width="320" MinWidth="320" MaxWidth="320">
+        <TextBlock x:Name="PageTitle" Text="历史记录" FontWeight="Bold" FontSize="20" Margin="0,0,0,0"/>
+        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:History_List">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind HistoryTitle}" FontSize="16" Margin="0,8,0,0"/>
+                        <TextBlock Text="{x:Bind HistoryUri}" FontSize="12" Margin="0,4,0,8"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
