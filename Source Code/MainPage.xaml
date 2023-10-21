@@ -17,6 +17,11 @@
             <muxc:TabView.TabStripFooter>
                 <Grid Background="Transparent" x:Name="AppTitleBar" Margin="0,0,200,0"/>
             </muxc:TabView.TabStripFooter>
+            <muxc:TabView.KeyboardAccelerators>
+                <KeyboardAccelerator Key="T" Modifiers="Control" Invoked="NewTabKeyboardAccelerator_Invoked" />
+                <KeyboardAccelerator Key="W" Modifiers="Control" Invoked="CloseSelectedTabKeyboardAccelerator_Invoked" />
+            </muxc:TabView.KeyboardAccelerators>
+
         </muxc:TabView>
         
         <Frame Name="SettingsFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Opacity="0" >

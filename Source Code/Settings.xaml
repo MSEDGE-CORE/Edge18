@@ -180,9 +180,18 @@
                             </TransitionCollection>
                         </StackPanel.Transitions>
                         <TextBlock FontSize = "14" FontWeight = "Bold" Text = "关于" Margin = "0,12,0,0" />
+                        <Grid HorizontalAlignment = "Stretch" Margin = "0,4,0,0" MinHeight="60" MaxHeight="60" Height="60" >
+                            <Button HorizontalAlignment="Stretch" MinHeight="60" MaxHeight="60" Height="60" Margin="0,0,0,0"/>
+                            <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                                <HyperlinkButton Name="ProjectHome" Content="项目主页" VerticalAlignment="Center" Margin="0,4,0,0" Click="ProjectHome_Click"/>
+                                <HyperlinkButton Name="CheckForUpdate" Content="检查更新" VerticalAlignment="Center" Margin="0,4,0,0" Click="CheckForUpdate_Click"/>
+                                <HyperlinkButton Name="SendFeedback" Content="发送反馈" VerticalAlignment="Center" Margin="0,4,0,0" Click="SendFeedback_Click"/>
+                            </StackPanel>
+                        </Grid>
                         <Grid HorizontalAlignment = "Stretch" Margin = "0,4,0,12" MinHeight = "80" MaxHeight = "80" Height = "80">
                             <Button HorizontalAlignment="Stretch" MinHeight="80" MaxHeight="80" Height="80" Margin="0,0,0,0"/>
-                            <TextBlock FontSize = "14" Text = "名称  Edge 18&#13;版本  1.2.26" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                            <TextBlock FontSize = "14" Text = "名称  Edge 18&#13;版本  1.2.27" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                             <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </StackPanel>

@@ -29,9 +29,6 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace App3
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
     public sealed partial class WebPage2 : Page
     {
         DispatcherTimer Timer;
@@ -56,6 +53,9 @@ namespace App3
                 SeparateLineDark.StrokeThickness = 0.5;
                 SeparateLineLight.StrokeThickness = 0;
             }
+
+            Collection_Flyout.ShouldConstrainToRootBounds = false;
+            History_Flyout.ShouldConstrainToRootBounds = false;
         }
 
         bool LinkTyping = false;
@@ -216,7 +216,31 @@ namespace App3
                 LinkBox.Text = "";
                 if ((Application.Current as App).TabStartLink != "about:blank")
                 {
-                    EdgeWebView.CoreWebView2.Navigate((Application.Current as App).TabStartLink);
+                    string Link = (Application.Current as App).TabStartLink;
+                    try
+                    {
+                        EdgeWebView.CoreWebView2.Navigate(Link);
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            Link = "https://" + Link;
+                            EdgeWebView.CoreWebView2.Navigate(Link);
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                Link = (Application.Current as App).SearchToolLink + Link;
+                                EdgeWebView.CoreWebView2.Navigate(Link);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
                     EdgeWebView.VerticalAlignment = VerticalAlignment.Stretch;
                 }
                 (Application.Current as App).TabStartLink = "about:blank";
@@ -262,60 +286,27 @@ namespace App3
                 }
                 else
                 {
-                    MatchCollection IsMatch;
-
-                    int CanWebNav = 0;
-
-                    IsMatch = Regex.Matches(Link, @" ");
-                    foreach (Match m in IsMatch)
+                    try
                     {
-                        CanWebNav++;
+                        EdgeWebView.CoreWebView2.Navigate(Link);
                     }
-                    if (CanWebNav > 0)
+                    catch
                     {
-                        Link = (Application.Current as App).SearchToolLink + Link;
-                        LinkBox.Text = Link;
-                        EdgeWebView.CoreWebView2.Navigate((Link));
-                    }
-                    else
-                    {
-                        IsMatch = Regex.Matches(Link, @"^(about?)");
-                        foreach (Match m in IsMatch)
+                        try
                         {
-                            CanWebNav++;
+                            Link = "https://" + Link;
+                            EdgeWebView.CoreWebView2.Navigate(Link);
                         }
-                        IsMatch = Regex.Matches(Link, @"^(https?)://");
-                        foreach (Match m in IsMatch)
+                        catch
                         {
-                            CanWebNav++;
-                        }
-                        IsMatch = Regex.Matches(Link, @"^(edge?)://");
-                        foreach (Match m in IsMatch)
-                        {
-                            CanWebNav++;
-                        }
-                        if (CanWebNav > 0)
-                        {
-                            EdgeWebView.CoreWebView2.Navigate((Link));
-                        }
-                        else
-                        {
-                            IsMatch = Regex.Matches(Link, @"\.");
-                            foreach (Match m in IsMatch)
-                            {
-                                CanWebNav++;
-                            }
-                            if (CanWebNav > 0)
-                            {
-                                Link = "https://" + LinkBox.Text;
-                                LinkBox.Text = Link;
-                                EdgeWebView.CoreWebView2.Navigate((Link));
-                            }
-                            else
+                            try
                             {
                                 Link = (Application.Current as App).SearchToolLink + Link;
-                                LinkBox.Text = Link;
-                                EdgeWebView.CoreWebView2.Navigate((Link));
+                                EdgeWebView.CoreWebView2.Navigate(Link);
+                            }
+                            catch
+                            {
+
                             }
                         }
                     }
@@ -418,7 +409,7 @@ namespace App3
             {
                 string Link = (Application.Current as App).SearchToolLink + SearchBox.Text;
                 LinkBox.Text = Link;
-                EdgeWebView.CoreWebView2.Navigate((Link));
+                EdgeWebView.CoreWebView2.Navigate(Link);
             }
         }
 

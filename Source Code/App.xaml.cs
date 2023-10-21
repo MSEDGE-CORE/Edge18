@@ -29,10 +29,6 @@ using System.Text.RegularExpressions;
 
 namespace App3
 {
-    /// <summary>
-    /// 提供特定于应用程序的行为，以补充默认的应用程序类。
-    /// </summary>
-
     public class Collection_List
     {
         public string CollectionTitle { get; set; }
@@ -53,7 +49,6 @@ namespace App3
         DispatcherTimer Timer;
         public string WebLink = "";
         public string TabStartLink = "about:blank";
-        public bool IsNewTab = false;
         public int ThemeSelected = 0;
         public int WebViewHeight = 0;
         public bool ShowCollection = true;
@@ -190,34 +185,6 @@ namespace App3
                 if (CanWebNav > 0)
                 {
                     Link = SearchToolLink + Link;
-                }
-                else
-                {
-                    IsMatch = Regex.Matches(Link, @"^(https?)://");
-                    foreach (Match m in IsMatch)
-                    {
-                        CanWebNav++;
-                    }
-                    if (CanWebNav > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        IsMatch = Regex.Matches(Link, @"\.");
-                        foreach (Match m in IsMatch)
-                        {
-                            CanWebNav++;
-                        }
-                        if (CanWebNav > 0)
-                        {
-                            Link = "https://" + Link;
-                        }
-                        else
-                        {
-                            Link = SearchToolLink + Link;
-                        }
-                    }
                 }
                 TabStartLink = Link;
             }

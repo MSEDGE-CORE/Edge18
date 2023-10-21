@@ -28,9 +28,6 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace App3
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
     public sealed partial class WebPage : Page
     {
         DispatcherTimer Timer;
@@ -54,6 +51,9 @@ namespace App3
                 SeparateLineDark.StrokeThickness = 0.5;
                 SeparateLineLight.StrokeThickness = 0;
             }
+
+            Collection_Flyout.ShouldConstrainToRootBounds = false;
+            History_Flyout.ShouldConstrainToRootBounds = false;
         }
 
         bool LinkTyping = false;
@@ -264,38 +264,28 @@ namespace App3
                     }
                     else
                     {
-                        IsMatch = Regex.Matches(Link, @"^(about?)");
-                        foreach (Match m in IsMatch)
-                        {
-                            CanWebNav++;
-                        }
-                        IsMatch = Regex.Matches(Link, @"^(https?)://");
-                        foreach (Match m in IsMatch)
-                        {
-                            CanWebNav++;
-                        }
-                        if (CanWebNav > 0)
+                        try
                         {
                             EdgeWebView.Navigate(new Uri(Link));
                         }
-                        else
+                        catch
                         {
-                            IsMatch = Regex.Matches(Link, @"\.");
-                            foreach (Match m in IsMatch)
+                            try
                             {
-                                CanWebNav++;
-                            }
-                            if (CanWebNav > 0)
-                            {
-                                Link = "https://" + LinkBox.Text;
-                                LinkBox.Text = Link;
+                                Link = "https://" + Link;
                                 EdgeWebView.Navigate(new Uri(Link));
                             }
-                            else
+                            catch
                             {
-                                Link = (Application.Current as App).SearchToolLink + Link;
-                                LinkBox.Text = Link;
-                                EdgeWebView.Navigate(new Uri(Link));
+                                try
+                                {
+                                    Link = (Application.Current as App).SearchToolLink + Link;
+                                    EdgeWebView.Navigate(new Uri(Link));
+                                }
+                                catch
+                                {
+
+                                }
                             }
                         }
                     }
@@ -413,7 +403,31 @@ namespace App3
                 LinkBox.Text = "";
                 if ((Application.Current as App).TabStartLink != "about:blank")
                 {
-                    EdgeWebView.Navigate(new Uri((Application.Current as App).TabStartLink));
+                    string Link = (Application.Current as App).TabStartLink;
+                    try
+                    {
+                        EdgeWebView.Navigate(new Uri(Link));
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            Link = "https://" + Link;
+                            EdgeWebView.Navigate(new Uri(Link));
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                Link = (Application.Current as App).SearchToolLink + Link;
+                                EdgeWebView.Navigate(new Uri(Link));
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
                     EdgeWebView.VerticalAlignment = VerticalAlignment.Stretch;
                 }
                 (Application.Current as App).TabStartLink = "about:blank";

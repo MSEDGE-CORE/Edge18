@@ -24,9 +24,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace App3
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         DispatcherTimer Timer;
@@ -66,14 +63,6 @@ namespace App3
         private void Timer_Tick(object sender, object e)
         {
             (Application.Current as App).WebViewHeight = (int)ActualHeight;
-
-            if ((Application.Current as App).IsNewTab == true)
-            {
-                (Application.Current as App).IsNewTab = false;
-                TabViewItem NewTabPage = CreateNewTab();
-                MicrosoftEdge.TabItems.Add(NewTabPage);
-                MicrosoftEdge.SelectedItem = NewTabPage;
-            }
 
             if (SettingsFrame.Visibility == Visibility.Visible && SettingsFrame.Opacity == 0)
             {
@@ -151,7 +140,7 @@ namespace App3
             }
         }
 
-        private void SettingsBack_Click(object sender, RoutedEventArgs e)
+        public void SettingsBack_Click(object sender, RoutedEventArgs e)
         {
             SettingsBackControl.Visibility = Visibility.Collapsed;
 
@@ -161,5 +150,24 @@ namespace App3
 
             Browser.SetTitleBar();
         }
+
+        private void NewTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            MainPage.Browser.TabView_AddButtonClick(null, null);
+            args.Handled = true;
+        }
+
+        private void CloseSelectedTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            var InvokedTabView = (args.Element as TabView);
+
+            if (((TabViewItem)InvokedTabView.SelectedItem).IsClosable)
+            {
+                InvokedTabView.TabItems.Remove(InvokedTabView.SelectedItem);
+            }
+
+            args.Handled = true;
+        }
+
     }
 }

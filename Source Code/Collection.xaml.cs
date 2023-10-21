@@ -21,9 +21,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace App3
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
     public sealed partial class Collection : Page
     {
         public static MainPage Browser
@@ -39,6 +36,11 @@ namespace App3
             this.InitializeComponent();
 
             Grid.Height = Grid.MinHeight = Grid.MaxHeight = (Application.Current as App).WebViewHeight - 216;
+            if (Grid.Height > 720)
+            {
+                Grid.Height = Grid.MinHeight = Grid.MaxHeight = 720;
+            }
+            Add_Collection_Flyout.ShouldConstrainToRootBounds = false;
 
             PageLoaded();
 

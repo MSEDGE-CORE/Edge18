@@ -19,18 +19,17 @@ using Windows.UI.Xaml.Navigation;
 
 namespace App3
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
-    /// 
-
     public sealed partial class History : Page
     {
         public History()
         {
             this.InitializeComponent();
 
-            Grid.Height = Grid.MinHeight = Grid.MaxHeight = (Application.Current as App).WebViewHeight - 216;
+            Grid.Height = Grid.MinHeight = Grid.MaxHeight = (Application.Current as App).WebViewHeight;
+            if(Grid.Height > 720)
+            {
+                Grid.Height = Grid.MinHeight = Grid.MaxHeight = 720;
+            }
 
             ListView.ItemsSource = (Application.Current as App).HistoryList;
         }

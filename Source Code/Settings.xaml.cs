@@ -27,12 +27,14 @@ using System.Text.RegularExpressions;
 
 namespace App3
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
     public sealed partial class Settings : Page
     {
         int SearchTool = 0;
+
+        public static MainPage Browser
+        {
+            get { return (Window.Current.Content as Frame)?.Content as MainPage; }
+        }
 
         public Settings()
         {
@@ -475,6 +477,27 @@ namespace App3
         {
             Window.Current.SetTitleBar(AppTitleBar);
             EntranceAnimation.Begin();
+        }
+
+        private void ProjectHome_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.SettingsBack_Click(sender, e);
+            (Application.Current as App).TabStartLink = "https://github.com/MSEDGE-CORE/Edge18";
+            MainPage.Browser.TabView_AddButtonClick(null, null);
+        }
+
+        private void CheckForUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.SettingsBack_Click(sender, e);
+            (Application.Current as App).TabStartLink = "https://github.com/MSEDGE-CORE/Edge18/releases";
+            MainPage.Browser.TabView_AddButtonClick(null, null);
+        }
+
+        private void SendFeedback_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.SettingsBack_Click(sender, e);
+            (Application.Current as App).TabStartLink = "https://github.com/MSEDGE-CORE/Edge18/issues";
+            MainPage.Browser.TabView_AddButtonClick(null, null);
         }
     }
 }

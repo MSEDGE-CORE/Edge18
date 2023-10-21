@@ -10,7 +10,7 @@
   <Identity
     Name="MSEDGE.Edge18"
     Publisher="CN=MSEDGE"
-    Version="1.2.26.0" />
+    Version="1.2.27.0" />
 
   <mp:PhoneIdentity PhoneProductId="19fde23a-700f-4086-a465-39a33c31f435" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
