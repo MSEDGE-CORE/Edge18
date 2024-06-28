@@ -4,7 +4,7 @@
 （密码：MSEDGE）
 
 功能特色
-1. UWP底层，WinUI界面，
+1. UWP底层，WinUI界面
 2. 支持EdgeHTML内核
 3. 纯净无广告
 4. 内置PDF阅读器
