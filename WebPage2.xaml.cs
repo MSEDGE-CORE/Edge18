@@ -70,37 +70,20 @@ namespace App3
                 EdgeWebView.Visibility = Visibility.Collapsed;
             }
 
-            if (Browser.SelectedTab.Content == this.Frame)
-            {
-                (Application.Current as App).WebLink = EdgeWebView.Source.ToString();
-                if (EdgeWebView.Source.ToString() == "about:blank")
-                {
-                    Browser.SelectedTab.Header = "新标签页";
-                }
-                else if (EdgeWebView.CoreWebView2.DocumentTitle == "")
-                {
-                    Browser.SelectedTab.Header = "加载中";
-                }
-                else
-                {
-                    Browser.SelectedTab.Header = EdgeWebView.CoreWebView2.DocumentTitle;
-                }
-            }
-
             if (WebNavigating == true && (EdgeWebView.Source.ToString() != "about:blank"))
             {
-                if (ProgressBar.Visibility == Visibility.Collapsed)
+                if (LoadingBar.Visibility == Visibility.Collapsed)
                 {
-                    ProgressBar.IsIndeterminate = false;
-                    ProgressBar.IsIndeterminate = true;
-                    ProgressBar.Visibility = Visibility.Visible;
+                    LoadingBar.IsIndeterminate = false;
+                    LoadingBar.IsIndeterminate = true;
+                    LoadingBar.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                if (ProgressBar.Visibility == Visibility.Visible)
+                if (LoadingBar.Visibility == Visibility.Visible)
                 {
-                    ProgressBar.Visibility = Visibility.Collapsed;
+                    LoadingBar.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -130,6 +113,25 @@ namespace App3
             if (EdgeWebView.Opacity == 1)
             {
                 SearchBox.Text = "";
+            }
+
+            if(Browser.PageTabStopSet == 0)
+            {
+                EdgeWebView.IsTabStop = SearchBox.IsTabStop = true;
+                Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = true;
+                LinkBox.IsTabStop = true;
+            }
+            else if(Browser.PageTabStopSet == 1)
+            {
+                EdgeWebView.IsTabStop = SearchBox.IsTabStop = false;
+                Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = true;
+                LinkBox.IsTabStop = false;
+            }
+            else if(Browser.PageTabStopSet == 2)
+            {
+                EdgeWebView.IsTabStop = SearchBox.IsTabStop = false;
+                Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = false;
+                LinkBox.IsTabStop = false;
             }
         }
 
@@ -205,7 +207,7 @@ namespace App3
 
             if(!Timer.IsEnabled)
             {
-                Timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+                Timer.Interval = new TimeSpan(0, 0, 0, 0, 400);
                 Timer.Tick += Timer_Tick;
                 Timer.Start();
             }
@@ -213,9 +215,6 @@ namespace App3
 
         private void LinkToChanging(object sender, RoutedEventArgs e)
         {
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
-
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
             LinkTyping = true;
@@ -226,9 +225,6 @@ namespace App3
         }
         private void LinkIME(object sender, TextCompositionStartedEventArgs e)
         {
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
-
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
 
@@ -428,6 +424,29 @@ namespace App3
             sender.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
             sender.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
             sender.CoreWebView2.ContainsFullScreenElementChanged += CoreWebView2_ContainsFullScreenElementChanged;
+            sender.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
+        }
+
+        private void CoreWebView2_DocumentTitleChanged(CoreWebView2 sender, object args)
+        {
+            for (int i = 0; i < ((Browser.Content as Grid).Children[0] as TabView).TabItems.Count; i++)
+            {
+                if ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i] as TabViewItem).Content == this.Frame)
+                {
+                    if (EdgeWebView.Source.ToString() == "about:blank")
+                    {
+                        ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i]) as TabViewItem).Header = "新标签页";
+                    }
+                    else if (EdgeWebView.CoreWebView2.DocumentTitle == "")
+                    {
+                        ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i]) as TabViewItem).Header = "加载中";
+                    }
+                    else
+                    {
+                        ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i]) as TabViewItem).Header = EdgeWebView.CoreWebView2.DocumentTitle;
+                    }
+                }
+            }
         }
 
         bool isLoaded = false;
@@ -542,7 +561,7 @@ namespace App3
                 LinkBox.Margin = new Thickness(140, 0, 40 * i + 20, 0);
                 LinkBox.Height = 32;
                 LinkBox.FontSize = 15;
-                ProgressBar.VerticalAlignment = VerticalAlignment.Top;
+                LoadingBar.VerticalAlignment = VerticalAlignment.Top;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Top;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = 50;
             }
@@ -564,7 +583,7 @@ namespace App3
                 LinkBox.Margin = new Thickness(12, 4, 56, 0);
                 LinkBox.Height = 36;
                 LinkBox.FontSize = 17;
-                ProgressBar.VerticalAlignment = VerticalAlignment.Bottom;
+                LoadingBar.VerticalAlignment = VerticalAlignment.Bottom;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Bottom;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = ActualHeight - 100;
             }

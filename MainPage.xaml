@@ -29,7 +29,7 @@
             </muxc:TabView.KeyboardAccelerators>
         </muxc:TabView>
 
-        <Button x:Name="SideWindowBackground" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" Click="SideWindowBackground_Click" Visibility="Collapsed">
+        <Button x:Name="SideWindowBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" Click="SideWindowBackground_Click" Visibility="Collapsed">
         </Button>
         <Grid x:Name="SideGrid" Margin="0,90,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Visibility="Collapsed" Opacity="0">
             <Grid.Resources>
@@ -50,7 +50,7 @@
             <AppBarSeparator Name="SideSeparateBar" Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="-3,-8,-8,-8"/>
         </Grid>
         
-        <Button x:Name="TabListBackground" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,40,0,0" Click="TabListBackground_Click" Visibility="Collapsed">
+        <Button x:Name="TabListBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,40,0,0" Click="TabListBackground_Click" Visibility="Collapsed">
         </Button>
         <Grid x:Name="TabListGrid" Margin="0,40,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Visibility="Collapsed" Opacity="0">
             <Grid.Resources>

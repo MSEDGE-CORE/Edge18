@@ -60,6 +60,7 @@ namespace App3
         public bool ShowHistory = true;
         public bool ShowDownload = true;
         public bool ShowFullScreen = false;
+        public bool ShowTabList = true;
         public int WebViewSelected = 0;
         public string SearchToolLink = "https://cn.bing.com/search?q=";
         public int LayoutState = 0;
@@ -285,6 +286,11 @@ namespace App3
             if (ShowFullScreenSwitch != null)
             {
                 ShowFullScreen = (bool)ShowFullScreenSwitch["ShowFullScreenSwitch"];
+            }
+            Windows.Storage.ApplicationDataCompositeValue ShowTabListSwitch = (ApplicationDataCompositeValue)LocalSettings.Values["ShowTabListSwitch"];
+            if (ShowTabListSwitch != null)
+            {
+                ShowTabList = (bool)ShowTabListSwitch["ShowTabListSwitch"];
             }
 
             Windows.Storage.ApplicationDataCompositeValue SearchLink = (ApplicationDataCompositeValue)LocalSettings.Values["SearchLink"];

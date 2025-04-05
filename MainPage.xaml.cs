@@ -20,8 +20,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-// https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
-
 namespace App3
 {
     public sealed partial class MainPage : Page
@@ -30,6 +28,7 @@ namespace App3
         public bool IsSideWindowOpen = false;
         public bool IsTabListWindowOpen = false;
         int LayoutState = 0;
+        public int PageTabStopSet = 0; //1:Webview 2:All
 
         public static MainPage Browser
         {
@@ -167,20 +166,30 @@ namespace App3
             if(SettingsFrame.Visibility != Visibility.Visible)
             {
                 SettingsFrame.Visibility = Visibility.Visible;
-                SettingsFrame.Navigate(typeof(Settings), null, new SuppressNavigationTransitionInfo());
                 SettingsBackControl.Visibility = Visibility.Visible;
 
                 SettingsStoryBoardDoubleAnimation.From = 0.001;
                 SettingsStoryBoardDoubleAnimation.To = 1;
                 SettingsStoryBoard.Begin();
+                SettingsFrame.Navigate(typeof(SettingsPages.Blank), null, new SuppressNavigationTransitionInfo());
+                SettingsFrame.Navigate(typeof(SettingsPages.SettingsNav), null, new DrillInNavigationTransitionInfo());
             }
 
             ShowSideWindow(0);
             ShowTabListWindow(0);
+
+            MicrosoftEdge.IsTabStop = false;
+            TabListButton.IsTabStop = false;
+            PageTabStopSet = 2;
         }
 
         public void SettingsBack_Click(object sender, RoutedEventArgs e)
         {
+            if(SettingsFrame.CanGoBack)
+            {
+                SettingsFrame.GoBack();
+            }
+
             SettingsBackControl.Visibility = Visibility.Collapsed;
 
             SettingsStoryBoardDoubleAnimation.From = 1;
@@ -190,6 +199,10 @@ namespace App3
             Browser.SetTitleBar();
             ShowSideWindow(0);
             ShowTabListWindow(0);
+
+            MicrosoftEdge.IsTabStop = true;
+            TabListButton.IsTabStop = true;
+            PageTabStopSet = 0;
         }
 
         private void NewTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
@@ -269,6 +282,8 @@ namespace App3
             SideWindowBackground.Opacity = 0;
             SideGrid.Visibility = Visibility.Visible;
             SideSeparateBar.Visibility = ToOpen != 0 ? Visibility.Visible : Visibility.Collapsed;
+
+            PageTabStopSet = (IsTabListWindowOpen ? 2 : (IsSideWindowOpen ? 1 : 0));
         }
 
         private void MicrosoftEdge_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -298,10 +313,19 @@ namespace App3
             {
                 SideWindow.Width = 360;
                 SideGrid.Margin = new Thickness(0, 90, 0, 0);
-                TabListButton.Visibility = Visibility.Visible;
                 TabListWindow.Width = 240;
                 TabListGrid.Margin = new Thickness(0, 40, 0, 0);
                 TabListBackground.Margin = new Thickness(0, 40, 0, 0);
+
+                if ((Application.Current as App).ShowTabList)
+                {
+                    TabListButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    TabListButton.Visibility = Visibility.Collapsed;
+                }
+                ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Top;
             }
             else if(LayoutState == 2)
             {
@@ -309,8 +333,9 @@ namespace App3
                 SideGrid.Margin = new Thickness(0, 40, 0, 0);
                 TabListButton.Visibility = Visibility.Collapsed;
                 TabListWindow.Width = ActualWidth;
-                TabListGrid.Margin = new Thickness(0, 40, 0, 100);
+                TabListGrid.Margin = new Thickness(0, 40, 0, 101);
                 TabListBackground.Margin = new Thickness(0, 40, 0, 100);
+                ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Bottom;
             }
         }
 
@@ -339,6 +364,8 @@ namespace App3
             TabListBackground.Opacity = 0;
             TabListGrid.Visibility = Visibility.Visible;
             TabListSeparateBar.Visibility = ToOpen != 0 ? Visibility.Visible : Visibility.Collapsed;
+
+            PageTabStopSet = (IsTabListWindowOpen ? 2 : (IsSideWindowOpen ? 1 : 0));
         }
 
         private void TabListBackground_Click(object sender, RoutedEventArgs e)

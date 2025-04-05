@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="App3.SettingsPages.Browse"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App3.SettingsPages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <Grid HorizontalAlignment="Stretch">
+        <Grid HorizontalAlignment="Stretch" Margin="40,32,40,0" MaxWidth="720">
+            <TextBlock x:Name="PageTitle" Text="浏览" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
+        </Grid>
+        <ScrollViewer Name="ScrollViewer" IsTabStop="False" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="0,116,0,0">
+            <Grid>
+                <StackPanel MaxWidth="720" Margin="40,0,40,32">
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "浏览器内核" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
+                            <Grid>
+                                <ComboBox FontFamily="HarmonyOS Sans SC" Name = "WebView_Selection" SelectionChanged="WebView_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                    <x:String>Chromium</x:String>
+                                    <x:String>EdgeHTML</x:String>
+                                </ComboBox>
+                            </Grid>
+                            <Button FontFamily="HarmonyOS Sans SC"  Name="Restart_Button" Visibility="Collapsed" Style="{StaticResource AccentButtonStyle}" Margin="4,0,0,0" Content="重启" Click="Restart"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "默认搜索引擎" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
+                            <Grid>
+                                <ComboBox FontFamily="HarmonyOS Sans SC" Name = "Search_Selection" SelectionChanged="Search_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                    <x:String>必应</x:String>
+                                    <x:String>百度</x:String>
+                                    <x:String>谷歌</x:String>
+                                    <x:String>搜狗</x:String>
+                                    <x:String>360</x:String>
+                                    <x:String>自定义</x:String>
+                                </ComboBox>
+                            </Grid>
+                            <Button FontFamily="HarmonyOS Sans SC" Name="SetSearch_Button" Visibility="Collapsed" Margin="4,0,0,0" Content="更改" Click="SetSearch_Click">
+                                <Button.Flyout>
+                                    <Flyout x:Name="Set_SearchLink_Flyout" Placement="TopEdgeAlignedRight">
+                                        <StackPanel MinWidth="280" MaxWidth="280" Width="280">
+                                            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,12">
+                                                <TextBlock FontFamily="HarmonyOS Sans SC" Text="链接" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Search_Link" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
+                                            </Grid>
+                                            <Button FontFamily="HarmonyOS Sans SC" Content="完成" Width="64" IsEnabled="True" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Click="SetSearch_Complete" Style="{StaticResource AccentButtonStyle}"/>
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

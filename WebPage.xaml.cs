@@ -75,18 +75,18 @@ namespace App3
 
             if (WebNavigating == true && (EdgeWebView.Source.ToString() != "about:blank"))
             {
-                if (ProgressBar.Visibility == Visibility.Collapsed)
+                if (LoadingBar.Visibility == Visibility.Collapsed)
                 {
-                    ProgressBar.IsIndeterminate = false;
-                    ProgressBar.IsIndeterminate = true;
-                    ProgressBar.Visibility = Visibility.Visible;
+                    LoadingBar.IsIndeterminate = false;
+                    LoadingBar.IsIndeterminate = true;
+                    LoadingBar.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                if (ProgressBar.Visibility == Visibility.Visible)
+                if (LoadingBar.Visibility == Visibility.Visible)
                 {
-                    ProgressBar.Visibility = Visibility.Collapsed;
+                    LoadingBar.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -125,6 +125,25 @@ namespace App3
             if (EdgeWebView.VerticalAlignment == VerticalAlignment.Stretch)
             {
                 SearchBox.Text = "";
+            }
+
+            if (Browser.PageTabStopSet == 0)
+            {
+                SearchBox.IsTabStop = true;
+                Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = true;
+                LinkBox.IsTabStop = true;
+            }
+            else if (Browser.PageTabStopSet == 1)
+            {
+                SearchBox.IsTabStop = false;
+                Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = true;
+                LinkBox.IsTabStop = false;
+            }
+            else if (Browser.PageTabStopSet == 2)
+            {
+                SearchBox.IsTabStop = false;
+                Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = false;
+                LinkBox.IsTabStop = false;
             }
         }
 
@@ -167,20 +186,14 @@ namespace App3
         private void LinkToChanging(object sender, RoutedEventArgs e)
         {
             LinkTyping = true;
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
         }
         private void LinkToChanged(object sender, RoutedEventArgs e)
         {
             LinkTyping = false;
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
         }
         private void LinkIME(object sender, TextCompositionStartedEventArgs e)
         {
             LinkTyping = true;
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
         }
 
         private void LinkChanged(object sender, KeyRoutedEventArgs e)
@@ -535,7 +548,7 @@ namespace App3
                 LinkBox.Margin = new Thickness(140, 0, 40 * i + 20, 0);
                 LinkBox.Height = 32;
                 LinkBox.FontSize = 15;
-                ProgressBar.VerticalAlignment = VerticalAlignment.Top;
+                LoadingBar.VerticalAlignment = VerticalAlignment.Top;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Top;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = 50;
             }
@@ -557,7 +570,7 @@ namespace App3
                 LinkBox.Margin = new Thickness(12, 4, 56, 0);
                 LinkBox.Height = 36;
                 LinkBox.FontSize = 17;
-                ProgressBar.VerticalAlignment = VerticalAlignment.Bottom;
+                LoadingBar.VerticalAlignment = VerticalAlignment.Bottom;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Bottom;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = ActualHeight - 100;
             }

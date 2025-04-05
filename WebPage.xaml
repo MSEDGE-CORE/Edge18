@@ -195,7 +195,7 @@
         <WebView x:Name="EdgeWebView" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,50,0,0" NavigationStarting="WebNavStart" NavigationCompleted="WebNavComplete" NewWindowRequested="NewTabRequest" ContainsFullScreenElementChanged="FullScreenRequest" Source="about:blank" PermissionRequested="WebView_PermissionRequested" Loaded="EdgeWebView_Loaded" />
 
         <Grid>
-            <muxc:ProgressBar Name="ProgressBar" Margin="0,46,0,98" HorizontalAlignment="Stretch" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
+            <muxc:ProgressBar Name="LoadingBar" Margin="0,46,0,98" HorizontalAlignment="Stretch" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
         </Grid>
         <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <Line Name ="SeparateLineLight" Stroke="LightGray" X1="0" StrokeThickness = "0.5"/>

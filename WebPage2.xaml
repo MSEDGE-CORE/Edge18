@@ -195,7 +195,7 @@
         <muxc:WebView2 x:Name="EdgeWebView" VerticalAlignment="Stretch" Opacity="0" Visibility="Collapsed" HorizontalAlignment="Stretch" CoreWebView2Initialized="EdgeWebView_CoreWebView2Initialized" Source="about:blank" Loaded="EdgeWebView_Loaded">
         </muxc:WebView2>
         <Grid>
-            <muxc:ProgressBar Name="ProgressBar" Margin="0,46,0,98" HorizontalAlignment="Stretch" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
+            <muxc:ProgressBar Name="LoadingBar" Margin="0,46,0,98" HorizontalAlignment="Stretch" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
         </Grid>
         <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <Line Name ="SeparateLineLight" Stroke="LightGray" X1="0" StrokeThickness = "0.5"/>
