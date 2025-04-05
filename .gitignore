@@ -5,3 +5,8 @@
 /.vs
 /bin/x64/Debug
 /obj
+/Edge 18_TemporaryKey.pfx
+/AppPackages
+/bin
+/BundleArtifacts
+*.user
