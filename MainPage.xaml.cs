@@ -387,5 +387,117 @@ namespace App3
         {
             ShowTabListWindow(0);
         }
+
+        bool pSPressed = false;
+        double vSX = 0, dST = 1, lST = 0;
+
+        private void SideGrid_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            pSPressed = true;
+        }
+
+        private void SideGrid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if(pSPressed)
+                SideGrid_PointerReleased(null, null);
+        }
+
+        private void SideGrid_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            pSPressed = false;
+            if (vSX / dST >= 0.5)
+            {
+                ShowSideWindow(0);
+            }
+            else
+            {
+                SideFlowIn.From = SideGridTransform.X;
+                SideFlowIn.To = 0;
+                SideOpacity.From = SideGrid.Opacity;
+                SideOpacity.To = 1;
+                SideStoryBoard.Begin();
+            }
+        }
+
+        private void SideGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (lST != 0)
+                dST = (DateTime.Now.Millisecond) - lST;
+            lST = (DateTime.Now.Millisecond);
+            if (IsSideWindowOpen)
+            {
+                if(SideGridTransform.X + e.Delta.Translation.X > 0)
+                {
+                    vSX = e.Delta.Translation.X;
+                    SideGridTransform.X += e.Delta.Translation.X;
+                }
+                else
+                {
+                    vSX = -1;
+                    SideGridTransform.X = 0;
+                }
+            }
+        }
+
+        private void SideGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void TabListGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
+
+        bool pTPressed = false;
+        double vTX = 0, dTT = 1, lTT = 0;
+
+        private void TabListGrid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (pTPressed)
+                TabListGrid_PointerReleased(null, null);
+        }
+
+        private void TabListGrid_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            pTPressed = true;
+        }
+
+        private void TabListGrid_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            pTPressed = false;
+            if (vTX / dTT <= -0.5)
+            {
+                ShowTabListWindow(0);
+            }
+            else
+            {
+                TabListFlowIn.From = TabListGridTransform.X;
+                TabListFlowIn.To = 0;
+                TabListOpacity.From = TabListGrid.Opacity;
+                TabListOpacity.To = 1;
+                TabListStoryBoard.Begin();
+            }
+        }
+
+        private void TabListGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (lTT != 0)
+                dTT = (DateTime.Now.Millisecond) - lTT;
+            lTT = (DateTime.Now.Millisecond);
+            if (IsTabListWindowOpen)
+            {
+                if (TabListGridTransform.X + e.Delta.Translation.X < 0)
+                {
+                    vTX = e.Delta.Translation.X;
+                    TabListGridTransform.X += e.Delta.Translation.X;
+                }
+                else
+                {
+                    vTX = 1;
+                    TabListGridTransform.X = 0;
+                }
+            }
+        }
     }
 }

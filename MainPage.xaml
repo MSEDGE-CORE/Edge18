@@ -31,7 +31,7 @@
 
         <Button x:Name="SideWindowBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" Click="SideWindowBackground_Click" Visibility="Collapsed">
         </Button>
-        <Grid x:Name="SideGrid" Margin="0,90,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Visibility="Collapsed" Opacity="0">
+        <Grid x:Name="SideGrid" PointerPressed="SideGrid_PointerPressed" PointerReleased="SideGrid_PointerReleased" ManipulationDelta="SideGrid_ManipulationDelta" ManipulationMode="TranslateX" PointerExited="SideGrid_PointerExited" PointerEntered="SideGrid_PointerEntered"  Margin="0,90,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Visibility="Collapsed" Opacity="0">
             <Grid.Resources>
                 <Storyboard x:Name="SideStoryBoard">
                     <DoubleAnimation x:Name="SideFlowIn" Storyboard.TargetName="SideGridTransform" Storyboard.TargetProperty="X" From="0" To="0" Duration="0:0:0.4" >
@@ -52,7 +52,7 @@
         
         <Button x:Name="TabListBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,40,0,0" Click="TabListBackground_Click" Visibility="Collapsed">
         </Button>
-        <Grid x:Name="TabListGrid" Margin="0,40,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Visibility="Collapsed" Opacity="0">
+        <Grid x:Name="TabListGrid" Margin="0,40,0,0" PointerEntered="TabListGrid_PointerEntered" PointerExited="TabListGrid_PointerExited" ManipulationMode="TranslateX" PointerPressed="TabListGrid_PointerPressed" PointerReleased="TabListGrid_PointerReleased" ManipulationDelta="TabListGrid_ManipulationDelta" VerticalAlignment="Stretch" HorizontalAlignment="Left" Visibility="Collapsed" Opacity="0">
             <Grid.Resources>
                 <Storyboard x:Name="TabListStoryBoard">
                     <DoubleAnimation x:Name="TabListFlowIn" Storyboard.TargetName="TabListGridTransform" Storyboard.TargetProperty="X" From="0" To="0" Duration="0:0:0.4" >
