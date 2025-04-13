@@ -112,23 +112,36 @@ namespace App3
             TabsChanged();
         }
 
-        public void TabView_AddButtonClick(TabView sender, object args)
+        public void AddTab(string Link = "")
         {
             TabViewItem NewTabPage = CreateNewTab();
             MicrosoftEdge.TabItems.Add(NewTabPage);
             MicrosoftEdge.SelectedItem = NewTabPage;
 
+            if(Link != "")
+            {
+                if((Browser.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage2))
+                    ((Browser.SelectedTab.Content as Frame).Content as WebPage2).WebLink = Link;
+                else if((Browser.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage))
+                    ((Browser.SelectedTab.Content as Frame).Content as WebPage).WebLink = Link;
+            }
+
             ShowSideWindow(0);
             ShowTabListWindow(0);
         }
 
+        private void TabView_AddButtonClick(TabView sender, object args)
+        {
+            AddTab();
+        }
+
         public void TabView_TabCloseRequested(TabView sender = null, TabViewTabCloseRequestedEventArgs args = null)
         {
-            if((Application.Current as App).WebViewSelected == 0)
+            if(((((Frame)args.Tab.Content).Content.GetType() == typeof(WebPage2))))
             {
                 (((Frame)args.Tab.Content).Content as WebPage2).CloseWebView();
             }
-            else if((Application.Current as App).WebViewSelected == 1)
+            else if (((((Frame)args.Tab.Content).Content.GetType() == typeof(WebPage))))
             {
                 (((Frame)args.Tab.Content).Content as WebPage).CloseWebView();
             }
@@ -214,6 +227,14 @@ namespace App3
         private void CloseSelectedTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
         {
             var InvokedTabView = (args.Element as TabView);
+            if ((((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage2)))
+            {
+                (((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content as WebPage2).CloseWebView();
+            }
+            else if ((((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage)))
+            {
+                (((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content as WebPage).CloseWebView();
+            }
 
             if (((TabViewItem)InvokedTabView.SelectedItem).IsClosable)
             {
@@ -252,8 +273,8 @@ namespace App3
             }
             else if (SideWindow.Content != null && ((ToOpen == 2 && IsSideWindowOpen && SideWindow.Content.GetType() == typeof(Collection)) || (ToOpen == 1 && IsSideWindowOpen && SideWindow.Content.GetType() == typeof(History))))
             {
-                SideGridTransform.X = SideWindow.Width;
-                SideGrid.Opacity = 0;
+                /*SideGridTransform.X = SideWindow.Width;
+                SideGrid.Opacity = 1;*/
 
                 if (SideWindow.Content.GetType() == typeof(Collection))
                     ((SideWindow.Content) as Collection).OnClosing();
@@ -275,7 +296,7 @@ namespace App3
             if (SideWindow.Width > 0)
                 SideFlowIn.To = ToOpen != 0 ? 0 : SideWindow.Width;
             SideOpacity.From = ToOpen != 0 ? SideGrid.Opacity : SideGrid.Opacity;
-            SideOpacity.To = ToOpen != 0 ? 1 : 0;
+            SideOpacity.To = ToOpen != 0 ? 1 : 1;
             SideStoryBoard.Begin();
             SideWindowBackground.Opacity = 0;
             SideWindowBackground.Visibility = ToOpen != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -297,12 +318,18 @@ namespace App3
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            bool fromPage = sender == null ? false:true;
+
             if ((Application.Current as App).LayoutState == 0)
             {
                 if (ActualWidth > 680)
+                {
                     LayoutState = 1;
-                else
+                }
+                else if(ActualWidth <= 680)
+                {
                     LayoutState = 2;
+                }
             }
             else
             {
@@ -313,6 +340,7 @@ namespace App3
             {
                 SideWindow.Width = 360;
                 SideGrid.Margin = new Thickness(0, 90, 0, 0);
+                SideWindowBackground.Margin = new Thickness(0, 90, 0, 0);
                 TabListWindow.Width = 240;
                 TabListGrid.Margin = new Thickness(0, 40, 0, 0);
                 TabListBackground.Margin = new Thickness(0, 40, 0, 0);
@@ -330,12 +358,22 @@ namespace App3
             else if(LayoutState == 2)
             {
                 SideWindow.Width = ActualWidth;
-                SideGrid.Margin = new Thickness(0, 40, 0, 0);
+                SideGrid.Margin = new Thickness(0, 40, 0, 101);
+                SideWindowBackground.Margin = new Thickness(0, 40, 0, 100);
                 TabListButton.Visibility = Visibility.Collapsed;
                 TabListWindow.Width = ActualWidth;
                 TabListGrid.Margin = new Thickness(0, 40, 0, 101);
                 TabListBackground.Margin = new Thickness(0, 40, 0, 100);
                 ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Bottom;
+            }
+
+            if(!IsSideWindowOpen && fromPage)
+            {
+                SideGridTransform.X = SideWindow.Width;
+            }
+            if(!IsTabListWindowOpen && fromPage)
+            {
+                TabListGridTransform.X = -TabListWindow.Width;
             }
         }
 
@@ -357,7 +395,7 @@ namespace App3
             if (TabListWindow.Width > 0)
                 TabListFlowIn.To = ToOpen != 0 ? 0 : -TabListWindow.Width;
             TabListOpacity.From = ToOpen != 0 ? TabListGrid.Opacity : TabListGrid.Opacity;
-            TabListOpacity.To = ToOpen != 0 ? 1 : 0;
+            TabListOpacity.To = ToOpen != 0 ? 1 : 1;
             TabListStoryBoard.Begin();
             TabListBackground.Opacity = 0;
             TabListBackground.Visibility = ToOpen != 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -375,6 +413,12 @@ namespace App3
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         { 
+
+        }
+        private void TabListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            (sender as ListView).SelectedIndex = ListView.Items.IndexOf(e.ClickedItem);
+
             if (ListView.SelectedIndex >= 0 && ListView.SelectedIndex != MicrosoftEdge.SelectedIndex)
             {
                 MicrosoftEdge.SelectedIndex = ListView.SelectedIndex;
@@ -388,24 +432,34 @@ namespace App3
             ShowTabListWindow(0);
         }
 
-        bool pSPressed = false;
-        double vSX = 0, dST = 1, lST = 0;
+        double vSX = 0, dST = 0, lST = 0;
 
-        private void SideGrid_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void SideGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            pSPressed = true;
+            if (lST != 0)
+                dST = (DateTime.Now.Millisecond) - lST;
+            lST = (DateTime.Now.Millisecond);
+            if (IsSideWindowOpen)
+            {
+                if(SideGridTransform.X + e.Delta.Translation.X > 0)
+                {
+                    if(this.SideWindow.Content.GetType() != typeof(Collection) || (this.SideWindow.Content.GetType() == typeof(Collection) && !(SideWindow.Content as Collection).isEditing))
+                    {
+                        vSX = e.Delta.Translation.X;
+                        SideGridTransform.X += e.Delta.Translation.X;
+                    }
+                }
+                else
+                {
+                    vSX = -1;
+                    SideGridTransform.X = 0;
+                }
+            }
         }
 
-        private void SideGrid_PointerExited(object sender, PointerRoutedEventArgs e)
+        private void SideGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            if(pSPressed)
-                SideGrid_PointerReleased(null, null);
-        }
-
-        private void SideGrid_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            pSPressed = false;
-            if (vSX / dST >= 0.5)
+            if (vSX / dST >= 0.1)
             {
                 ShowSideWindow(0);
             }
@@ -418,55 +472,19 @@ namespace App3
                 SideStoryBoard.Begin();
             }
         }
-
-        private void SideGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        
+        private void SideGrid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
-            if (lST != 0)
-                dST = (DateTime.Now.Millisecond) - lST;
-            lST = (DateTime.Now.Millisecond);
-            if (IsSideWindowOpen)
-            {
-                if(SideGridTransform.X + e.Delta.Translation.X > 0)
-                {
-                    vSX = e.Delta.Translation.X;
-                    SideGridTransform.X += e.Delta.Translation.X;
-                }
-                else
-                {
-                    vSX = -1;
-                    SideGridTransform.X = 0;
-                }
-            }
+            vSX = 0;
+            lST = 0;
+            dST = 0;
         }
 
-        private void SideGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        double vTX = 0, dTT = 0, lTT = 0;
+
+        private void TabListGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-
-        }
-
-        private void TabListGrid_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-
-        }
-
-        bool pTPressed = false;
-        double vTX = 0, dTT = 1, lTT = 0;
-
-        private void TabListGrid_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (pTPressed)
-                TabListGrid_PointerReleased(null, null);
-        }
-
-        private void TabListGrid_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            pTPressed = true;
-        }
-
-        private void TabListGrid_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            pTPressed = false;
-            if (vTX / dTT <= -0.5)
+            if (vTX / dTT <= -0.1)
             {
                 ShowTabListWindow(0);
             }
@@ -478,6 +496,13 @@ namespace App3
                 TabListOpacity.To = 1;
                 TabListStoryBoard.Begin();
             }
+        }
+
+        private void TabListGrid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            vTX = 0;
+            dTT = 0;
+            lTT = 0;
         }
 
         private void TabListGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)

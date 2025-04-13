@@ -54,7 +54,6 @@ namespace App3
         public Frame RootFrame;
         DispatcherTimer Timer;
         public string WebLink = "";
-        public string TabStartLink = "about:blank";
         public int ThemeSelected = 0;
         public bool ShowCollection = true;
         public bool ShowHistory = true;
@@ -193,17 +192,15 @@ namespace App3
                 {
                     Link = SearchToolLink + Link;
                 }
-                TabStartLink = Link;
             }
             else
             {
                 Link = "about:blank";
-                TabStartLink = Link;
             }
 
             if(NeedNewTab)
             {
-                MainPage.Browser.TabView_AddButtonClick(null, null);
+                MainPage.Browser.AddTab(Link);
             }
         }
 
@@ -343,8 +340,6 @@ namespace App3
         {
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             int HistoryCount = 0;
-            int HistorySearchMin = 0;
-            int HistoryMaxSet = 0;
             Windows.Storage.StorageFile file;
             try
             {
@@ -357,35 +352,11 @@ namespace App3
 
             }
             ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            Windows.Storage.ApplicationDataCompositeValue HistoryItems = (ApplicationDataCompositeValue)LocalSettings.Values["HistoryItems"];
-            if (HistoryItems != null)
-            {
-                HistoryMaxSet = Int32.Parse(HistoryItems["HistoryItems"].ToString());
-            }
-            if (HistoryMaxSet == 0)
-            {
-                HistorySearchMin = HistoryCount - 99;
-            }
-            else if(HistoryMaxSet == 1)
-            {
-                HistorySearchMin = HistoryCount - 199;
-            }
-            else if(HistoryMaxSet == 2)
-            {
-                HistorySearchMin = HistoryCount - 399;
-            }
-            else if(HistoryMaxSet == 3)
-            {
-                HistorySearchMin = HistoryCount - 799;
-            }
-            if (HistorySearchMin < 1)
-            {
-                HistorySearchMin = 1;
-            }
+            
             this.HistoryList.Clear();
             if (HistoryCount > 0)
             {
-                for (int i = HistoryCount; i >= HistorySearchMin; i--)
+                for (int i = HistoryCount; i >= 0; i--)
                 {
                     string FileHistoryTitle = "History\\HistoryTitle" + i.ToString();
                     StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;

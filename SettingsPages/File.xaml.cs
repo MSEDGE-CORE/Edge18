@@ -22,29 +22,6 @@ namespace App3.SettingsPages
         public File()
         {
             this.InitializeComponent();
-
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            Windows.Storage.ApplicationDataCompositeValue History_Items = (ApplicationDataCompositeValue)LocalSettings.Values["HistoryItems"];
-            if (History_Items != null)
-            {
-                HistoryItems_Selection.SelectedIndex = (int)History_Items["HistoryItems"];
-            }
-            else
-            {
-                HistoryItems_Selection.SelectedIndex = 0;
-            }
-        }
-
-        private void HistoryItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int HistoryItems = HistoryItems_Selection.SelectedIndex;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            Windows.Storage.ApplicationDataCompositeValue History_Items = new Windows.Storage.ApplicationDataCompositeValue();
-            History_Items["HistoryItems"] = HistoryItems_Selection.SelectedIndex;
-            LocalSettings.Values["HistoryItems"] = History_Items;
-
-            (Application.Current as App).HistoryList.Clear();
-            (Application.Current as App).GetHistory();
         }
 
         private async void Collection_Import(object sender, RoutedEventArgs e)

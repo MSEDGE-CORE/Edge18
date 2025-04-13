@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace App3
             get { return (Window.Current.Content as Frame)?.Content as MainPage; }
         }
 
-        private bool isEditing = false;
+        public bool isEditing = false;
         int CollectionCount = 0;
 
         public Collection()
@@ -61,8 +62,14 @@ namespace App3
         private void Add_Collection_Click(object sender, RoutedEventArgs e)
         {
             Collection_Title.Text = Browser.SelectedTab.Header.ToString();
-            Collection_Uri.Text = (Application.Current as App).WebLink;
-            //Collection_Uri.IsReadOnly = true;
+            if(((Browser.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage2)))
+            {
+                Collection_Uri.Text = ((Browser.SelectedTab.Content as Frame).Content as WebPage2).WebLink;
+            }
+            else if(((Browser.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage)))
+            {
+                Collection_Uri.Text = ((Browser.SelectedTab.Content as Frame).Content as WebPage).WebLink;
+            }
         }
 
         private async void Add_Collection_Complete_Click(object sender, RoutedEventArgs e)
@@ -91,18 +98,15 @@ namespace App3
             isEditing = true;
             DefaultToolBar.Visibility = Visibility.Collapsed;
             EditToolBar.Visibility = Visibility.Visible;
+
+            ListView.CanReorderItems = true;
+            ListView.ReorderMode = ListViewReorderMode.Enabled;
+            ListView.AllowDrop = true;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!isEditing)
-            {
-                if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
-                {
-                    (Application.Current as App).TabStartLink = (Application.Current as App).CollectionList[ListView.SelectedIndex].CollectionUri.ToString();
-                    MainPage.Browser.TabView_AddButtonClick(null, null);
-                }
-            }
+             
         }
 
         private async void Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -125,12 +129,26 @@ namespace App3
             }
         }
 
-        private void Complete_Button_Click(object sender, RoutedEventArgs e)
+        private async void Complete_Button_Click(object sender, RoutedEventArgs e)
         {
             ListView.SelectedIndex = -1;
             isEditing = false;
             DefaultToolBar.Visibility = Visibility.Visible;
             EditToolBar.Visibility = Visibility.Collapsed;
+            ListView.CanReorderItems = false;
+            ListView.ReorderMode = ListViewReorderMode.Disabled;
+            ListView.AllowDrop = false;
+
+            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("Collection\\CollectionCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
+            await Windows.Storage.FileIO.WriteTextAsync(Count, CollectionCount.ToString());
+            for (int i = 0; i < CollectionCount; i++)
+            {
+                string CollectionTitle = (Application.Current as App).CollectionList[i].CollectionTitle + "\n" + (Application.Current as App).CollectionList[i].CollectionUri + "\n";
+                string FileCollectionTitle = "Collection\\CollectionTitle" + (i + 1).ToString();
+                Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileCollectionTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(Title, CollectionTitle);
+            }
         }
 
         private async void Up_Button_Click(object sender, RoutedEventArgs e)
@@ -196,6 +214,18 @@ namespace App3
         public void OnClosing()
         {
             ListView.ItemsSource = null;
+        }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ListView.SelectedIndex = ListView.Items.IndexOf(e.ClickedItem);
+            if (!isEditing)
+            {
+                if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
+                {
+                    MainPage.Browser.AddTab((Application.Current as App).CollectionList[ListView.SelectedIndex].CollectionUri.ToString());
+                }
+            }
         }
     }
 }

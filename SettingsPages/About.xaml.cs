@@ -32,36 +32,31 @@ namespace App3.SettingsPages
         private void ProjectHome_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            (Application.Current as App).TabStartLink = "https://github.com/MSEDGE-CORE/Edge18";
-            MainPage.Browser.TabView_AddButtonClick(null, null);
+            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Edge18");
         }
 
         private void CheckForUpdate_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            (Application.Current as App).TabStartLink = "https://github.com/MSEDGE-CORE/Edge18/releases";
-            MainPage.Browser.TabView_AddButtonClick(null, null);
+            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Edge18/releases");
         }
 
         private void SendFeedBack_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            (Application.Current as App).TabStartLink = "https://github.com/MSEDGE-CORE/Edge18/issues";
-            MainPage.Browser.TabView_AddButtonClick(null, null);
+            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Edge18/issues");
         }
 
         private void LinkWinUI_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            (Application.Current as App).TabStartLink = "https://github.com/microsoft/microsoft-ui-xaml";
-            MainPage.Browser.TabView_AddButtonClick(null, null);
+            MainPage.Browser.AddTab("https://github.com/microsoft/microsoft-ui-xaml");
         }
 
         private void LinkGxapSpartan_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            (Application.Current as App).TabStartLink = "https://space.bilibili.com/1103393397";
-            MainPage.Browser.TabView_AddButtonClick(null, null);
+            MainPage.Browser.AddTab("https://space.bilibili.com/1103393397");
         }
     }
 }

@@ -97,5 +97,34 @@ namespace App3.SettingsPages
             NavFileButton.IsChecked = false;
             NavAboutButton.IsChecked = false;
         }
+
+        double vTX = 0, dTT = 0, lTT = 0;
+
+        private void Grid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            lTT = 0;
+            vTX = 0;
+            dTT = 0;
+        }
+
+        private void Grid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (lTT != 0)
+                dTT = (DateTime.Now.Millisecond) - lTT;
+            lTT = (DateTime.Now.Millisecond);
+            vTX = e.Delta.Translation.X;
+        }
+
+        private void Grid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            if (vTX / dTT >= 0.1)
+            {
+                Browser.SettingsBack_Click(null, null);
+            }
+            else
+            {
+
+            }
+        }
     }
 }

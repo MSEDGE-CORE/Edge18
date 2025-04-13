@@ -60,7 +60,7 @@
             <Button Height="32" Name="Close2" Click="Close_Click" ToolTipService.ToolTip="关闭" Content="&#xE8BB;" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
             </Button>
         </StackPanel>
-        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView">
+        <ListView HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" CanReorderItems="False" ReorderMode="Disabled" AllowDrop="False" >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Collection_List">
                     <StackPanel>

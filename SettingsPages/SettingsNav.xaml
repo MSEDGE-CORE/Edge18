@@ -10,7 +10,7 @@
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid HorizontalAlignment="Stretch" MinWidth="360">
+        <Grid HorizontalAlignment="Stretch" MinWidth="360" ManipulationDelta="Grid_ManipulationDelta" ManipulationMode="TranslateX" ManipulationCompleted="Grid_ManipulationCompleted" ManipulationStarted="Grid_ManipulationStarted">
             <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Grid Name="NavigationBar">
                 <Button Name="LeftBar" IsTabStop="False" IsEnabled="True" CornerRadius="0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="70" Margin="-2,-2,0,-2"/>

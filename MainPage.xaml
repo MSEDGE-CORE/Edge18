@@ -31,7 +31,7 @@
 
         <Button x:Name="SideWindowBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" Click="SideWindowBackground_Click" Visibility="Collapsed">
         </Button>
-        <Grid x:Name="SideGrid" PointerPressed="SideGrid_PointerPressed" PointerReleased="SideGrid_PointerReleased" ManipulationDelta="SideGrid_ManipulationDelta" ManipulationMode="TranslateX" PointerExited="SideGrid_PointerExited" PointerEntered="SideGrid_PointerEntered"  Margin="0,90,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Visibility="Collapsed" Opacity="0">
+        <Grid x:Name="SideGrid" ManipulationDelta="SideGrid_ManipulationDelta" ManipulationMode="TranslateX" ManipulationCompleted="SideGrid_ManipulationCompleted" ManipulationStarted="SideGrid_ManipulationStarted" Margin="0,90,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Visibility="Collapsed" Opacity="1">
             <Grid.Resources>
                 <Storyboard x:Name="SideStoryBoard">
                     <DoubleAnimation x:Name="SideFlowIn" Storyboard.TargetName="SideGridTransform" Storyboard.TargetProperty="X" From="0" To="0" Duration="0:0:0.4" >
@@ -39,7 +39,7 @@
                             <ExponentialEase Exponent="8" EasingMode="EaseOut" />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
-                    <DoubleAnimation x:Name="SideOpacity" From="0" To="1" Storyboard.TargetName="SideGrid" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" />
+                    <DoubleAnimation x:Name="SideOpacity" From="1" To="1" Storyboard.TargetName="SideGrid" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" />
                 </Storyboard>
             </Grid.Resources>
             <Grid.RenderTransform>
@@ -52,7 +52,7 @@
         
         <Button x:Name="TabListBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,40,0,0" Click="TabListBackground_Click" Visibility="Collapsed">
         </Button>
-        <Grid x:Name="TabListGrid" Margin="0,40,0,0" PointerEntered="TabListGrid_PointerEntered" PointerExited="TabListGrid_PointerExited" ManipulationMode="TranslateX" PointerPressed="TabListGrid_PointerPressed" PointerReleased="TabListGrid_PointerReleased" ManipulationDelta="TabListGrid_ManipulationDelta" VerticalAlignment="Stretch" HorizontalAlignment="Left" Visibility="Collapsed" Opacity="0">
+        <Grid x:Name="TabListGrid" Margin="0,40,0,0" ManipulationMode="TranslateX" ManipulationCompleted="TabListGrid_ManipulationCompleted" ManipulationStarted="TabListGrid_ManipulationStarted"  ManipulationDelta="TabListGrid_ManipulationDelta" VerticalAlignment="Stretch" HorizontalAlignment="Left" Visibility="Collapsed" Opacity="1">
             <Grid.Resources>
                 <Storyboard x:Name="TabListStoryBoard">
                     <DoubleAnimation x:Name="TabListFlowIn" Storyboard.TargetName="TabListGridTransform" Storyboard.TargetProperty="X" From="0" To="0" Duration="0:0:0.4" >
@@ -60,7 +60,7 @@
                             <ExponentialEase Exponent="8" EasingMode="EaseOut" />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
-                    <DoubleAnimation x:Name="TabListOpacity" From="0" To="1" Storyboard.TargetName="TabListGrid" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" />
+                    <DoubleAnimation x:Name="TabListOpacity" From="1" To="1" Storyboard.TargetName="TabListGrid" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" />
                 </Storyboard>
             </Grid.Resources>
             <Grid.RenderTransform>
@@ -68,7 +68,7 @@
             </Grid.RenderTransform>
             <Frame Name="TabListWindow" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                 <Grid>
-                    <ListView HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="4,4,4,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" >
+                    <ListView HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="TabListView_ItemClick" VerticalAlignment="Top" Margin="4,4,8,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" >
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:Tab_List">
                                 <StackPanel>
@@ -85,7 +85,7 @@
         <Frame Name="SettingsFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Opacity="0" >
             <Frame.Resources>
                 <Storyboard x:Name="SettingsStoryBoard">
-                    <DoubleAnimation x:Name="SettingsStoryBoardDoubleAnimation" From="0" To="1" Storyboard.TargetName="SettingsFrame" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" />
+                    <DoubleAnimation x:Name="SettingsStoryBoardDoubleAnimation" From="0" To="1" Storyboard.TargetName="SettingsFrame" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" />
                 </Storyboard>
             </Frame.Resources>
         </Frame>

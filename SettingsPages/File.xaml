@@ -44,17 +44,6 @@
                         <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "14" FontWeight = "Bold" Text = "历史记录" Margin = "6,12,0,0" />
                         <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                             <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "列表显示条数" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
-                            <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                            <ComboBox FontFamily="HarmonyOS Sans SC" Name = "HistoryItems_Selection" SelectionChanged="HistoryItems_SelectionChanged" Width="150" Margin="0,0,26,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
-                                <x:String>100</x:String>
-                                <x:String>200</x:String>
-                                <x:String>400</x:String>
-                                <x:String>800</x:String>
-                            </ComboBox>
-                        </Grid>
-                        <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
-                            <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
                             <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "清空历史记录" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                             <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             <Button FontFamily="HarmonyOS Sans SC" Content="清空" Width="56" Margin="0,0,26,0" VerticalAlignment = "Center" HorizontalAlignment = "Right">

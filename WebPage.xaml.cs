@@ -33,10 +33,17 @@ namespace App3
     {
         DispatcherTimer Timer;
         bool PageReqFS = false;
+        string StartupLink = "about:blank";
 
         public static MainPage Browser
         {
             get { return (Window.Current.Content as Frame)?.Content as MainPage; }
+        }
+
+        public string WebLink
+        {
+            get { return EdgeWebView.Source.ToString(); }
+            set { StartupLink = value; }
         }
 
         public WebPage()
@@ -158,6 +165,8 @@ namespace App3
 
             if (EdgeWebView.Source.ToString() != "about:blank")
             {
+                (Application.Current as App).HistoryList.Insert(0, new History_List { HistoryTitle = EdgeWebView.DocumentTitle, HistoryUri = EdgeWebView.Source.ToString() });
+
                 Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 int HistoryCount = 1;
                 try
@@ -177,9 +186,6 @@ namespace App3
                 Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileHistoryTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
                 await Windows.Storage.FileIO.WriteTextAsync(Count, HistoryCount.ToString());
                 await Windows.Storage.FileIO.WriteTextAsync(Title, HistoryTitle);
-
-                (Application.Current as App).HistoryList.Clear();
-                (Application.Current as App).GetHistory();
             }
         }
 
@@ -345,8 +351,7 @@ namespace App3
 
         private void NewTabRequest(WebView sender, WebViewNewWindowRequestedEventArgs e)
         {
-            (Application.Current as App).TabStartLink = e.Uri.ToString();
-            Browser.TabView_AddButtonClick(null , null);
+            Browser.AddTab(e.Uri.ToString());
             e.Handled = true;
         }
 
@@ -395,9 +400,9 @@ namespace App3
             {
                 isLoaded = true;
                 LinkBox.Text = "";
-                if ((Application.Current as App).TabStartLink != "about:blank")
+                if (StartupLink != "about:blank")
                 {
-                    string Link = (Application.Current as App).TabStartLink;
+                    string Link = StartupLink;
                     try
                     {
                         EdgeWebView.Navigate(new Uri(Link));
@@ -424,7 +429,7 @@ namespace App3
                     }
                     EdgeWebView.VerticalAlignment = VerticalAlignment.Stretch;
                 }
-                (Application.Current as App).TabStartLink = "about:blank";
+                StartupLink = "about:blank";
 
                 Timer = new DispatcherTimer();
                 Timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -452,7 +457,7 @@ namespace App3
 
         private void NewTab_Click(object sender, RoutedEventArgs e)
         {
-            Browser.TabView_AddButtonClick(null, null);
+            Browser.AddTab();
             Browser.ShowSideWindow(0);
             Browser.ShowTabListWindow(0);
         }

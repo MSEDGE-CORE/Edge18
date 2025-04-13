@@ -17,7 +17,7 @@
                 </Button.KeyboardAccelerators>
             </Button>
         </StackPanel>
-        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView">
+        <ListView HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" IsItemClickEnabled="True" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:History_List">
                     <StackPanel>

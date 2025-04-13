@@ -35,10 +35,17 @@ namespace App3
         bool IsDownloadPageOpening = false;
         int LayoutState = 0;
         bool PageReqFS = false;
+        string StartupLink = "about:blank";
 
         public static MainPage Browser
         {
             get { return (Window.Current.Content as Frame)?.Content as MainPage; }
+        }
+
+        public string WebLink
+        {
+            get { return EdgeWebView.Source.ToString(); }
+            set { StartupLink = value; }
         }
 
         public WebPage2()
@@ -146,36 +153,31 @@ namespace App3
 
             if (EdgeWebView.Source.ToString() != "about:blank")
             {
+                (Application.Current as App).HistoryList.Insert(0, new History_List { HistoryTitle = EdgeWebView.CoreWebView2.DocumentTitle, HistoryUri = EdgeWebView.Source.ToString() });
+
                 Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                int HistoryCount = 1;
+                int HistoryCount = (Application.Current as App).HistoryList.Count();
                 try
                 {
-                    Windows.Storage.StorageFile file;
-                    file = await StorageFolder.GetFileAsync("History\\HistoryCount");
-                    var HCount = await Windows.Storage.FileIO.ReadLinesAsync(file);
-                    HistoryCount += Int32.Parse(HCount[0]);
+                    string HistoryTitle = EdgeWebView.CoreWebView2.DocumentTitle + "\n" + EdgeWebView.Source.ToString();
+                    string FileHistoryTitle = "History\\HistoryTitle" + HistoryCount.ToString();
+                    Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("History\\HistoryCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                    Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileHistoryTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
+                    await Windows.Storage.FileIO.WriteTextAsync(Count, HistoryCount.ToString());
+                    await Windows.Storage.FileIO.WriteTextAsync(Title, HistoryTitle);
                 }
                 catch
                 {
 
                 }
-                string HistoryTitle = EdgeWebView.CoreWebView2.DocumentTitle + "\n" + EdgeWebView.Source.ToString();
-                string FileHistoryTitle = "History\\HistoryTitle" + HistoryCount.ToString();
-                Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("History\\HistoryCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileHistoryTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(Count, HistoryCount.ToString());
-                await Windows.Storage.FileIO.WriteTextAsync(Title, HistoryTitle);
-
-                (Application.Current as App).HistoryList.Clear();
-                (Application.Current as App).GetHistory();
             }
 
             if (!isLoaded)
             {
                 LinkBox.Text = "";
-                if ((Application.Current as App).TabStartLink != "about:blank")
+                if (StartupLink != "about:blank")
                 {
-                    string Link = (Application.Current as App).TabStartLink;
+                    string Link = StartupLink;
                     try
                     {
                         EdgeWebView.CoreWebView2.Navigate(Link);
@@ -202,7 +204,7 @@ namespace App3
                     }
                     EdgeWebView.Opacity = 1;
                 }
-                (Application.Current as App).TabStartLink = "about:blank";
+                StartupLink = "about:blank";
             }
 
             if(!Timer.IsEnabled)
@@ -397,8 +399,7 @@ namespace App3
 
         private void CoreWebView2_NewWindowRequested(CoreWebView2 sender, CoreWebView2NewWindowRequestedEventArgs args)
         {
-            (Application.Current as App).TabStartLink = args.Uri.ToString();
-            Browser.TabView_AddButtonClick(null, null);
+            Browser.AddTab(args.Uri.ToString());
             args.Handled = true;
         }
 
@@ -462,7 +463,7 @@ namespace App3
 
         private void NewTab_Click(object sender = null, RoutedEventArgs e = null)
         {
-            Browser.TabView_AddButtonClick(null, null);
+            Browser.AddTab();
             Browser.ShowSideWindow(0);
             Browser.ShowTabListWindow(0);
         }

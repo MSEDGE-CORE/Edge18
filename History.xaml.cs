@@ -35,11 +35,7 @@ namespace App3
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
-            {
-                (Application.Current as App).TabStartLink = (Application.Current as App).HistoryList[ListView.SelectedIndex].HistoryUri.ToString(); 
-                MainPage.Browser.TabView_AddButtonClick(null, null);
-            }
+
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -49,6 +45,15 @@ namespace App3
         public void OnClosing()
         {
             ListView.ItemsSource = null;
+        }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ListView.SelectedIndex = ListView.Items.IndexOf(e.ClickedItem);
+            if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
+            {
+                MainPage.Browser.AddTab((Application.Current as App).HistoryList[ListView.SelectedIndex].HistoryUri.ToString());
+            }
         }
     }
 }
