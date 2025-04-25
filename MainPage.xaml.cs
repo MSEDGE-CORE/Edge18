@@ -2,6 +2,8 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -10,6 +12,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -40,6 +43,23 @@ namespace App3
             this.InitializeComponent();
 
             SetTitleBar();
+            ApplicationView.GetForCurrentView().Consolidated += MainPage_Consolidated;
+        }
+
+        private void MainPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
+        {
+            for (int i = 0; i < MicrosoftEdge.TabItems.Count; i++)
+            {
+                if (((MicrosoftEdge.TabItems[i] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage2))
+                {
+                    (((MicrosoftEdge.TabItems[i] as TabViewItem).Content as Frame).Content as WebPage2).CloseWebView();
+                }
+                else if (((MicrosoftEdge.TabItems[i] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage))
+                {
+                    (((MicrosoftEdge.TabItems[i] as TabViewItem).Content as Frame).Content as WebPage).CloseWebView();
+                }
+            }
+            Timer.Stop();
         }
 
         public void SetTitleBar()
@@ -62,9 +82,16 @@ namespace App3
             }
         }
 
-        private void Timer_Tick(object sender, object e)
+        private async void Timer_Tick(object sender, object e)
         {
             Page_SizeChanged(null,null);
+
+            if (MicrosoftEdge.TabItems.Count == 0)
+            {
+                await ApplicationView.GetForCurrentView().TryConsolidateAsync();
+                //CoreApplication.Exit();
+            }
+
             if (SettingsFrame.Visibility == Visibility.Visible && SettingsFrame.Opacity == 0)
             {
                 SettingsFrame.Visibility = Visibility.Collapsed;
@@ -88,7 +115,7 @@ namespace App3
                     TabsChanged();
                     break;
                 }
-                if ((Application.Current as App).TabList[i].Title != (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString())
+                if (TabList[i].Title != (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString())
                 {
                     TabsChanged();
                     break;
@@ -99,22 +126,37 @@ namespace App3
 
         public void TabView_Loaded(object sender, RoutedEventArgs e)
         {
-            TabViewItem NewTabPage = CreateNewTab();
-            MicrosoftEdge.TabItems.Add(NewTabPage);
-            MicrosoftEdge.SelectedItem = NewTabPage;
+            if(MicrosoftEdge.TabItems.Count == 0)
+                AddTab();
 
             Timer = new DispatcherTimer();
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             Timer.Tick += Timer_Tick;
             Timer.Start();
 
-            ListView.ItemsSource = (Application.Current as App).TabList;
+            ListView.ItemsSource = TabList;
             TabsChanged();
         }
 
         public void AddTab(string Link = "")
         {
-            TabViewItem NewTabPage = CreateNewTab();
+            if (Link == "" && (Application.Current as App).HomePageLink != "about:blank")
+                Link = (Application.Current as App).HomePageLink;
+
+            TabViewItem NewTabPage = new TabViewItem();
+            Frame frame = new Frame();
+            if ((Application.Current as App).WebViewSelected == 0 || Link.StartsWith("file://"))
+            {
+                frame.Navigate(typeof(WebPage2));
+            }
+            else if ((Application.Current as App).WebViewSelected == 1)
+            {
+                frame.Navigate(typeof(WebPage));
+            }
+            NewTabPage.Content = frame;
+            NewTabPage.Header = "新标签页";
+            //newItem.IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Stop };
+
             MicrosoftEdge.TabItems.Add(NewTabPage);
             MicrosoftEdge.SelectedItem = NewTabPage;
 
@@ -147,31 +189,8 @@ namespace App3
             }
             sender.TabItems.Remove(args.Tab);
 
-            if (sender.TabItems.Count == 0)
-            {
-                CoreApplication.Exit();
-            }
-
             ShowSideWindow(0);
             ShowTabListWindow(0);
-        }
-
-        public TabViewItem CreateNewTab()
-        {
-            TabViewItem newItem = new TabViewItem();
-            Frame frame = new Frame();
-            if((Application.Current as App).WebViewSelected == 0)
-            {
-                frame.Navigate(typeof(WebPage2));
-            }
-            else if((Application.Current as App).WebViewSelected == 1) 
-            {
-                frame.Navigate(typeof(WebPage));
-            }
-            newItem.Content = frame;
-            //newItem.IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Stop };
-            newItem.Header = "新标签页";
-            return newItem;
         }
 
         public void Settings()
@@ -221,7 +240,6 @@ namespace App3
         private void NewTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
         {
             MainPage.Browser.TabView_AddButtonClick(null, null);
-            args.Handled = true;
         }
 
         private void CloseSelectedTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
@@ -240,23 +258,20 @@ namespace App3
             {
                 InvokedTabView.TabItems.Remove(InvokedTabView.SelectedItem);
             }
-            if (MicrosoftEdge.TabItems.Count == 0)
-            {
-                CoreApplication.Exit();
-            }
 
             ShowSideWindow(0);
             ShowTabListWindow(0);
-            args.Handled = true;
         }
 
+        public ObservableCollection<Tab_List> TabList { get; } = new ObservableCollection<Tab_List>();
         private void TabsChanged()
         {
-            (Application.Current as App).TabList.Clear();
+            TabList.Clear();
             for (int i = 0; i < MicrosoftEdge.TabItems.Count; i++)
             {
-                (Application.Current as App).TabList.Add(new Tab_List() { Title = (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString() });
+                TabList.Add(new Tab_List() { Title = (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString() });
             }
+            ListView.SelectedIndex = MicrosoftEdge.SelectedIndex;
         }
 
         public void SideWindowBackground_Click(object sender = null, RoutedEventArgs e = null)
@@ -269,6 +284,7 @@ namespace App3
         {
             if (SideWindow.Content != null && ((ToOpen == 1 && IsSideWindowOpen && SideWindow.Content.GetType() == typeof(Collection)) || (ToOpen == 2 && IsSideWindowOpen && SideWindow.Content.GetType() == typeof(History))))
             {
+                (SideFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
                 ToOpen = 0;
             }
             else if (SideWindow.Content != null && ((ToOpen == 2 && IsSideWindowOpen && SideWindow.Content.GetType() == typeof(Collection)) || (ToOpen == 1 && IsSideWindowOpen && SideWindow.Content.GetType() == typeof(History))))
@@ -284,10 +300,12 @@ namespace App3
 
             if (ToOpen == 1)
             {
+                (SideFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
                 SideWindow.Navigate(typeof(Collection), null, new SuppressNavigationTransitionInfo());
             }
             else if (ToOpen == 2)
             {
+                (SideFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
                 SideWindow.Navigate(typeof(History), null, new SuppressNavigationTransitionInfo());
             }
 
@@ -338,6 +356,7 @@ namespace App3
 
             if(LayoutState == 1)
             {
+                AppTitleBar.Margin = new Thickness(0, 0, 200, 0);
                 SideWindow.Width = 360;
                 SideGrid.Margin = new Thickness(0, 90, 0, 0);
                 SideWindowBackground.Margin = new Thickness(0, 90, 0, 0);
@@ -354,6 +373,7 @@ namespace App3
                     TabListButton.Visibility = Visibility.Collapsed;
                 }
                 ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Top;
+                //(Application.Current as App).WebViewUA = 0;
             }
             else if(LayoutState == 2)
             {
@@ -365,15 +385,20 @@ namespace App3
                 TabListGrid.Margin = new Thickness(0, 40, 0, 101);
                 TabListBackground.Margin = new Thickness(0, 40, 0, 100);
                 ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Bottom;
+                //(Application.Current as App).WebViewUA = 1;
             }
 
             if(!IsSideWindowOpen && fromPage)
             {
                 SideGridTransform.X = SideWindow.Width;
+                ShowSideWindow(0);
+                ShowTabListWindow(0);
             }
             if(!IsTabListWindowOpen && fromPage)
             {
                 TabListGridTransform.X = -TabListWindow.Width;
+                ShowSideWindow(0);
+                ShowTabListWindow(0);
             }
         }
 
@@ -385,11 +410,15 @@ namespace App3
         public void ShowTabListWindow(int ToOpen = 0)
         {
             if (IsTabListWindowOpen && ToOpen == 1)
+            {
                 ToOpen = 0;
+                (TabListFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
+            }
             if (ToOpen == 1)
+            { 
                 ListView.SelectedIndex = MicrosoftEdge.SelectedIndex;
-            else
-                ListView.SelectedIndex = -1;
+                (TabListFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
+            }
             IsTabListWindowOpen = ToOpen != 0 ? true : false;
             TabListFlowIn.From = ToOpen != 0 ? TabListGridTransform.X : TabListGridTransform.X;
             if (TabListWindow.Width > 0)
@@ -423,7 +452,7 @@ namespace App3
             {
                 MicrosoftEdge.SelectedIndex = ListView.SelectedIndex;
                 ShowTabListWindow(0);
-                ListView.SelectedIndex = -1;
+                //ListView.SelectedIndex = -1;
             }
         }
 
@@ -432,26 +461,22 @@ namespace App3
             ShowTabListWindow(0);
         }
 
-        double vSX = 0, dST = 0, lST = 0;
+        double SWindowX = 0;
 
         private void SideGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            if (lST != 0)
-                dST = (DateTime.Now.Millisecond) - lST;
-            lST = (DateTime.Now.Millisecond);
             if (IsSideWindowOpen)
             {
-                if(SideGridTransform.X + e.Delta.Translation.X > 0)
+                SWindowX = SWindowX + e.Delta.Translation.X;
+                if (SWindowX > 0 && e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
                     if(this.SideWindow.Content.GetType() != typeof(Collection) || (this.SideWindow.Content.GetType() == typeof(Collection) && !(SideWindow.Content as Collection).isEditing))
                     {
-                        vSX = e.Delta.Translation.X;
                         SideGridTransform.X += e.Delta.Translation.X;
                     }
                 }
                 else
                 {
-                    vSX = -1;
                     SideGridTransform.X = 0;
                 }
             }
@@ -459,8 +484,9 @@ namespace App3
 
         private void SideGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            if (vSX / dST >= 0.1)
+            if (e.Velocities.Linear.X >= 0.5 && e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse)
             {
+                (SideFlowIn.EasingFunction as ExponentialEase).Exponent = (e.Velocities.Linear.X) * 4;
                 ShowSideWindow(0);
             }
             else
@@ -469,23 +495,23 @@ namespace App3
                 SideFlowIn.To = 0;
                 SideOpacity.From = SideGrid.Opacity;
                 SideOpacity.To = 1;
+                (SideFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
                 SideStoryBoard.Begin();
             }
         }
         
         private void SideGrid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
-            vSX = 0;
-            lST = 0;
-            dST = 0;
+            SWindowX = 0;
         }
 
-        double vTX = 0, dTT = 0, lTT = 0;
+        double TWindowX = 0;
 
         private void TabListGrid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            if (vTX / dTT <= -0.1)
+            if (e.Velocities.Linear.X <= -0.5 && e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse)
             {
+                (TabListFlowIn.EasingFunction as ExponentialEase).Exponent = -(e.Velocities.Linear.X) * 4;
                 ShowTabListWindow(0);
             }
             else
@@ -494,35 +520,52 @@ namespace App3
                 TabListFlowIn.To = 0;
                 TabListOpacity.From = TabListGrid.Opacity;
                 TabListOpacity.To = 1;
+                (TabListFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
                 TabListStoryBoard.Begin();
             }
         }
 
         private void TabListGrid_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
-            vTX = 0;
-            dTT = 0;
-            lTT = 0;
+            TWindowX = 0;
         }
 
         private void TabListGrid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            if (lTT != 0)
-                dTT = (DateTime.Now.Millisecond) - lTT;
-            lTT = (DateTime.Now.Millisecond);
             if (IsTabListWindowOpen)
             {
-                if (TabListGridTransform.X + e.Delta.Translation.X < 0)
+                TWindowX = TWindowX + e.Delta.Translation.X;
+                if (TWindowX < 0 && e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
-                    vTX = e.Delta.Translation.X;
                     TabListGridTransform.X += e.Delta.Translation.X;
                 }
                 else
                 {
-                    vTX = 1;
                     TabListGridTransform.X = 0;
                 }
             }
+        }
+
+        private void TabListCloseItem_Click(object sender, RoutedEventArgs e)
+        {
+            ShowTabListWindow(0);
+            ListView.SelectedIndex = ListView.Items.IndexOf((sender as FrameworkElement).DataContext);
+            if(ListView.SelectedIndex == -1)
+            {
+                return;
+            }
+            if (((MicrosoftEdge.TabItems[ListView.SelectedIndex] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage2))
+            {
+                (((MicrosoftEdge.TabItems[ListView.SelectedIndex] as TabViewItem).Content as Frame).Content as WebPage2).CloseWebView();
+            }
+            else if (((MicrosoftEdge.TabItems[ListView.SelectedIndex] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage))
+            {
+                (((MicrosoftEdge.TabItems[ListView.SelectedIndex] as TabViewItem).Content as Frame).Content as WebPage).CloseWebView();
+            }
+
+            MicrosoftEdge.TabItems.RemoveAt(ListView.SelectedIndex);
+            TabsChanged();
+            ShowTabListWindow(1);
         }
     }
 }

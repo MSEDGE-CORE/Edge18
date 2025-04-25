@@ -24,6 +24,7 @@ using static App3.App;
 using System.Threading;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Media.Animation;
+using System.Linq.Expressions;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -58,11 +59,11 @@ namespace App3
 
         bool LinkTyping = false;
         bool WebNavigating = false;
-        private async void Timer_Tick(object sender, object e)
+        private void Timer_Tick(object sender, object e)
         {
             if(EdgeWebView.CoreWebView2 == null)
             {
-                await CoreApplication.RequestRestartAsync(string.Empty);
+                CoreWebView2_WindowCloseRequested(null, null);
             }
 
             Page_SizeChanged();
@@ -132,7 +133,7 @@ namespace App3
             {
                 EdgeWebView.IsTabStop = SearchBox.IsTabStop = false;
                 Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = true;
-                LinkBox.IsTabStop = false;
+                LinkBox.IsTabStop = true;
             }
             else if(Browser.PageTabStopSet == 2)
             {
@@ -153,7 +154,11 @@ namespace App3
 
             if (EdgeWebView.Source.ToString() != "about:blank")
             {
-                (Application.Current as App).HistoryList.Insert(0, new History_List { HistoryTitle = EdgeWebView.CoreWebView2.DocumentTitle, HistoryUri = EdgeWebView.Source.ToString() });
+                try
+                { 
+                    (Application.Current as App).HistoryList.Insert(0, new History_List { HistoryTitle = EdgeWebView.CoreWebView2.DocumentTitle, HistoryUri = EdgeWebView.Source.ToString() }); 
+                }
+                catch { }
 
                 Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 int HistoryCount = (Application.Current as App).HistoryList.Count();
@@ -220,6 +225,7 @@ namespace App3
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
             LinkTyping = true;
+            (sender as TextBox).SelectAll();
         }
         private void LinkToChanged(object sender, RoutedEventArgs e)
         {
@@ -235,15 +241,15 @@ namespace App3
 
         private void LinkChanged(object sender, KeyRoutedEventArgs e)
         {
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
-
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
 
             LinkTyping = true;
             if ((EdgeWebView.Opacity != 1 || LinkBox.Text.ToString() != EdgeWebView.Source.ToString()) && LinkBox.Text != "" && e.Key == Windows.System.VirtualKey.Enter)
             {
+                Browser.ShowSideWindow(0);
+                Browser.ShowTabListWindow(0);
+
                 LinkTyping = false;
                 string Link = LinkBox.Text;
                 if (Link[0] == '@')
@@ -426,6 +432,24 @@ namespace App3
             sender.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
             sender.CoreWebView2.ContainsFullScreenElementChanged += CoreWebView2_ContainsFullScreenElementChanged;
             sender.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
+            sender.CoreWebView2.WindowCloseRequested += CoreWebView2_WindowCloseRequested;
+
+            EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
+            EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
+            EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
+        }
+
+        private void CoreWebView2_WindowCloseRequested(CoreWebView2 sender, object args)
+        {
+            for (int i = 0; i < ((Browser.Content as Grid).Children[0] as TabView).TabItems.Count; i++)
+            {
+                if ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i] as TabViewItem).Content == this.Frame)
+                {
+                    CloseWebView();
+                    ((Browser.Content as Grid).Children[0] as TabView).TabItems.RemoveAt(i);
+                    break;
+                }
+            }
         }
 
         private void CoreWebView2_DocumentTitleChanged(CoreWebView2 sender, object args)
@@ -565,6 +589,16 @@ namespace App3
                 LoadingBar.VerticalAlignment = VerticalAlignment.Top;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Top;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = 50;
+                if(MobilePageButton.Text == "桌面视图")
+                {
+                    MobilePageButton.Text = "移动设备视图";
+                    if (isLoaded)
+                    {
+                        EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
+                        EdgeWebView.CoreWebView2.Reload();
+                    }
+                }
+                
             }
             else if(LayoutState == 2)
             {
@@ -607,6 +641,44 @@ namespace App3
             {
                 view.ExitFullScreenMode();
             }
+        }
+
+        private void MobilePage_Click(object sender, RoutedEventArgs e)
+        {
+            if((sender as MenuFlyoutItem).Text == "移动设备视图")
+            {
+                (sender as MenuFlyoutItem).Text = "桌面视图";
+                if (isLoaded)
+                {
+                    EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1";
+                    EdgeWebView.CoreWebView2.Reload();
+                } 
+            }
+            else
+            {
+                (sender as MenuFlyoutItem).Text = "移动设备视图";
+                if (isLoaded)
+                {
+                    EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
+                    EdgeWebView.CoreWebView2.Reload();
+                }
+            }
+        }
+
+        private async void NewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var applicationView = CoreApplication.CreateNewView();
+            int newViewId = 0;
+            await applicationView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Frame frame = new Frame();
+                frame.Navigate(typeof(MainPage), null);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+
+                newViewId = ApplicationView.GetForCurrentView().Id;
+            });
+            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
         }
     }
 }

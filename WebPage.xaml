@@ -43,7 +43,7 @@
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="新建窗口" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
+                            <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                 </MenuFlyoutItem.Icon>
@@ -126,7 +126,7 @@
                                         <KeyboardAccelerator Key="T" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="新建窗口" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
+                                <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                     </MenuFlyoutItem.Icon>

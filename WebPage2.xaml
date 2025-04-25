@@ -38,12 +38,17 @@
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" FontSize="18"/>
                     <Button.Flyout>
                         <MenuFlyout Placement="TopEdgeAlignedRight" >
+                            <MenuFlyoutItem Text="移动设备视图" Name="MobilePageButton" Click="MobilePage_Click" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8EA;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem Text="新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="新建窗口" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
+                            <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                 </MenuFlyoutItem.Icon>
@@ -126,7 +131,7 @@
                                         <KeyboardAccelerator Key="T" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="新建窗口" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
+                                <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                     </MenuFlyoutItem.Icon>
@@ -193,6 +198,8 @@
             <TextBox FontFamily="HarmonyOS Sans SC"  Name="SearchBox" Height="48" FontSize="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="180,-128,180,0" KeyDown="SearchChanged" IsSpellCheckEnabled="True" PlaceholderText="搜索网络" AllowDrop="True"/>
         </Grid>
         <muxc:WebView2 x:Name="EdgeWebView" VerticalAlignment="Stretch" Opacity="0" Visibility="Collapsed" HorizontalAlignment="Stretch" CoreWebView2Initialized="EdgeWebView_CoreWebView2Initialized" Source="about:blank" Loaded="EdgeWebView_Loaded">
+            <muxc:WebView2.KeyboardAccelerators>
+            </muxc:WebView2.KeyboardAccelerators>
         </muxc:WebView2>
         <Grid>
             <muxc:ProgressBar Name="LoadingBar" Margin="0,46,0,98" HorizontalAlignment="Stretch" IsIndeterminate="True" ShowPaused="False" ShowError="False" />

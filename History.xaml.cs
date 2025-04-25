@@ -52,7 +52,8 @@ namespace App3
             ListView.SelectedIndex = ListView.Items.IndexOf(e.ClickedItem);
             if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
             {
-                MainPage.Browser.AddTab((Application.Current as App).HistoryList[ListView.SelectedIndex].HistoryUri.ToString());
+                MainPage.Browser.AddTab((Application.Current as App).HistoryList[ListView.Items.IndexOf(e.ClickedItem)].HistoryUri.ToString());
+                Browser.SideWindowBackground_Click();
             }
         }
     }

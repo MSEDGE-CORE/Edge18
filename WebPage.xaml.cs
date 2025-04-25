@@ -144,7 +144,7 @@ namespace App3
             {
                 SearchBox.IsTabStop = false;
                 Button_Back.IsTabStop = Button_Forward.IsTabStop = Button_Refresh.IsTabStop = ButtonM_Back.IsTabStop = ButtonM_Forward.IsTabStop = ButtonM_Refresh.IsTabStop = ButtonM_NewTab.IsTabStop = ButtonM_TabList.IsTabStop = ButtonM_More.IsTabStop = CollectionButton.IsTabStop = HistoryButton.IsTabStop = DownloadButton.IsTabStop = MoreButton.IsTabStop = true;
-                LinkBox.IsTabStop = false;
+                LinkBox.IsTabStop = true;
             }
             else if (Browser.PageTabStopSet == 2)
             {
@@ -165,7 +165,11 @@ namespace App3
 
             if (EdgeWebView.Source.ToString() != "about:blank")
             {
-                (Application.Current as App).HistoryList.Insert(0, new History_List { HistoryTitle = EdgeWebView.DocumentTitle, HistoryUri = EdgeWebView.Source.ToString() });
+                try
+                { 
+                    (Application.Current as App).HistoryList.Insert(0, new History_List { HistoryTitle = EdgeWebView.DocumentTitle, HistoryUri = EdgeWebView.Source.ToString() });
+                }
+                catch { }
 
                 Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 int HistoryCount = 1;
@@ -192,6 +196,7 @@ namespace App3
         private void LinkToChanging(object sender, RoutedEventArgs e)
         {
             LinkTyping = true;
+            (sender as TextBox).SelectAll();
         }
         private void LinkToChanged(object sender, RoutedEventArgs e)
         {
@@ -205,10 +210,11 @@ namespace App3
         private void LinkChanged(object sender, KeyRoutedEventArgs e)
         {
             LinkTyping = true;
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
             if ((EdgeWebView.VerticalAlignment != VerticalAlignment.Stretch || LinkBox.Text.ToString() != EdgeWebView.Source.ToString()) && LinkBox.Text != "" && e.Key == Windows.System.VirtualKey.Enter)
             {
+                Browser.ShowSideWindow(0);
+                Browser.ShowTabListWindow(0);
+
                 LinkTyping = false;
                 string Link = LinkBox.Text;
                 if (Link[0] == '@')
@@ -584,6 +590,22 @@ namespace App3
         private void TabList_Click(object sender, RoutedEventArgs e)
         {
             Browser.ShowTabListWindow(1);
+        }
+
+        private async void NewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var applicationView = CoreApplication.CreateNewView();
+            int newViewId = 0;
+            await applicationView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Frame frame = new Frame();
+                frame.Navigate(typeof(MainPage), null);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+
+                newViewId = ApplicationView.GetForCurrentView().Id;
+            });
+            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
         }
     }
 }

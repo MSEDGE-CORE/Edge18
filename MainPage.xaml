@@ -71,12 +71,21 @@
                     <ListView HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="TabListView_ItemClick" VerticalAlignment="Top" Margin="4,4,8,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" >
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:Tab_List">
-                                <StackPanel>
-                                    <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind Title}" FontSize="12" Margin="0,2,0,3"/>
+                                <StackPanel VerticalAlignment="Stretch">
+                                    <StackPanel.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="关闭" Click="TabListCloseItem_Click">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE711;"/>
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </StackPanel.ContextFlyout>
+                                    <TextBlock VerticalAlignment="Center" FontFamily="HarmonyOS Sans SC" Text="{x:Bind Title}" FontSize="12" Margin="0,2,0,3"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>
+                     </ListView>
                 </Grid>
             </Frame>
             <AppBarSeparator Name="TabListSeparateBar" Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="-8,-8,-3,-8"/>

@@ -20,9 +20,15 @@ namespace App3.SettingsPages
 {
     public sealed partial class Browse : Page
     {
+        public static MainPage Browser
+        {
+            get { return (Window.Current.Content as Frame)?.Content as MainPage; }
+        }
+
         public Browse()
         {
             this.InitializeComponent();
+
 
             ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue WebView_Mode = (ApplicationDataCompositeValue)LocalSettings.Values["WebView_Mode"];
@@ -67,6 +73,20 @@ namespace App3.SettingsPages
                 Search_Selection.SelectedIndex = 5;
                 SetSearch_Button.Visibility = Visibility.Visible;
             }
+
+            if ((Application.Current as App).HomePageLink == "about:blank")
+            {
+                Home_Selection.SelectedIndex = 0;
+                SetHome_Button.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Home_Selection.SelectedIndex = 1;
+                SetHome_Button.Visibility = Visibility.Collapsed;
+            }
+
+            ForbidJavaScript_Switch.IsOn = (Application.Current as App).ForbidJavaScript;
+            AutoSavePassword_Switch.IsOn = (Application.Current as App).AutoSavePassword;
         }
 
         private void SetSearch_Click(object sender, RoutedEventArgs e)
@@ -156,9 +176,12 @@ namespace App3.SettingsPages
         }
 
 
-        private async void Restart(object sender, RoutedEventArgs e)
+        private void Restart(object sender, RoutedEventArgs e)
         {
-            await CoreApplication.RequestRestartAsync(string.Empty);
+            (Application.Current as App).WebViewSelected = WebView_Selection.SelectedIndex;
+            (sender as Button).Visibility = Visibility.Collapsed;
+            Browser.SettingsBack_Click(null, null);
+            //await CoreApplication.RequestRestartAsync(string.Empty);
         }
 
         private void WebView_SelectionChanged(object sender, RoutedEventArgs e)
@@ -172,6 +195,92 @@ namespace App3.SettingsPages
             LocalSettings.Values["WebView_Mode"] = WebView_Mode;
 
             Restart_Button.Visibility = Visibility.Visible;
+        }
+
+        private void AutoSavePassword_Switch_Toggled(object sender, RoutedEventArgs e)
+        {
+            (Application.Current as App).AutoSavePassword = AutoSavePassword_Switch.IsOn;
+            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            Windows.Storage.ApplicationDataCompositeValue AutoSavePasswordSwitch = new Windows.Storage.ApplicationDataCompositeValue();
+            AutoSavePasswordSwitch["AutoSavePasswordSwitch"] = AutoSavePassword_Switch.IsOn;
+            LocalSettings.Values["AutoSavePasswordSwitch"] = AutoSavePasswordSwitch;
+        }
+
+        private void ForbidJavaScript_Switch_Toggled(object sender, RoutedEventArgs e)
+        {
+            (Application.Current as App).ForbidJavaScript = ForbidJavaScript_Switch.IsOn;
+            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            Windows.Storage.ApplicationDataCompositeValue ForbidJavaScriptSwitch = new Windows.Storage.ApplicationDataCompositeValue();
+            ForbidJavaScriptSwitch["ForbidJavaScriptSwitch"] = ForbidJavaScript_Switch.IsOn;
+            LocalSettings.Values["ForbidJavaScriptSwitch"] = ForbidJavaScriptSwitch;
+        }
+
+        private void Home_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Home_Selection.SelectedIndex == 1)
+            {
+                SetHome_Button.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SetHome_Button.Visibility = Visibility.Collapsed;
+            }
+
+            if (Home_Selection.SelectedIndex == 0)
+            {
+                (Application.Current as App).HomePageLink = "about:blank";
+            }
+            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            Windows.Storage.ApplicationDataCompositeValue HomeLink = new Windows.Storage.ApplicationDataCompositeValue();
+            HomeLink["HomePageLink"] = (Application.Current as App).HomePageLink;
+            LocalSettings.Values["HomePageLink"] = HomeLink;
+        }
+
+        private void SetHome_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Home_Link.Text = (Application.Current as App).HomePageLink;
+        }
+
+        private void SetHome_Complete(object sender, RoutedEventArgs e)
+        {
+            string Link = Home_Link.Text;
+
+            MatchCollection IsMatch = Regex.Matches(Link, @"^(https?)://");
+
+            int CanWebNav = 0;
+            foreach (Match m in IsMatch)
+            {
+                CanWebNav++;
+            }
+
+            if (CanWebNav > 0)
+            {
+                Set_HomeLink_Flyout.Hide();
+                (Application.Current as App).HomePageLink = Link;
+            }
+            else
+            {
+                IsMatch = Regex.Matches(Link, @"\.");
+                foreach (Match m in IsMatch)
+                {
+                    CanWebNav++;
+                }
+                if (CanWebNav > 0)
+                {
+                    Link = "https://" + Home_Link.Text;
+
+                    Set_HomeLink_Flyout.Hide();
+                    (Application.Current as App).HomePageLink = Link;
+                }
+                else
+                {
+
+                }
+            }
+            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            Windows.Storage.ApplicationDataCompositeValue HomeLink = new Windows.Storage.ApplicationDataCompositeValue();
+            HomeLink["HomePageLink"] = (Application.Current as App).HomePageLink;
+            LocalSettings.Values["HomePageLink"] = HomeLink;
         }
     }
 }

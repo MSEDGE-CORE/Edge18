@@ -65,6 +65,23 @@
             <uap:DisplayName>Edge 18</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="microsoft-edge">
+            <uap:Logo>Assets/WindowIcon.png</uap:Logo>
+            <uap:DisplayName>Edge 18</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="pdf">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.pdf</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:EditFlags OpenIsSafe="true"/>
+            <uap:InfoTip>PDF</uap:InfoTip>
+            <uap:DisplayName>Edge 18</uap:DisplayName>
+            <uap:Logo>Assets/PDF.png</uap:Logo>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

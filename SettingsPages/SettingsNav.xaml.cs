@@ -117,7 +117,7 @@ namespace App3.SettingsPages
 
         private void Grid_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            if (vTX / dTT >= 0.1)
+            if (vTX / dTT >= 0.5 && e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 Browser.SettingsBack_Click(null, null);
             }

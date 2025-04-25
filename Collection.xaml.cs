@@ -221,10 +221,8 @@ namespace App3
             ListView.SelectedIndex = ListView.Items.IndexOf(e.ClickedItem);
             if (!isEditing)
             {
-                if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
-                {
-                    MainPage.Browser.AddTab((Application.Current as App).CollectionList[ListView.SelectedIndex].CollectionUri.ToString());
-                }
+                MainPage.Browser.AddTab((Application.Current as App).CollectionList[ListView.Items.IndexOf(e.ClickedItem)].CollectionUri.ToString());
+                Browser.SideWindowBackground_Click();
             }
         }
     }

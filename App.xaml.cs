@@ -49,7 +49,6 @@ namespace App3
     {
         public ObservableCollection<Collection_List> CollectionList { get; } = new ObservableCollection<Collection_List>();
         public ObservableCollection<History_List> HistoryList { get; } = new ObservableCollection<History_List>();
-        public ObservableCollection<Tab_List> TabList { get; } = new ObservableCollection<Tab_List>();
 
         public Frame RootFrame;
         DispatcherTimer Timer;
@@ -63,6 +62,10 @@ namespace App3
         public int WebViewSelected = 0;
         public string SearchToolLink = "https://cn.bing.com/search?q=";
         public int LayoutState = 0;
+        public int WebViewUA = 0;
+        public bool ForbidJavaScript = false;
+        public bool AutoSavePassword = false;
+        public string HomePageLink = "about:blank";
 
         public App()
         {
@@ -150,6 +153,43 @@ namespace App3
             }
         }
 
+        protected override void OnFileActivated(FileActivatedEventArgs e)
+        {
+            bool NeedNewTab = true;
+            if (RootFrame == null)
+            {
+                NeedNewTab = false;
+
+                RootFrame = Window.Current.Content as Frame;
+                // Create a Frame to act as the navigation context and navigate to the first page
+                RootFrame = new Frame();
+
+                RootFrame.NavigationFailed += OnNavigationFailed;
+                RootFrame.Navigate(typeof(MainPage));
+
+                Window.Current.Activate();
+                Window.Current.Content = RootFrame;
+
+                GetSettings();
+            }
+
+            string Link = e.Files[0].Path.ToString();
+            if (Link.StartsWith("msedge-edge18:"))
+            {
+                Link = Link.Remove(0, 14);
+            }
+            Link = "file:///" + Path.Combine(Environment.CurrentDirectory, Link);
+
+            if (NeedNewTab)
+            {
+                MainPage.Browser.AddTab(Link);
+            }
+            else if (Link.Length > 0)
+            {
+                MainPage.Browser.AddTab(Link);
+            }
+        }
+
         protected override void OnActivated(IActivatedEventArgs args)
         {
             bool NeedNewTab = true;
@@ -165,10 +205,9 @@ namespace App3
                 RootFrame.Navigate(typeof(MainPage));
 
                 Window.Current.Activate();
-
-                // Place the frame in the current Window
-                GetSettings();
                 Window.Current.Content = RootFrame;
+
+                GetSettings();
             }
 
             ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
@@ -199,6 +238,10 @@ namespace App3
             }
 
             if(NeedNewTab)
+            {
+                MainPage.Browser.AddTab(Link);
+            }
+            else if(Link.Length > 0)
             {
                 MainPage.Browser.AddTab(Link);
             }
@@ -294,6 +337,21 @@ namespace App3
             if (SearchLink != null)
             {
                 SearchToolLink = SearchLink["SearchLink"].ToString();
+            }
+            Windows.Storage.ApplicationDataCompositeValue ForbidJavaScriptSet = (ApplicationDataCompositeValue)LocalSettings.Values["ForbidJavaScriptSwitch"];
+            if (ForbidJavaScriptSet != null)
+            {
+                ForbidJavaScript = (bool)ForbidJavaScriptSet["ForbidJavaScriptSwitch"];
+            }
+            Windows.Storage.ApplicationDataCompositeValue AutoSavePasswordSet = (ApplicationDataCompositeValue)LocalSettings.Values["AutoSavePasswordSwitch"];
+            if (AutoSavePasswordSet != null)
+            {
+                AutoSavePassword = (bool)AutoSavePasswordSet["AutoSavePasswordSwitch"];
+            }
+            Windows.Storage.ApplicationDataCompositeValue HomeLink = (ApplicationDataCompositeValue)LocalSettings.Values["HomePageLink"];
+            if (HomeLink != null)
+            {
+                HomePageLink = HomeLink["HomePageLink"].ToString();
             }
 
             GetCollection();

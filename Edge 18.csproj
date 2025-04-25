@@ -224,6 +224,7 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\PDF.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -290,6 +291,7 @@
   <ItemGroup>
     <None Include=".github\ISSUE_TEMPLATE\功能建议.md" />
     <None Include=".github\ISSUE_TEMPLATE\报告问题.md" />
+    <None Include="Assets\1.pdf" />
     <None Include="Edge 18_TemporaryKey.pfx" />
     <None Include="LICENSE" />
     <None Include="README.md" />
