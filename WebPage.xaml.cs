@@ -392,6 +392,7 @@ namespace App3
 
         public void CloseWebView()
         {
+            DownloadBack_Click(null, null);
             while (EdgeWebView.CanGoBack == true)
             {
                 EdgeWebView.GoBack();

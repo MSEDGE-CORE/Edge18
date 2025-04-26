@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace App3
@@ -202,6 +203,7 @@ namespace App3
 
                 SettingsStoryBoardDoubleAnimation.From = 0.001;
                 SettingsStoryBoardDoubleAnimation.To = 1;
+                SettingsStoryBoardDoubleAnimation.Duration = TimeSpan.FromMilliseconds(100);
                 SettingsStoryBoard.Begin();
                 SettingsFrame.Navigate(typeof(SettingsPages.Blank), null, new SuppressNavigationTransitionInfo());
                 SettingsFrame.Navigate(typeof(SettingsPages.SettingsNav), null, new DrillInNavigationTransitionInfo());
@@ -226,6 +228,7 @@ namespace App3
 
             SettingsStoryBoardDoubleAnimation.From = 1;
             SettingsStoryBoardDoubleAnimation.To = 0;
+            SettingsStoryBoardDoubleAnimation.Duration = TimeSpan.FromMilliseconds(300);
             SettingsStoryBoard.Begin();
 
             Browser.SetTitleBar();
@@ -269,7 +272,11 @@ namespace App3
             TabList.Clear();
             for (int i = 0; i < MicrosoftEdge.TabItems.Count; i++)
             {
-                TabList.Add(new Tab_List() { Title = (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString() });
+                TabList.Add(new Tab_List()
+                {
+                    Title = (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString(),
+                    iconSource = null
+                });
             }
             ListView.SelectedIndex = MicrosoftEdge.SelectedIndex;
         }
@@ -399,6 +406,20 @@ namespace App3
                 TabListGridTransform.X = -TabListWindow.Width;
                 ShowSideWindow(0);
                 ShowTabListWindow(0);
+            }
+
+            if (ApplicationView.GetForCurrentView().IsFullScreenMode && fromPage)
+            {
+                MicrosoftEdge.Margin = new Thickness(0, -92, 0, 0);
+                ExitFS.Visibility = Visibility.Visible;
+                ExitFS.Height = 16;
+                ExitFS.VerticalAlignment = VerticalAlignment.Top;
+                ExitFS.Margin = new Thickness(0, 0, 0, 0);
+            }
+            else if (fromPage)
+            {
+                MicrosoftEdge.Margin = new Thickness(0, 0, 0, 0);
+                ExitFS.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -564,8 +585,32 @@ namespace App3
             }
 
             MicrosoftEdge.TabItems.RemoveAt(ListView.SelectedIndex);
-            TabsChanged();
+            TabList.RemoveAt(ListView.SelectedIndex);
+            //TabsChanged();
             ShowTabListWindow(1);
+        }
+
+        private void ExitFS_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().IsFullScreenMode && MicrosoftEdge.Margin == new Thickness(0, -92, 0, 0))
+            {
+                MicrosoftEdge.Margin = new Thickness(0, 0, 0, -92);
+                (sender as Button).Height = ActualHeight;
+                (sender as Button).VerticalAlignment = VerticalAlignment.Stretch;
+                (sender as Button).Margin = new Thickness(0, 160, 0, 0);
+            }
+            else if(ApplicationView.GetForCurrentView().IsFullScreenMode)
+            {
+                MicrosoftEdge.Margin = new Thickness(0, -92, 0, 0);
+                (sender as Button).Height = 16;
+                (sender as Button).VerticalAlignment = VerticalAlignment.Top;
+                (sender as Button).Margin = new Thickness(0, 0, 0, 0);
+            }
+            else
+            {
+                (sender as Button).Visibility = Visibility.Collapsed;
+                MicrosoftEdge.Margin = new Thickness(0, 0, 0, 0);
+            }
         }
     }
 }

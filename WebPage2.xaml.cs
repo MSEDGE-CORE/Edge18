@@ -25,6 +25,8 @@ using System.Threading;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Media.Animation;
 using System.Linq.Expressions;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media.Imaging;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -433,10 +435,31 @@ namespace App3
             sender.CoreWebView2.ContainsFullScreenElementChanged += CoreWebView2_ContainsFullScreenElementChanged;
             sender.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
             sender.CoreWebView2.WindowCloseRequested += CoreWebView2_WindowCloseRequested;
+            sender.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
 
             EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
             EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
             EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
+        }
+
+        private void CoreWebView2_FaviconChanged(CoreWebView2 sender, object args)
+        {
+            for (int i = 0; i < ((Browser.Content as Grid).Children[0] as TabView).TabItems.Count; i++)
+            {
+                if ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i] as TabViewItem).Content == this.Frame)
+                {
+                    try
+                    {
+                        Uri faviconUrl = new Uri(EdgeWebView.CoreWebView2.FaviconUri);
+                        Microsoft.UI.Xaml.Controls.BitmapIconSource iconsource = new Microsoft.UI.Xaml.Controls.BitmapIconSource() { UriSource = faviconUrl, ShowAsMonochrome = false };
+                        ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i]) as TabViewItem).IconSource = iconsource;
+                    }
+                    catch
+                    {
+                        ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i]) as TabViewItem).IconSource = null;
+                    }
+                }
+            }
         }
 
         private void CoreWebView2_WindowCloseRequested(CoreWebView2 sender, object args)

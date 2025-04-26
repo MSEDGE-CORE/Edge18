@@ -43,6 +43,7 @@ namespace App3
     public class Tab_List
     {
         public string Title { get; set; }
+        public Windows.UI.Xaml.Controls.IconSource iconSource { get; set; }
     }
 
     sealed partial class App : Application
