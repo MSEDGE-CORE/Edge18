@@ -33,6 +33,7 @@
                 <KeyboardAccelerator Key="Escape" Invoked="EscKeyboardAccelerator_Invoked" />
             </muxc:TabView.KeyboardAccelerators>
         </muxc:TabView>
+        <Button Name="ExitFS" PointerEntered="ExitFS_PointerEntered" PointerMoved="ExitFS_PointerEntered" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" Height="16" BorderThickness="0" Opacity="0" Visibility="Collapsed" />
 
         <Button x:Name="SideWindowBackground" IsTabStop="True" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" Click="SideWindowBackground_Click" Visibility="Collapsed">
         </Button>
@@ -111,6 +112,5 @@
                 </Button.KeyboardAccelerators>
             </Button>
         </StackPanel>
-        <Button Name="ExitFS" PointerEntered="ExitFS_PointerEntered" PointerMoved="ExitFS_PointerEntered" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" Height="16" BorderThickness="0" Opacity="0" Visibility="Collapsed" />
     </Grid>
 </Page>
