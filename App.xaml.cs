@@ -43,7 +43,7 @@ namespace App3
     public class Tab_List
     {
         public string Title { get; set; }
-        public Windows.UI.Xaml.Controls.IconSource iconSource { get; set; }
+        public Windows.UI.Xaml.Media.ImageSource iconSource { get; set; }
     }
 
     sealed partial class App : Application
@@ -233,19 +233,35 @@ namespace App3
                     Link = SearchToolLink + Link;
                 }
             }
-            else
-            {
-                Link = "about:blank";
-            }
 
-            if(NeedNewTab)
+            if(Link.Length == 0)
+            {
+                CreateNewWindow();
+            }
+            else if (NeedNewTab)
             {
                 MainPage.Browser.AddTab(Link);
             }
-            else if(Link.Length > 0)
+            else if (Link.Length > 0)
             {
                 MainPage.Browser.AddTab(Link);
             }
+        }
+
+        public async void CreateNewWindow()
+        {
+            var applicationView = CoreApplication.CreateNewView();
+            int newViewId = 0;
+            await applicationView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                Frame frame = new Frame();
+                frame.Navigate(typeof(MainPage), null);
+                Window.Current.Content = frame;
+                Window.Current.Activate();
+
+                newViewId = ApplicationView.GetForCurrentView().Id;
+            });
+            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
         }
 
         private void GetSettings()

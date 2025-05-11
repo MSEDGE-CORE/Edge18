@@ -8,64 +8,64 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid Name="Grid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,20,20,0">
+    <Grid Name="Grid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,20,20,0" AutomationProperties.Name="收藏夹">
         <TextBlock FontFamily="HarmonyOS Sans SC" x:Name="PageTitle" Text="收藏夹" FontWeight="Bold" FontSize="20" Margin="12,0,0,0"/>
         <StackPanel x:Name="DefaultToolBar" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-3,0,0">
-            <Button Height="32" Name="Edit_Collection" ToolTipService.ToolTip="编辑" Content="&#xE104;" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Edit_Collection_Click"/>
-            <Button Height="32" Name="Add_Collection" Content="&#xE109;" ToolTipService.ToolTip="添加" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Add_Collection_Click">
+            <Button Height="32" Name="Edit_Collection" AutomationProperties.Name="编辑" ToolTipService.ToolTip="编辑" Content="&#xE104;" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Edit_Collection_Click"/>
+            <Button Height="32" Name="Add_Collection" Content="&#xE109;" AutomationProperties.Name="添加" ToolTipService.ToolTip="添加" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Add_Collection_Click">
                 <Button.Flyout>
-                    <Flyout x:Name="Add_Collection_Flyout" Placement="BottomEdgeAlignedRight">
+                    <Flyout x:Name="Add_Collection_Flyout" Placement="BottomEdgeAlignedRight" AutomationProperties.Name="添加到收藏夹">
                         <StackPanel MinWidth="280" MaxWidth="280" Width="280">
                             <TextBlock FontFamily="HarmonyOS Sans SC" Text="添加到收藏夹" FontWeight="Bold" FontSize="16" Margin="0,0,0,14"/>
                             <Grid HorizontalAlignment="Stretch" Margin="0,0,0,12">
                                 <TextBlock FontFamily="HarmonyOS Sans SC" Text="名称" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Collection_Title" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
+                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Collection_Title" AutomationProperties.Name="名称" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
                             </Grid>
                             <Grid HorizontalAlignment="Stretch" Margin="0,0,0,12">
                                 <TextBlock FontFamily="HarmonyOS Sans SC" Text="链接" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Collection_Uri" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
+                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Collection_Uri" AutomationProperties.Name="链接" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
                             </Grid>
                             <Button FontFamily="HarmonyOS Sans SC" Content="完成" Width="64" IsEnabled="True" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0" Click="Add_Collection_Complete_Click" Style="{StaticResource AccentButtonStyle}"/>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
             </Button>
-            <Button Height="32" Name="Close" Click="Close_Click" Content="&#xE8BB;" ToolTipService.ToolTip="关闭" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
+            <Button Height="32" Name="Close" Click="Close_Click" Content="&#xE8BB;" AutomationProperties.Name="关闭" ToolTipService.ToolTip="关闭" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Escape"/>
                 </Button.KeyboardAccelerators>
             </Button>
         </StackPanel>
         <StackPanel x:Name="EditToolBar" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed" Margin="0,-3,0,0" >
-            <Button Height="32" Name="Up_Button" Content="&#xE110;" ToolTipService.ToolTip="上移" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Up_Button_Click">
+            <Button Height="32" Name="Up_Button" Content="&#xE110;" AutomationProperties.Name="上移" ToolTipService.ToolTip="上移" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Up_Button_Click">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Up"/>
                 </Button.KeyboardAccelerators>
             </Button>
-            <Button Height="32" Name="Down_Button" Content="&#xE74B;" ToolTipService.ToolTip="下移" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Down_Button_Click">
+            <Button Height="32" Name="Down_Button" Content="&#xE74B;" AutomationProperties.Name="下移" ToolTipService.ToolTip="下移" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Down_Button_Click">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Down"/>
                 </Button.KeyboardAccelerators>
             </Button>
-            <Button Height="32" Name="Delete_Button" Content="&#xE107;" ToolTipService.ToolTip="删除" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Delete_Button_Click">
+            <Button Height="32" Name="Delete_Button" Content="&#xE107;" AutomationProperties.Name="删除" ToolTipService.ToolTip="删除" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Delete_Button_Click">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Delete"/>
                 </Button.KeyboardAccelerators>
             </Button>
-            <Button Height="32" Name="Complete_Button" Content="&#xE10B;" ToolTipService.ToolTip="完成" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Complete_Button_Click">
+            <Button Height="32" Name="Complete_Button" Content="&#xE10B;" AutomationProperties.Name="完成" ToolTipService.ToolTip="完成" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Click="Complete_Button_Click">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Enter"/>
                 </Button.KeyboardAccelerators>
             </Button>
-            <Button Height="32" Name="Close2" Click="Close_Click" ToolTipService.ToolTip="关闭" Content="&#xE8BB;" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
+            <Button Height="32" Name="Close2" Click="Close_Click" AutomationProperties.Name="关闭" ToolTipService.ToolTip="关闭" Content="&#xE8BB;" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
             </Button>
         </StackPanel>
         <ListView HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" CanReorderItems="False" ReorderMode="Disabled" AllowDrop="False" >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Collection_List">
-                    <StackPanel>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionTitle}" FontSize="16" Margin="0,8,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionUri}" FontSize="12" Margin="0,4,0,8"/>
+                    <StackPanel AutomationProperties.Name="{x:Bind CollectionTitle}">
+                        <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionTitle}" ToolTipService.ToolTip="{x:Bind CollectionTitle}" FontSize="14" Margin="0,8,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionUri}" ToolTipService.ToolTip="{x:Bind CollectionUri}" FontSize="10" Margin="0,2,0,8"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

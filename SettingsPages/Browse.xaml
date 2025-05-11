@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <Grid HorizontalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" AutomationProperties.Name="浏览">
         <Grid HorizontalAlignment="Stretch" Margin="40,32,40,0" MaxWidth="720">
             <TextBlock x:Name="PageTitle" Text="浏览" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
         </Grid>
@@ -21,7 +21,7 @@
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
                             <Grid>
-                                <ComboBox FontFamily="HarmonyOS Sans SC" Name = "WebView_Selection" SelectionChanged="WebView_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                <ComboBox AutomationProperties.Name="浏览器内核" FontFamily="HarmonyOS Sans SC" Name = "WebView_Selection" SelectionChanged="WebView_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
                                     <x:String>Chromium</x:String>
                                     <x:String>EdgeHTML</x:String>
                                 </ComboBox>
@@ -35,18 +35,18 @@
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
                             <Grid>
-                                <ComboBox FontFamily="HarmonyOS Sans SC" Name = "Home_Selection" SelectionChanged="Home_Selection_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                <ComboBox AutomationProperties.Name="起始页" FontFamily="HarmonyOS Sans SC" Name = "Home_Selection" SelectionChanged="Home_Selection_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
                                     <x:String>新标签页</x:String>
                                     <x:String>自定义</x:String>
                                 </ComboBox>
                             </Grid>
-                            <Button FontFamily="HarmonyOS Sans SC" Name="SetHome_Button" Visibility="Collapsed" Margin="4,0,0,0" Content="更改" Click="SetHome_Button_Click">
+                            <Button AutomationProperties.Name="更改起始页" FontFamily="HarmonyOS Sans SC" Name="SetHome_Button" Visibility="Collapsed" Margin="4,0,0,0" Content="更改" Click="SetHome_Button_Click">
                                 <Button.Flyout>
                                     <Flyout x:Name="Set_HomeLink_Flyout" Placement="TopEdgeAlignedRight">
                                         <StackPanel MinWidth="280" MaxWidth="280" Width="280">
                                             <Grid HorizontalAlignment="Stretch" Margin="0,0,0,12">
                                                 <TextBlock FontFamily="HarmonyOS Sans SC" Text="链接" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Home_Link" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
+                                                <TextBox FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="链接" Name="Home_Link" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
                                             </Grid>
                                             <Button FontFamily="HarmonyOS Sans SC" Content="完成" Width="64" IsEnabled="True" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Click="SetHome_Complete" Style="{StaticResource AccentButtonStyle}"/>
                                         </StackPanel>
@@ -61,7 +61,7 @@
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
                             <Grid>
-                                <ComboBox FontFamily="HarmonyOS Sans SC" Name = "Search_Selection" SelectionChanged="Search_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                <ComboBox FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="默认搜索引擎" Name = "Search_Selection" SelectionChanged="Search_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
                                     <x:String>必应</x:String>
                                     <x:String>百度</x:String>
                                     <x:String>谷歌</x:String>
@@ -70,13 +70,13 @@
                                     <x:String>自定义</x:String>
                                 </ComboBox>
                             </Grid>
-                            <Button FontFamily="HarmonyOS Sans SC" Name="SetSearch_Button" Visibility="Collapsed" Margin="4,0,0,0" Content="更改" Click="SetSearch_Click">
+                            <Button FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="更改搜索引擎" Name="SetSearch_Button" Visibility="Collapsed" Margin="4,0,0,0" Content="更改" Click="SetSearch_Click">
                                 <Button.Flyout>
                                     <Flyout x:Name="Set_SearchLink_Flyout" Placement="TopEdgeAlignedRight">
                                         <StackPanel MinWidth="280" MaxWidth="280" Width="280">
                                             <Grid HorizontalAlignment="Stretch" Margin="0,0,0,12">
                                                 <TextBlock FontFamily="HarmonyOS Sans SC" Text="链接" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                                <TextBox FontFamily="HarmonyOS Sans SC" Name="Search_Link" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
+                                                <TextBox FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="链接" Name="Search_Link" HorizontalAlignment="Right" Width="240" MinWidth="240" MaxWidth="240" />
                                             </Grid>
                                             <Button FontFamily="HarmonyOS Sans SC" Content="完成" Width="64" IsEnabled="True" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Click="SetSearch_Complete" Style="{StaticResource AccentButtonStyle}"/>
                                         </StackPanel>
@@ -90,13 +90,13 @@
 						<Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
 						<TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "禁用JavaScript" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
 						<Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-						<ToggleSwitch FontFamily="HarmonyOS Sans SC" Name="ForbidJavaScript_Switch" Toggled="ForbidJavaScript_Switch_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                        <ToggleSwitch AutomationProperties.Name="禁用JavaScript" FontFamily="HarmonyOS Sans SC" Name="ForbidJavaScript_Switch" Toggled="ForbidJavaScript_Switch_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
 					</Grid>
 					<Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
 						<Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
 						<TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "自动保存密码" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
 						<Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-						<ToggleSwitch FontFamily="HarmonyOS Sans SC" Name="AutoSavePassword_Switch" Toggled="AutoSavePassword_Switch_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                        <ToggleSwitch AutomationProperties.Name="自动保存密码" FontFamily="HarmonyOS Sans SC" Name="AutoSavePassword_Switch" Toggled="AutoSavePassword_Switch_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
 					</Grid>
 				</StackPanel>
             </Grid>

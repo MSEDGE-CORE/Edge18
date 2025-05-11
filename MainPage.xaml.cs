@@ -267,15 +267,18 @@ namespace App3
         }
 
         public ObservableCollection<Tab_List> TabList { get; } = new ObservableCollection<Tab_List>();
-        private void TabsChanged()
+        public void TabsChanged()
         {
             TabList.Clear();
             for (int i = 0; i < MicrosoftEdge.TabItems.Count; i++)
             {
+                Windows.UI.Xaml.Media.ImageSource iconSource = null;
+                if (((MicrosoftEdge.TabItems[i] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage2))
+                    iconSource = (((MicrosoftEdge.TabItems[i] as TabViewItem).Content as Frame).Content as WebPage2).GetIcon_WindowsUiXamlControlsIconSource();
                 TabList.Add(new Tab_List()
                 {
                     Title = (MicrosoftEdge.TabItems[i] as TabViewItem).Header.ToString(),
-                    iconSource = null
+                    iconSource = iconSource
                 });
             }
             ListView.SelectedIndex = MicrosoftEdge.SelectedIndex;
@@ -379,7 +382,7 @@ namespace App3
                 {
                     TabListButton.Visibility = Visibility.Collapsed;
                 }
-                ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Top;
+                ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Stretch;
                 //(Application.Current as App).WebViewUA = 0;
             }
             else if(LayoutState == 2)
@@ -399,26 +402,34 @@ namespace App3
             {
                 SideGridTransform.X = SideWindow.Width;
                 ShowSideWindow(0);
-                ShowTabListWindow(0);
             }
             if(!IsTabListWindowOpen && fromPage)
             {
                 TabListGridTransform.X = -TabListWindow.Width;
-                ShowSideWindow(0);
                 ShowTabListWindow(0);
             }
 
-            if (ApplicationView.GetForCurrentView().IsFullScreenMode && fromPage)
+            if (ApplicationView.GetForCurrentView().IsFullScreenMode && fromPage && LayoutState == 1)
             {
-                MicrosoftEdge.Margin = new Thickness(0, -92, 0, 0);
+                TitleDTransform.From = TitleBarTransform.Y;
+                TitleDTransform.To = -92;
+                TitleStoryBoard.Begin();
+                MicrosoftEdge.Margin = new Thickness(0, 0, 0, -92);
+
                 ExitFS.Visibility = Visibility.Visible;
                 ExitFS.Height = 16;
                 ExitFS.VerticalAlignment = VerticalAlignment.Top;
                 ExitFS.Margin = new Thickness(0, 0, 0, 0);
+                ShowSideWindow(0);
+                ShowTabListWindow(0);
             }
             else if (fromPage)
             {
+                TitleDTransform.From = TitleBarTransform.Y;
+                TitleDTransform.To = 0;
+                TitleStoryBoard.Begin();
                 MicrosoftEdge.Margin = new Thickness(0, 0, 0, 0);
+
                 ExitFS.Visibility = Visibility.Collapsed;
             }
         }
@@ -437,7 +448,8 @@ namespace App3
             }
             if (ToOpen == 1)
             { 
-                ListView.SelectedIndex = MicrosoftEdge.SelectedIndex;
+                if(MicrosoftEdge.SelectedIndex >= 0 && ListView.Items.Count > MicrosoftEdge.SelectedIndex)
+                    ListView.SelectedIndex = MicrosoftEdge.SelectedIndex;
                 (TabListFlowIn.EasingFunction as ExponentialEase).Exponent = 8;
             }
             IsTabListWindowOpen = ToOpen != 0 ? true : false;
@@ -592,24 +604,33 @@ namespace App3
 
         private void ExitFS_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if (ApplicationView.GetForCurrentView().IsFullScreenMode && MicrosoftEdge.Margin == new Thickness(0, -92, 0, 0))
+            if (ApplicationView.GetForCurrentView().IsFullScreenMode && TitleDTransform.To == -92)
             {
-                MicrosoftEdge.Margin = new Thickness(0, 0, 0, -92);
+                TitleDTransform.From = TitleBarTransform.Y;
+                TitleDTransform.To = 0;
+                TitleStoryBoard.Begin();
+
                 (sender as Button).Height = ActualHeight;
                 (sender as Button).VerticalAlignment = VerticalAlignment.Stretch;
                 (sender as Button).Margin = new Thickness(0, 160, 0, 0);
             }
-            else if(ApplicationView.GetForCurrentView().IsFullScreenMode)
+            else if(ApplicationView.GetForCurrentView().IsFullScreenMode && TitleDTransform.To == 0)
             {
-                MicrosoftEdge.Margin = new Thickness(0, -92, 0, 0);
+                TitleDTransform.From = TitleBarTransform.Y;
+                TitleDTransform.To = -92;
+                TitleStoryBoard.Begin();
+
                 (sender as Button).Height = 16;
                 (sender as Button).VerticalAlignment = VerticalAlignment.Top;
                 (sender as Button).Margin = new Thickness(0, 0, 0, 0);
             }
             else
             {
+                TitleDTransform.From = TitleBarTransform.Y;
+                TitleDTransform.To = 0;
+                TitleStoryBoard.Begin();
+
                 (sender as Button).Visibility = Visibility.Collapsed;
-                MicrosoftEdge.Margin = new Thickness(0, 0, 0, 0);
             }
         }
     }

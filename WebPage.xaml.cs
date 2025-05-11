@@ -447,7 +447,8 @@ namespace App3
 
         private void DownloadBack_Click(object sender, RoutedEventArgs e)
         {
-            (((Frame)DownloadFrame).Content as Download).CloseWebView();
+            if((DownloadFrame as Frame).Content != null && (DownloadFrame as Frame).Content.GetType() == typeof(Download))
+                (((Frame)DownloadFrame).Content as Download).CloseWebView();
             DownloadBackControl.Visibility = Visibility.Collapsed;
 
             DownloadStoryBoardDoubleAnimation.From = 1;
@@ -471,8 +472,7 @@ namespace App3
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
+
         }
 
         private void Page_SizeChanged(object sender = null, SizeChangedEventArgs e = null)
@@ -593,20 +593,9 @@ namespace App3
             Browser.ShowTabListWindow(1);
         }
 
-        private async void NewWindow_Click(object sender, RoutedEventArgs e)
+        private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
-            var applicationView = CoreApplication.CreateNewView();
-            int newViewId = 0;
-            await applicationView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                Frame frame = new Frame();
-                frame.Navigate(typeof(MainPage), null);
-                Window.Current.Content = frame;
-                Window.Current.Activate();
-
-                newViewId = ApplicationView.GetForCurrentView().Id;
-            });
-            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
+            (Application.Current as App).CreateNewWindow();
         }
     }
 }

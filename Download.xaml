@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid x:Name="Grid">
-        <Button Click="DownloadButton" ToolTipService.ToolTip="下载" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Height="36" Margin="0,7,10,0">
+        <Button AutomationProperties.Name="下载" Click="DownloadButton" ToolTipService.ToolTip="下载" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Height="36" Margin="0,7,10,0">
             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE118;" FontSize="16"/>
         </Button>
         <Grid>

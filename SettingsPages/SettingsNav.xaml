@@ -9,38 +9,38 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutomationProperties.Name="设置">
         <Grid HorizontalAlignment="Stretch" MinWidth="360" ManipulationDelta="Grid_ManipulationDelta" ManipulationMode="TranslateX" ManipulationCompleted="Grid_ManipulationCompleted" ManipulationStarted="Grid_ManipulationStarted">
-            <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Grid Name="NavigationBar">
                 <Button Name="LeftBar" IsTabStop="False" IsEnabled="True" CornerRadius="0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="70" Margin="-2,-2,0,-2"/>
                 <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="70" Margin="-2,-2,0,-2"/>
                 <StackPanel Name="NavigationButtons">
-                    <ToggleButton Name="NavAppearanceButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavAppearanceButton_Click" Margin="0,0,4,4">
+                    <ToggleButton AutomationProperties.Name="外观" Name="NavAppearanceButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavAppearanceButton_Click" Margin="0,0,4,4">
                         <StackPanel>
                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE771;" Margin="4,4,4,4"/>
                             <TextBlock Text="外观" HorizontalAlignment="Center" FontSize="12" FontFamily="HarmonyOS Sans SC"/>
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton Name="NavBrowseButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavBrowseButton_Click" Margin="0,0,4,4">
+                    <ToggleButton AutomationProperties.Name="浏览" Name="NavBrowseButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavBrowseButton_Click" Margin="0,0,4,4">
                         <StackPanel>
                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF6FA;" Margin="4,4,4,4"/>
                             <TextBlock Text="浏览" HorizontalAlignment="Center" FontSize="12" FontFamily="HarmonyOS Sans SC"/>
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton Name="NavFileButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavFileButton_Click" Margin="0,0,4,4">
+                    <ToggleButton AutomationProperties.Name="存储" Name="NavFileButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavFileButton_Click" Margin="0,0,4,4">
                         <StackPanel>
                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B7;" Margin="4,4,4,4"/>
                             <TextBlock Text="存储" HorizontalAlignment="Center" FontSize="12" FontFamily="HarmonyOS Sans SC"/>
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton Name="NavAboutButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavAboutButton_Click" Margin="0,0,4,4">
+                    <ToggleButton AutomationProperties.Name="关于" Name="NavAboutButton" Background="Transparent" BorderBrush="Transparent" Width="64" Height="64" CornerRadius="8" IsChecked="False" Click="NavAboutButton_Click" Margin="0,0,4,4">
                         <StackPanel>
                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE946;" Margin="4,4,4,4" />
                             <TextBlock Text="关于" HorizontalAlignment="Center" FontSize="12" FontFamily="HarmonyOS Sans SC"/>
                         </StackPanel>
                     </ToggleButton>
                 </StackPanel>
+                <Frame Name="ContentFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Grid>
 
             <Grid Name="WinTitleBar">

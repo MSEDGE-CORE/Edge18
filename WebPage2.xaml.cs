@@ -450,8 +450,8 @@ namespace App3
                 {
                     try
                     {
-                        Uri faviconUrl = new Uri(EdgeWebView.CoreWebView2.FaviconUri);
-                        Microsoft.UI.Xaml.Controls.BitmapIconSource iconsource = new Microsoft.UI.Xaml.Controls.BitmapIconSource() { UriSource = faviconUrl, ShowAsMonochrome = false };
+                        Uri faviconUri = new Uri(EdgeWebView.CoreWebView2.FaviconUri);
+                        Microsoft.UI.Xaml.Controls.BitmapIconSource iconsource = new Microsoft.UI.Xaml.Controls.BitmapIconSource() { UriSource = faviconUri, ShowAsMonochrome = false };
                         ((((Browser.Content as Grid).Children[0] as TabView).TabItems[i]) as TabViewItem).IconSource = iconsource;
                     }
                     catch
@@ -460,6 +460,7 @@ namespace App3
                     }
                 }
             }
+            Browser.TabsChanged();
         }
 
         private void CoreWebView2_WindowCloseRequested(CoreWebView2 sender, object args)
@@ -517,9 +518,6 @@ namespace App3
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            Browser.ShowSideWindow(0);
-            Browser.ShowTabListWindow(0);
-
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
         }
@@ -688,20 +686,26 @@ namespace App3
             }
         }
 
-        private async void NewWindow_Click(object sender, RoutedEventArgs e)
+        private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
-            var applicationView = CoreApplication.CreateNewView();
-            int newViewId = 0;
-            await applicationView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                Frame frame = new Frame();
-                frame.Navigate(typeof(MainPage), null);
-                Window.Current.Content = frame;
-                Window.Current.Activate();
+            (Application.Current as App).CreateNewWindow();
+        }
 
-                newViewId = ApplicationView.GetForCurrentView().Id;
-            });
-            var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
+        public Windows.UI.Xaml.Media.ImageSource GetIcon_WindowsUiXamlControlsIconSource()
+        {
+            try
+            {
+                if(EdgeWebView.CoreWebView2 != null)
+                {
+                    Uri faviconUri = new Uri(EdgeWebView.CoreWebView2.FaviconUri);
+                    Windows.UI.Xaml.Media.ImageSource iconsource = new BitmapImage() { UriSource = faviconUri };
+                    return iconsource;
+                }
+            }
+            catch
+            {
+            }
+            return null;
         }
     }
 }

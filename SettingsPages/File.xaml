@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <Grid HorizontalAlignment="Stretch">
+    <Grid HorizontalAlignment="Stretch" AutomationProperties.Name="文件">
         <Grid HorizontalAlignment="Stretch" Margin="40,32,40,0" MaxWidth="720">
             <TextBlock x:Name="PageTitle" Text="文件" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
         </Grid>
