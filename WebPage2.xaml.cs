@@ -430,10 +430,42 @@ namespace App3
             sender.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
             sender.CoreWebView2.WindowCloseRequested += CoreWebView2_WindowCloseRequested;
             sender.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
+            sender.CoreWebView2.PermissionRequested += CoreWebView2_PermissionRequested;
 
             EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
             EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
             EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
+        }
+
+        private async void CoreWebView2_PermissionRequested(CoreWebView2 sender, CoreWebView2PermissionRequestedEventArgs args)
+        {/*
+            Trace.WriteLine(args.PermissionKind.ToString());
+            
+            try
+            {
+                string PermissionKind = args.PermissionKind.ToString();
+                if(PermissionKind == "Camera")
+                    PermissionKind = "相机"
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = PermissionKind;
+                dialog.PrimaryButtonText = "允许";
+                dialog.SecondaryButtonText = "禁止";
+                dialog.DefaultButton = ContentDialogButton.Secondary;
+                dialog.Content = "\"" + EdgeWebView.CoreWebView2.DocumentTitle + "\" 正在访问 " + PermissionKind;
+                dialog.FontFamily = new FontFamily("HarmonyOS Sans SC");
+
+                var result = await dialog.ShowAsync();
+                if (result.Equals(ContentDialogResult.Primary))
+                {
+                    args.State = CoreWebView2PermissionState.Allow;
+                }
+                else if (result.Equals(ContentDialogResult.Secondary))
+                {
+                    args.State = CoreWebView2PermissionState.Deny;
+                }
+            }
+            catch { }
+            args.Handled = true;*/
         }
 
         private void CoreWebView2_FaviconChanged(CoreWebView2 sender, object args)

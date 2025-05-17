@@ -365,9 +365,34 @@ namespace App3
             }    
         }
 
-        private void WebView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args)
+        private async void WebView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args)
         {
-            args.PermissionRequest.Allow();
+            //Trace.WriteLine(args.PermissionRequest.PermissionType.ToString());
+
+            try
+            {
+                string PermissionKind = args.PermissionRequest.PermissionType.ToString();
+                /*if (PermissionKind == "Camera")
+                    PermissionKind = "相机";*/
+                ContentDialog dialog = new ContentDialog();
+                dialog.Title = PermissionKind;
+                dialog.PrimaryButtonText = "允许";
+                dialog.SecondaryButtonText = "禁止";
+                dialog.DefaultButton = ContentDialogButton.Secondary;
+                dialog.Content = "\"" + EdgeWebView.DocumentTitle + "\" 正在访问 " + PermissionKind;
+                dialog.FontFamily = new FontFamily("HarmonyOS Sans SC");
+
+                var result = await dialog.ShowAsync();
+                if (result.Equals(ContentDialogResult.Primary))
+                {
+                    args.PermissionRequest.Allow();
+                }
+                else if (result.Equals(ContentDialogResult.Secondary))
+                {
+                    args.PermissionRequest.Deny();
+                }
+            }
+            catch { }
         }
 
         private void SearchChanged(object sender, KeyRoutedEventArgs e)
