@@ -153,9 +153,6 @@
     <Compile Include="SettingsPages\Browse.xaml.cs">
       <DependentUpon>Browse.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsPages\BrowsePrivacy.xaml.cs">
-      <DependentUpon>BrowsePrivacy.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SettingsPages\File.xaml.cs">
       <DependentUpon>File.xaml</DependentUpon>
     </Compile>
@@ -265,10 +262,6 @@
     <Page Include="SettingsPages\Browse.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SettingsPages\BrowsePrivacy.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingsPages\File.xaml">
       <Generator>MSBuild:Compile</Generator>
