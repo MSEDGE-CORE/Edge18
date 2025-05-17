@@ -29,14 +29,14 @@
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <HyperlinkButton AutomationProperties.Name="Github 项目主页" FontFamily="HarmonyOS Sans SC" Name="ProjectHome" Content="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" Click="ProjectHome_Click"  />
                     </Grid>
-                    <Grid HorizontalAlignment = "Stretch" Margin = "0,4,0,0" MinHeight = "48" MaxHeight = "48" Height = "48" Visibility="Visible">
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "48" MaxHeight = "48" Height = "48" Visibility="Visible">
                         <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xECC5;" Margin="26,4,4,4" HorizontalAlignment="Left"/>
                         <TextBlock FontSize = "14" Text = "检查更新" Margin = "60,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" FontFamily="HarmonyOS Sans SC" />
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <HyperlinkButton FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="检查更新" Name="CheckForUpdate" Content="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0" Click="CheckForUpdate_Click" />
                     </Grid>
-                    <Grid HorizontalAlignment = "Stretch" Margin = "0,4,0,0" MinHeight = "48" MaxHeight = "48" Height = "48" Visibility="Visible">
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "48" MaxHeight = "48" Height = "48" Visibility="Visible">
                         <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE939;" Margin="26,4,4,4" HorizontalAlignment="Left"/>
                         <TextBlock FontSize = "14" Text = "发送反馈" Margin = "60,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" FontFamily="HarmonyOS Sans SC" />
@@ -49,6 +49,7 @@
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         <StackPanel AutomationProperties.Name="依赖 &amp; 参考" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="16,40,0,0" Orientation="Horizontal">
                             <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkWinUI" Content="Microsoft.WinUI" Click="LinkWinUI_Click"/>
+                            <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkHtmlPack" Content="zzzprojects.HtmlAgilityPack" Click="LinkHtmlPack_Click"/>
                             <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkGxapSpartan" Content="Gxap.Spartan" Click="LinkGxapSpartan_Click"/>
                         </StackPanel>
                     </Grid>

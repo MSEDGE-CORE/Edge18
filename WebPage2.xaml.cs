@@ -27,6 +27,7 @@ using Windows.UI.Xaml.Media.Animation;
 using System.Linq.Expressions;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Text.Json;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -154,7 +155,7 @@ namespace App3
             WebNavigating = false;
             PageReqFS = false;
 
-            if (EdgeWebView.Source.ToString() != "about:blank")
+            if (EdgeWebView.Source.ToString() != "about:blank" && EdgeWebView.Source.ToString() != "")
             {
                 try
                 { 
@@ -162,21 +163,14 @@ namespace App3
                 }
                 catch { }
 
-                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                int HistoryCount = (Application.Current as App).HistoryList.Count();
                 try
                 {
-                    string HistoryTitle = EdgeWebView.CoreWebView2.DocumentTitle + "\n" + EdgeWebView.Source.ToString();
-                    string FileHistoryTitle = "History\\HistoryTitle" + HistoryCount.ToString();
-                    Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("History\\HistoryCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                    Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileHistoryTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                    await Windows.Storage.FileIO.WriteTextAsync(Count, HistoryCount.ToString());
-                    await Windows.Storage.FileIO.WriteTextAsync(Title, HistoryTitle);
+                    string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                    Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                    Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                    await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
                 }
-                catch
-                {
-
-                }
+                catch { }
             }
 
             if (!isLoaded)
@@ -616,7 +610,6 @@ namespace App3
                     if (isLoaded)
                     {
                         EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
-                        EdgeWebView.CoreWebView2.Reload();
                     }
                 }
                 
@@ -689,6 +682,15 @@ namespace App3
         private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).CreateNewWindow();
+        }
+
+        private void NewWindowOpen_Click(object sender, RoutedEventArgs e)
+        {
+            if (isLoaded)
+            {
+                (Application.Current as App).CreateNewWindow(WebLink);
+                //CoreWebView2_WindowCloseRequested(null, null);
+            }
         }
 
         public Windows.UI.Xaml.Media.ImageSource GetIcon_WindowsUiXamlControlsIconSource()

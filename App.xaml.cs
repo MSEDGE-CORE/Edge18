@@ -26,6 +26,8 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.System;
 using System.Text.RegularExpressions;
+using System.Text.Json;
+using System.Reflection;
 
 
 namespace App3
@@ -48,8 +50,8 @@ namespace App3
 
     sealed partial class App : Application
     {
-        public ObservableCollection<Collection_List> CollectionList { get; } = new ObservableCollection<Collection_List>();
-        public ObservableCollection<History_List> HistoryList { get; } = new ObservableCollection<History_List>();
+        public ObservableCollection<Collection_List> CollectionList { get; set; } = new ObservableCollection<Collection_List>();
+        public ObservableCollection<History_List> HistoryList { get; set; } = new ObservableCollection<History_List>();
 
         public Frame RootFrame;
         DispatcherTimer Timer;
@@ -248,7 +250,7 @@ namespace App3
             }
         }
 
-        public async void CreateNewWindow()
+        public async void CreateNewWindow(string Link = "")
         {
             var applicationView = CoreApplication.CreateNewView();
             int newViewId = 0;
@@ -260,6 +262,11 @@ namespace App3
                 Window.Current.Activate();
 
                 newViewId = ApplicationView.GetForCurrentView().Id;
+
+                if(Link != "")
+                {
+                    (frame.Content as MainPage).AddTab(Link);
+                }
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
         }
@@ -373,10 +380,36 @@ namespace App3
 
             GetCollection();
             GetHistory();
+            if (CollectionList.Count == 0 && HistoryList.Count == 0)
+                GetColHisFromOldVer();
         }
 
         public async void GetCollection()
         {
+            this.CollectionList.Clear();
+            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            try
+            {
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.GetFileAsync("LocalStorage2\\Collections.json");
+                CollectionList = await JsonSerializer.DeserializeAsync<ObservableCollection<Collection_List>>(await CollectionFile.OpenStreamForReadAsync());
+            }
+            catch { }
+        }
+        public async void GetHistory()
+        {
+            this.HistoryList.Clear();
+            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            try
+            {
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.GetFileAsync("LocalStorage2\\History.json");
+                HistoryList = await JsonSerializer.DeserializeAsync<ObservableCollection<History_List>>(await CollectionFile.OpenStreamForReadAsync());
+            }
+            catch { }
+        }
+
+        public async void GetColHisFromOldVer()
+        {
+            //读取
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             int CollectionCount = 0;
             Windows.Storage.StorageFile file;
@@ -385,67 +418,83 @@ namespace App3
                 file = await StorageFolder.GetFileAsync("Collection\\CollectionCount");
                 var Count = await Windows.Storage.FileIO.ReadLinesAsync(file);
                 CollectionCount = Int32.Parse(Count[0]);
+
+                if (CollectionCount > 0)
+                {
+                    for (int i = 1; i <= CollectionCount; i++)
+                    {
+                        string FileCollectionTitle = "Collection\\CollectionTitle" + i.ToString();
+                        StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                        try
+                        {
+                            file = await StorageFolder.GetFileAsync(FileCollectionTitle);
+                            var FileCollectionList = await Windows.Storage.FileIO.ReadLinesAsync(file);
+                            (Application.Current as App).CollectionList.Add(new Collection_List() { CollectionTitle = FileCollectionList[0], CollectionUri = FileCollectionList[1] });
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+
+                try
+                {
+                    Windows.Storage.StorageFolder folder = await StorageFolder.GetFolderAsync("Collection");
+                    await folder.RenameAsync("Collection1");
+                }
+                catch { }
+
+                string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
             }
             catch
             {
 
             }
 
-            this.CollectionList.Clear();
-            if (CollectionCount > 0)
-            {
-                for (int i = 1; i <= CollectionCount; i++)
-                {
-                    string FileCollectionTitle = "Collection\\CollectionTitle" + i.ToString();
-                    StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                    try
-                    {
-                        file = await StorageFolder.GetFileAsync(FileCollectionTitle);
-                        var FileCollectionList = await Windows.Storage.FileIO.ReadLinesAsync(file);
-                        this.CollectionList.Add(new Collection_List() { CollectionTitle = FileCollectionList[0], CollectionUri = FileCollectionList[1] });
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
-        }
-        public async void GetHistory()
-        {
-            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             int HistoryCount = 0;
-            Windows.Storage.StorageFile file;
             try
             {
                 file = await StorageFolder.GetFileAsync("History\\HistoryCount");
                 var Count = await Windows.Storage.FileIO.ReadLinesAsync(file);
                 HistoryCount = Int32.Parse(Count[0]);
+
+                int nowCount = (Application.Current as App).HistoryList.Count();
+                if (HistoryCount > 0)
+                {
+                    for (int i = HistoryCount; i >= 0; i--)
+                    {
+                        string FileHistoryTitle = "History\\HistoryTitle" + i.ToString();
+                        StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                        try
+                        {
+                            file = await StorageFolder.GetFileAsync(FileHistoryTitle);
+                            var FileHistoryList = await Windows.Storage.FileIO.ReadLinesAsync(file);
+                            (Application.Current as App).HistoryList.Insert(nowCount, new History_List() { HistoryTitle = FileHistoryList[0], HistoryUri = FileHistoryList[1] });
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+
+                try
+                {
+                    Windows.Storage.StorageFolder folder = await StorageFolder.GetFolderAsync("History");
+                    await folder.RenameAsync("History1");
+                }
+                catch { }
+
+                string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
             }
             catch
             {
 
-            }
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            
-            this.HistoryList.Clear();
-            if (HistoryCount > 0)
-            {
-                for (int i = HistoryCount; i >= 0; i--)
-                {
-                    string FileHistoryTitle = "History\\HistoryTitle" + i.ToString();
-                    StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                    try
-                    {
-                        file = await StorageFolder.GetFileAsync(FileHistoryTitle);
-                        var FileHistoryList = await Windows.Storage.FileIO.ReadLinesAsync(file);
-                        this.HistoryList.Add(new History_List() { HistoryTitle = FileHistoryList[0], HistoryUri = FileHistoryList[1] });
-                    }
-                    catch
-                    {
-
-                    }
-                }
             }
         }
 

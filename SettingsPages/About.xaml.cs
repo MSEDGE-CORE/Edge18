@@ -58,5 +58,11 @@ namespace App3.SettingsPages
             Browser.SettingsBack_Click(sender, e);
             MainPage.Browser.AddTab("https://space.bilibili.com/1103393397");
         }
+
+        private void LinkHtmlPack_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.SettingsBack_Click(sender, e);
+            MainPage.Browser.AddTab("https://html-agility-pack.net/");
+        }
     }
 }

@@ -24,6 +24,7 @@ using static App3.App;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.ApplicationModel.Contacts;
+using System.Text.Json;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -163,7 +164,7 @@ namespace App3
             WebNavigating = false;
             PageReqFS = false;
 
-            if (EdgeWebView.Source.ToString() != "about:blank")
+            if (EdgeWebView.Source.ToString() != "about:blank" && EdgeWebView.Source.ToString() != "")
             {
                 try
                 { 
@@ -171,25 +172,14 @@ namespace App3
                 }
                 catch { }
 
-                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                int HistoryCount = 1;
                 try
                 {
-                    Windows.Storage.StorageFile file;
-                    file = await StorageFolder.GetFileAsync("History\\HistoryCount");
-                    var HCount = await Windows.Storage.FileIO.ReadLinesAsync(file);
-                    HistoryCount += Int32.Parse(HCount[0]);
+                    string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                    Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                    Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                    await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
                 }
-                catch
-                {
-
-                }
-                string HistoryTitle = EdgeWebView.DocumentTitle + "\n" + EdgeWebView.Source.ToString();
-                string FileHistoryTitle = "History\\HistoryTitle" + HistoryCount.ToString();
-                Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("History\\HistoryCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileHistoryTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(Count, HistoryCount.ToString());
-                await Windows.Storage.FileIO.WriteTextAsync(Title, HistoryTitle);
+                catch { }
             }
         }
 
@@ -596,6 +586,13 @@ namespace App3
         private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).CreateNewWindow();
+        }
+        private void NewWindowOpen_Click(object sender, RoutedEventArgs e)
+        {
+            if (isLoaded)
+            {
+                (Application.Current as App).CreateNewWindow(WebLink);
+            }
         }
     }
 }

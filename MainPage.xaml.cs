@@ -382,7 +382,7 @@ namespace App3
                 {
                     TabListButton.Visibility = Visibility.Collapsed;
                 }
-                ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Stretch;
+                ((TabListWindow.Content as Grid).Children[0] as ListView).VerticalAlignment = VerticalAlignment.Top;
                 //(Application.Current as App).WebViewUA = 0;
             }
             else if(LayoutState == 2)

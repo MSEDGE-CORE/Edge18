@@ -61,12 +61,20 @@
             </Button>
         </StackPanel>
         <ListView HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" CanReorderItems="False" ReorderMode="Disabled" AllowDrop="False" >
+            <ListView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                </TransitionCollection>
+            </ListView.ItemContainerTransitions>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Collection_List">
-                    <StackPanel AutomationProperties.Name="{x:Bind CollectionTitle}">
-                        <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionTitle}" ToolTipService.ToolTip="{x:Bind CollectionTitle}" FontSize="14" Margin="0,8,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionUri}" ToolTipService.ToolTip="{x:Bind CollectionUri}" FontSize="10" Margin="0,2,0,8"/>
-                    </StackPanel>
+                    <Grid AutomationProperties.Name="{x:Bind CollectionTitle}">
+                        <StackPanel>
+                            <TextBlock FontFamily="HarmonyOS Sans SC" Text="{x:Bind CollectionTitle}" FontSize="14" Margin="0,8,0,8"/>
+                        </StackPanel>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" ToolTipService.ToolTip="{x:Bind CollectionUri}" />
+                        <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="Transparent" Width="32" ToolTipService.ToolTip="{x:Bind CollectionTitle}" />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

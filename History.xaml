@@ -18,12 +18,20 @@
             </Button>
         </StackPanel>
         <ListView HorizontalAlignment="Stretch" ItemClick="ListView_ItemClick" IsItemClickEnabled="True" VerticalAlignment="Top" Margin="0,44,0,0" SelectionChanged="ListView_SelectionChanged" Name="ListView">
+            <ListView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                </TransitionCollection>
+            </ListView.ItemContainerTransitions>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:History_List">
-                    <StackPanel AutomationProperties.Name="{x:Bind HistoryTitle}">
-                        <TextBlock Text="{x:Bind HistoryTitle}" FontFamily="HarmonyOS Sans SC" ToolTipService.ToolTip="{x:Bind HistoryTitle}" FontSize="14" Margin="0,8,0,0"/>
-                        <TextBlock Text="{x:Bind HistoryUri}" FontFamily="HarmonyOS Sans SC" ToolTipService.ToolTip="{x:Bind HistoryUri}" FontSize="10" Margin="0,2,0,8"/>
-                    </StackPanel>
+                    <Grid AutomationProperties.Name="{x:Bind HistoryTitle}">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind HistoryTitle}" FontFamily="HarmonyOS Sans SC" FontSize="14" Margin="0,8,0,8"/>
+                        </StackPanel>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" ToolTipService.ToolTip="{x:Bind HistoryUri}" />
+                        <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="Transparent" Width="32" ToolTipService.ToolTip="{x:Bind HistoryTitle}" />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

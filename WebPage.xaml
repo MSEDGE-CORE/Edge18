@@ -48,6 +48,11 @@
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
+                            <MenuFlyoutItem Text="在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
                             <MenuFlyoutItem Text="全屏" Click="FullScreen" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE740;"/>
@@ -133,6 +138,11 @@
                                     <MenuFlyoutItem.KeyboardAccelerators>
                                         <KeyboardAccelerator Key="N" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutItem Text="在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
+                                    <MenuFlyoutItem.Icon>
+                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
+                                    </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutItem Text="全屏" Click="FullScreen" FontFamily="HarmonyOS Sans SC">
                                     <MenuFlyoutItem.Icon>

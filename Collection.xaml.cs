@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -43,20 +44,9 @@ namespace App3
             ListView.ItemsSource = (Application.Current as App).CollectionList;
         }
 
-        private async void PageLoaded()
+        private void PageLoaded()
         {
-            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile file;
-            try
-            {
-                file = await StorageFolder.GetFileAsync("Collection\\CollectionCount");
-                var Count = await Windows.Storage.FileIO.ReadLinesAsync(file);
-                CollectionCount = Int32.Parse(Count[0]);
-            }
-            catch
-            {
-
-            }
+            CollectionCount = (Application.Current as App).CollectionList.Count();
         }
 
         private void Add_Collection_Click(object sender, RoutedEventArgs e)
@@ -84,12 +74,13 @@ namespace App3
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             CollectionCount += 1;
-            string CollectionTitle = Collection_Title.Text + "\n" + Collection_Uri.Text + "\n";
-            string FileCollectionTitle = "Collection\\CollectionTitle" + CollectionCount.ToString();
-            Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("Collection\\CollectionCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-            Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileCollectionTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-            await Windows.Storage.FileIO.WriteTextAsync(Count, CollectionCount.ToString());
-            await Windows.Storage.FileIO.WriteTextAsync(Title, CollectionTitle);
+            string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+            try
+            {
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
+            }
+            catch { }
         }
 
         private void Edit_Collection_Click(object sender, RoutedEventArgs e)
@@ -109,23 +100,12 @@ namespace App3
              
         }
 
-        private async void Delete_Button_Click(object sender, RoutedEventArgs e)
+        private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null)
             {
                 (Application.Current as App).CollectionList.RemoveAt(ListView.SelectedIndex);
                 CollectionCount--;
-
-                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("Collection\\CollectionCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(Count, CollectionCount.ToString());
-                for (int i = 0; i < CollectionCount; i++)
-                {
-                    string CollectionTitle = (Application.Current as App).CollectionList[i].CollectionTitle + "\n" + (Application.Current as App).CollectionList[i].CollectionUri + "\n";
-                    string FileCollectionTitle = "Collection\\CollectionTitle" + (i + 1).ToString();
-                    Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileCollectionTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                    await Windows.Storage.FileIO.WriteTextAsync(Title, CollectionTitle);
-                }
             }
         }
 
@@ -140,18 +120,16 @@ namespace App3
             ListView.AllowDrop = false;
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("Collection\\CollectionCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-            await Windows.Storage.FileIO.WriteTextAsync(Count, CollectionCount.ToString());
-            for (int i = 0; i < CollectionCount; i++)
+            string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+            try
             {
-                string CollectionTitle = (Application.Current as App).CollectionList[i].CollectionTitle + "\n" + (Application.Current as App).CollectionList[i].CollectionUri + "\n";
-                string FileCollectionTitle = "Collection\\CollectionTitle" + (i + 1).ToString();
-                Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileCollectionTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(Title, CollectionTitle);
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
             }
+            catch { }
         }
 
-        private async void Up_Button_Click(object sender, RoutedEventArgs e)
+        private void Up_Button_Click(object sender, RoutedEventArgs e)
         {
             if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null && ListView.SelectedIndex != 0)
             {
@@ -165,21 +143,10 @@ namespace App3
                 ListView.ItemsSource = null;
                 ListView.ItemsSource = (Application.Current as App).CollectionList;
                 ListView.SelectedIndex = SIndex - 1;
-
-                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("Collection\\CollectionCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(Count, CollectionCount.ToString());
-                for (int i = 0; i < CollectionCount; i++)
-                {
-                    string CollectionTitle = (Application.Current as App).CollectionList[i].CollectionTitle + "\n" + (Application.Current as App).CollectionList[i].CollectionUri + "\n";
-                    string FileCollectionTitle = "Collection\\CollectionTitle" + (i + 1).ToString();
-                    Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileCollectionTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                    await Windows.Storage.FileIO.WriteTextAsync(Title, CollectionTitle);
-                }
             }
         }
 
-        private async void Down_Button_Click(object sender, RoutedEventArgs e)
+        private void Down_Button_Click(object sender, RoutedEventArgs e)
         {
             if (ListView.SelectedItems.Count > 0 && ListView.SelectedItem != null && ListView.SelectedIndex != CollectionCount - 1)
             {
@@ -193,17 +160,6 @@ namespace App3
                 ListView.ItemsSource = null;
                 ListView.ItemsSource = (Application.Current as App).CollectionList;
                 ListView.SelectedIndex = SIndex + 1;
-
-                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                Windows.Storage.StorageFile Count = await StorageFolder.CreateFileAsync("Collection\\CollectionCount", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(Count, CollectionCount.ToString());
-                for (int i = 0; i < CollectionCount; i++)
-                {
-                    string CollectionTitle = (Application.Current as App).CollectionList[i].CollectionTitle + "\n" + (Application.Current as App).CollectionList[i].CollectionUri + "\n";
-                    string FileCollectionTitle = "Collection\\CollectionTitle" + (i + 1).ToString();
-                    Windows.Storage.StorageFile Title = await StorageFolder.CreateFileAsync(FileCollectionTitle, Windows.Storage.CreationCollisionOption.OpenIfExists);
-                    await Windows.Storage.FileIO.WriteTextAsync(Title, CollectionTitle);
-                }
             }
         }
 
