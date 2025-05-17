@@ -50,6 +50,7 @@
                         <StackPanel AutomationProperties.Name="依赖 &amp; 参考" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="16,48,0,16" >
                             <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkWinUI" Content="Microsoft.WinUI" Click="LinkWinUI_Click"/>
                             <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkHtmlPack" Content="zzzprojects.HtmlAgilityPack" Click="LinkHtmlPack_Click"/>
+                            <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkJson" Content="Newtonsoft.Json" Click="LinkJson_Click"/>
                             <HyperlinkButton FontFamily="HarmonyOS Sans SC" Name="LinkGxapSpartan" Content="Gxap.Spartan" Click="LinkGxapSpartan_Click"/>
                         </StackPanel>
                     </Grid>

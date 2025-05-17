@@ -82,6 +82,11 @@
             <Frame Name="TabListWindow" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
                 <Grid AutomationProperties.Name="标签页列表">
                     <ListView HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="TabListView_ItemClick" VerticalAlignment="Top" Margin="4,4,8,0" SelectionChanged="ListView_SelectionChanged" Name="ListView" >
+                        <ListView.Transitions >
+                            <TransitionCollection>
+                                <RepositionThemeTransition x:DefaultBindMode="OneWay"/>
+                            </TransitionCollection>
+                        </ListView.Transitions>
                         <ListView.ItemContainerTransitions>
                             <TransitionCollection>
                                 <RepositionThemeTransition IsStaggeringEnabled="False"/>

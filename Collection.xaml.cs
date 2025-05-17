@@ -1,11 +1,11 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -74,7 +75,7 @@ namespace App3
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             CollectionCount += 1;
-            string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+            string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
             try
             {
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
@@ -120,7 +121,7 @@ namespace App3
             ListView.AllowDrop = false;
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+            string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
             try
             {
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);

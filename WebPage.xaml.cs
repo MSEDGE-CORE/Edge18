@@ -24,7 +24,7 @@ using static App3.App;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.ApplicationModel.Contacts;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -174,7 +174,7 @@ namespace App3
 
                 try
                 {
-                    string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                    string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
                     Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                     Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
                     await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);

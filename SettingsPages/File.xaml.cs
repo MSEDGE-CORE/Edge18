@@ -14,10 +14,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using System.Text.Json;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
+using System.Reflection.PortableExecutable;
 
 namespace App3.SettingsPages
 {
@@ -42,8 +43,10 @@ namespace App3.SettingsPages
                 if (file.FileType == ".json")
                 {
                     using (var stream = await file.OpenStreamForReadAsync())
+                    using (var reader = new StreamReader(stream))
                     {
-                        var importedCollection = await JsonSerializer.DeserializeAsync<ObservableCollection<Collection_List>>(stream);
+                        string text = await reader.ReadToEndAsync();
+                        var importedCollection = JsonConvert.DeserializeObject<ObservableCollection<Collection_List>>(text);
                         if (importedCollection != null)
                         {
                             foreach (var CollectionItem in importedCollection)
@@ -93,7 +96,7 @@ namespace App3.SettingsPages
             }
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+            string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
             try
             {
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
@@ -110,7 +113,7 @@ namespace App3.SettingsPages
 
             (Application.Current as App).HistoryList.Clear();
 
-            string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+            string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             try
             {
@@ -202,7 +205,7 @@ namespace App3.SettingsPages
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             Windows.Storage.StorageFile CollectionFile;
-            string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+            string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
 
             Windows.Storage.Pickers.FileSavePicker SavePicker = new Windows.Storage.Pickers.FileSavePicker();
             SavePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Downloads;
@@ -245,7 +248,7 @@ namespace App3.SettingsPages
 
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             Windows.Storage.StorageFile HistoryFile;
-            string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+            string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
 
             Windows.Storage.Pickers.FileSavePicker SavePicker = new Windows.Storage.Pickers.FileSavePicker();
             SavePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Downloads;
@@ -292,8 +295,10 @@ namespace App3.SettingsPages
             if (file != null)
             {
                 using (var stream = await file.OpenStreamForReadAsync())
+                using (var reader = new StreamReader(stream))
                 {
-                    var importedHistory = await JsonSerializer.DeserializeAsync<ObservableCollection<History_List>>(stream);
+                    string text = await reader.ReadToEndAsync();
+                    var importedHistory = JsonConvert.DeserializeObject<ObservableCollection<History_List>>(text);
                     if (importedHistory != null)
                     {
                         int i = 0;
@@ -308,7 +313,7 @@ namespace App3.SettingsPages
 
             try
             {
-                string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
                 Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                 Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
                 await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);

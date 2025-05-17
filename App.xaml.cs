@@ -26,8 +26,9 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.System;
 using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Reflection;
+using Newtonsoft.Json;
+using System.Reflection.PortableExecutable;
 
 
 namespace App3
@@ -391,9 +392,17 @@ namespace App3
             try
             {
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.GetFileAsync("LocalStorage2\\Collections.json");
-                CollectionList = await JsonSerializer.DeserializeAsync<ObservableCollection<Collection_List>>(await CollectionFile.OpenStreamForReadAsync());
+                using (Stream stream = await CollectionFile.OpenStreamForReadAsync())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string text = await reader.ReadToEndAsync();
+                    CollectionList = JsonConvert.DeserializeObject<ObservableCollection<Collection_List>>(text);
+                }
             }
-            catch { }
+            catch 
+            {
+                CollectionList.Clear();
+            }
         }
         public async void GetHistory()
         {
@@ -402,9 +411,17 @@ namespace App3
             try
             {
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.GetFileAsync("LocalStorage2\\History.json");
-                HistoryList = await JsonSerializer.DeserializeAsync<ObservableCollection<History_List>>(await CollectionFile.OpenStreamForReadAsync());
+                using (Stream stream = await CollectionFile.OpenStreamForReadAsync())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string text = await reader.ReadToEndAsync();
+                    HistoryList = JsonConvert.DeserializeObject<ObservableCollection<History_List>>(text);
+                }
             }
-            catch { }
+            catch 
+            {
+                HistoryList.Clear();
+            }
         }
 
         public async void GetColHisFromOldVer()
@@ -444,8 +461,8 @@ namespace App3
                     await folder.RenameAsync("Collection1");
                 }
                 catch { }
-
-                string CollectionJson = JsonSerializer.Serialize((Application.Current as App).CollectionList);
+                
+                string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
                 await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
             }
@@ -487,8 +504,8 @@ namespace App3
                     await folder.RenameAsync("History1");
                 }
                 catch { }
-
-                string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                
+                string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
                 Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
                 await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
             }

@@ -64,5 +64,11 @@ namespace App3.SettingsPages
             Browser.SettingsBack_Click(sender, e);
             MainPage.Browser.AddTab("https://html-agility-pack.net/");
         }
+
+        private void LinkJson_Click(object sender, RoutedEventArgs e)
+        {
+            Browser.SettingsBack_Click(sender, e);
+            MainPage.Browser.AddTab("https://www.newtonsoft.com/json");
+        }
     }
 }

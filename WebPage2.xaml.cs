@@ -27,7 +27,7 @@ using Windows.UI.Xaml.Media.Animation;
 using System.Linq.Expressions;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -165,7 +165,7 @@ namespace App3
 
                 try
                 {
-                    string HistoryJson = JsonSerializer.Serialize((Application.Current as App).HistoryList);
+                    string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
                     Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
                     Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
                     await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
@@ -337,8 +337,8 @@ namespace App3
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
 
-            Browser.ShowSideWindow(1);
             Browser.ShowTabListWindow(0);
+            Browser.ShowSideWindow(1);
         }
 
         private void History(object sender = null, RoutedEventArgs e = null)
@@ -437,7 +437,7 @@ namespace App3
             EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
         }
 
-        private async void CoreWebView2_PermissionRequested(CoreWebView2 sender, CoreWebView2PermissionRequestedEventArgs args)
+        private void CoreWebView2_PermissionRequested(CoreWebView2 sender, CoreWebView2PermissionRequestedEventArgs args)
         {/*
             Trace.WriteLine(args.PermissionKind.ToString());
             
