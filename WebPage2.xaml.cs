@@ -56,7 +56,6 @@ namespace App3
         {
             this.InitializeComponent();
 
-            LinkBox.Focus(FocusState.Keyboard);
             Timer = new DispatcherTimer();
         }
 
@@ -292,7 +291,7 @@ namespace App3
             }
         }
 
-        private void Back(object sender, RoutedEventArgs e)
+        public void Back(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
@@ -306,7 +305,7 @@ namespace App3
             Browser.ShowTabListWindow(0);
         }
 
-        private void Forward(object sender, RoutedEventArgs e)
+        public void Forward(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
@@ -320,7 +319,7 @@ namespace App3
             Browser.ShowTabListWindow(0);
         }
 
-        private void Refresh(object sender, RoutedEventArgs e)
+        public void Refresh(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
@@ -432,6 +431,7 @@ namespace App3
             sender.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
             sender.CoreWebView2.PermissionRequested += CoreWebView2_PermissionRequested;
 
+            LinkBox.Focus(FocusState.Keyboard);
             EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
             EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
             EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;

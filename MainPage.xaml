@@ -35,9 +35,6 @@
                 <Grid Background="Transparent" x:Name="AppTitleBar" Margin="0,0,200,0"/>
             </muxc:TabView.TabStripFooter>
             <muxc:TabView.KeyboardAccelerators>
-                <KeyboardAccelerator Key="T" Modifiers="Control" Invoked="NewTabKeyboardAccelerator_Invoked" />
-                <KeyboardAccelerator Key="W" Modifiers="Control" Invoked="CloseSelectedTabKeyboardAccelerator_Invoked" />
-                <KeyboardAccelerator Key="Escape" Invoked="EscKeyboardAccelerator_Invoked" />
             </muxc:TabView.KeyboardAccelerators>
         </muxc:TabView>
         <Button Name="ExitFS" IsTabStop="False" PointerEntered="ExitFS_PointerEntered" PointerMoved="ExitFS_PointerEntered" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" Height="16" BorderThickness="0" Opacity="0" Visibility="Collapsed" />
@@ -125,7 +122,7 @@
         <StackPanel x:Name="SettingsBackControl" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed" Margin="2,2,0,0">
             <Button AutomationProperties.Name="返回" Name="SettingsBack" Click="SettingsBack_Click" ToolTipService.ToolTip="返回" Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe Fluent Icons" Content="&#xE112;" FontSize="14" Height="36" Width="38">
                 <Button.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Escape"/>
+                    
                 </Button.KeyboardAccelerators>
             </Button>
         </StackPanel>

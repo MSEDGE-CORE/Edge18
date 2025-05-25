@@ -123,20 +123,18 @@
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" FontSize="16"/>
                         <Button.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight" >
-                                <MenuFlyoutItem Text="新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem Text="新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+T">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="T" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+N">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="N" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutItem Text="在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
@@ -152,12 +150,11 @@
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutSeparator/>
-                                <MenuFlyoutItem Text="收藏夹" Click="Collection" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem Text="收藏夹" Click="Collection" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+O">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1CE;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="O" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutItem Text="笔记" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
@@ -168,12 +165,11 @@
                                         <KeyboardAccelerator Key="P" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="历史记录" Click="History" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem Text="历史记录" Click="History" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+H">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE81C;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="H" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutItem Text="下载" Click="Download" FontFamily="HarmonyOS Sans SC">
@@ -181,16 +177,14 @@
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE118;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="J" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutSeparator/>
-                                <MenuFlyoutItem Text="设置" Click="Settings" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem Text="设置" Click="Settings" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+I">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE115;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="I" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                             </MenuFlyout>

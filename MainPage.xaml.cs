@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -45,6 +46,166 @@ namespace App3
 
             SetTitleBar();
             ApplicationView.GetForCurrentView().Consolidated += MainPage_Consolidated;
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+            Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+        }
+
+        private void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)
+        {
+            if(args.EventType.ToString().Contains("KeyUp"))
+            {
+                var ctrlState = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
+                bool isCtrlPressed = (ctrlState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
+                switch (args.VirtualKey)
+                {
+                    case VirtualKey.F5:
+                        {
+                            if ((this.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage2) && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                ((this.SelectedTab.Content as Frame).Content as WebPage2).Refresh(null, null);
+                            }
+                            else if ((this.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage) && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                ((this.SelectedTab.Content as Frame).Content as WebPage).Refresh(null, null);
+                            }
+                            break;
+                        }
+                    case VirtualKey.F11:
+                        {
+                            if (ApplicationView.GetForCurrentView().IsFullScreenMode)
+                            {
+                                ApplicationView.GetForCurrentView().ExitFullScreenMode();
+                            }
+                            else
+                            {
+                                ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
+                            }
+                            break;
+                        }
+                    case VirtualKey.Escape:
+                        {
+                            MainPage_BackRequested(null, null);
+                            break;
+                        }
+                    case VirtualKey.O:
+                        {
+                            if(isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                ShowSideWindow(1);
+                                args.Handled = true;
+                            }
+                            break;
+                        }
+                    case VirtualKey.H:
+                        {
+                            if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                ShowSideWindow(2);
+                                args.Handled = true;
+                            }
+                            break;
+                        }
+                    case VirtualKey.J:
+                        {
+                            if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                
+                            }
+                            break;
+                        }
+                    case VirtualKey.Q:
+                        {
+                            if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                ShowTabListWindow(1);
+                            }
+                            break;
+                        }
+                    case VirtualKey.N:
+                        {
+                            if (isCtrlPressed)
+                            {
+                                (Application.Current as App).CreateNewWindow();
+                            }
+                            break;
+                        }
+                    case VirtualKey.I:
+                        {
+                            if (isCtrlPressed)
+                            {
+                                if (SettingsBackControl.Visibility == Visibility.Collapsed)
+                                    Settings();
+                                else
+                                    SettingsBack_Click(null, null);
+                            }
+                            break;
+                        }
+                    case VirtualKey.T:
+                        {
+                            if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                AddTab();
+                            }
+                            break;
+                        }
+                    case VirtualKey.W:
+                        {
+                            if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
+                            {
+                                if (((MicrosoftEdge.TabItems[MicrosoftEdge.SelectedIndex] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage2))
+                                {
+                                    (((MicrosoftEdge.TabItems[MicrosoftEdge.SelectedIndex] as TabViewItem).Content as Frame).Content as WebPage2).CloseWebView();
+                                }
+                                else if (((MicrosoftEdge.TabItems[MicrosoftEdge.SelectedIndex] as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage))
+                                {
+                                    (((MicrosoftEdge.TabItems[MicrosoftEdge.SelectedIndex] as TabViewItem).Content as Frame).Content as WebPage).CloseWebView();
+                                }
+
+                                MicrosoftEdge.TabItems.RemoveAt(MicrosoftEdge.SelectedIndex);
+                            }
+                            break;
+                        }
+
+                }
+            }
+        }
+
+        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if(SettingsBackControl.Visibility == Visibility.Visible)
+            {
+                SettingsBack_Click(null, null);
+                if(e != null)
+                    e.Handled = true;
+            }
+            else if(IsTabListWindowOpen)
+            {
+                ShowTabListWindow(0);
+                if (e != null)
+                    e.Handled = true;
+            }
+            else if (IsSideWindowOpen)
+            {
+                ShowSideWindow(0);
+                if (e != null)
+                    e.Handled = true;
+            }
+            else if(sender != null)
+            {
+                if((this.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage2))
+                {
+                    ((this.SelectedTab.Content as Frame).Content as WebPage2).Back(null,null);
+                    if (e != null)
+                        e.Handled = true;
+                }
+                else if((this.SelectedTab.Content as Frame).Content.GetType() == typeof(WebPage))
+                {
+                    ((this.SelectedTab.Content as Frame).Content as WebPage).Back(null, null);
+                    if (e != null)
+                        e.Handled = true;
+                }
+            }
         }
 
         private void MainPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
@@ -238,32 +399,6 @@ namespace App3
             MicrosoftEdge.IsTabStop = true;
             TabListButton.IsTabStop = true;
             PageTabStopSet = 0;
-        }
-
-        private void NewTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-        {
-            MainPage.Browser.TabView_AddButtonClick(null, null);
-        }
-
-        private void CloseSelectedTabKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-        {
-            var InvokedTabView = (args.Element as TabView);
-            if ((((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage2)))
-            {
-                (((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content as WebPage2).CloseWebView();
-            }
-            else if ((((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content.GetType() == typeof(WebPage)))
-            {
-                (((InvokedTabView.SelectedItem as TabViewItem).Content as Frame).Content as WebPage).CloseWebView();
-            }
-
-            if (((TabViewItem)InvokedTabView.SelectedItem).IsClosable)
-            {
-                InvokedTabView.TabItems.Remove(InvokedTabView.SelectedItem);
-            }
-
-            ShowSideWindow(0);
-            ShowTabListWindow(0);
         }
 
         public ObservableCollection<Tab_List> TabList { get; } = new ObservableCollection<Tab_List>();
@@ -488,11 +623,6 @@ namespace App3
                 ShowTabListWindow(0);
                 //ListView.SelectedIndex = -1;
             }
-        }
-
-        private void EscKeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-        {
-            ShowTabListWindow(0);
         }
 
         double SWindowX = 0;

@@ -50,8 +50,6 @@ namespace App3
         public WebPage()
         {
             this.InitializeComponent();
-
-            LinkBox.Focus(FocusState.Keyboard);
         }
 
         bool LinkTyping = false;
@@ -269,7 +267,7 @@ namespace App3
             }
         }
 
-        private void Back(object sender, RoutedEventArgs e)
+        public void Back(object sender, RoutedEventArgs e)
         {
             if (EdgeWebView.CanGoBack == true)
             {
@@ -280,7 +278,7 @@ namespace App3
             Browser.ShowTabListWindow(0);
         }
 
-        private void Forward(object sender, RoutedEventArgs e)
+        public void Forward(object sender, RoutedEventArgs e)
         {
             if (EdgeWebView.CanGoForward == true)
             {
@@ -291,7 +289,7 @@ namespace App3
             Browser.ShowTabListWindow(0);
         }
 
-        private void Refresh(object sender, RoutedEventArgs e)
+        public void Refresh(object sender, RoutedEventArgs e)
         {
             EdgeWebView.Refresh();
 
@@ -458,6 +456,8 @@ namespace App3
                 Timer.Tick += Timer_Tick;
                 Timer.Start();
             }
+
+            LinkBox.Focus(FocusState.Keyboard);
         }
 
         private void DownloadBack_Click(object sender, RoutedEventArgs e)
