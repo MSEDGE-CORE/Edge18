@@ -461,10 +461,6 @@ namespace App3
                     await folder.RenameAsync("Collection1");
                 }
                 catch { }
-                
-                string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
-                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
             }
             catch
             {
@@ -504,15 +500,22 @@ namespace App3
                     await folder.RenameAsync("History1");
                 }
                 catch { }
-                
-                string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
-                Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
-                await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
             }
             catch
             {
 
             }
+
+            try
+            {
+                string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
+                string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
+                Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
+            }
+            catch { }
         }
 
         /// <summary>

@@ -107,7 +107,6 @@
                     <Button Name="Button_Refresh" Click="Refresh" AutomationProperties.Name="刷新" ToolTipService.ToolTip="刷新" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE149;" FontSize="16"/>
                         <Button.KeyboardAccelerators>
-                            <KeyboardAccelerator Key="F5"/>
                         </Button.KeyboardAccelerators>
                     </Button>
                 </StackPanel>

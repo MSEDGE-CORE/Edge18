@@ -52,7 +52,7 @@ namespace App3
 
         private void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)
         {
-            if(args.EventType.ToString().Contains("KeyUp"))
+            if(args.EventType.ToString().Contains("KeyDown"))
             {
                 var ctrlState = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
                 bool isCtrlPressed = (ctrlState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
@@ -69,6 +69,7 @@ namespace App3
                             {
                                 ((this.SelectedTab.Content as Frame).Content as WebPage).Refresh(null, null);
                             }
+                            args.Handled = true;
                             break;
                         }
                     case VirtualKey.F11:
@@ -81,11 +82,13 @@ namespace App3
                             {
                                 ApplicationView.GetForCurrentView().TryEnterFullScreenMode();
                             }
+                            args.Handled = true;
                             break;
                         }
                     case VirtualKey.Escape:
                         {
                             MainPage_BackRequested(null, null);
+                            args.Handled = true;
                             break;
                         }
                     case VirtualKey.O:
@@ -119,6 +122,7 @@ namespace App3
                             if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
                             {
                                 ShowTabListWindow(1);
+                                args.Handled = true;
                             }
                             break;
                         }
@@ -138,6 +142,7 @@ namespace App3
                                     Settings();
                                 else
                                     SettingsBack_Click(null, null);
+                                args.Handled = true;
                             }
                             break;
                         }
@@ -146,6 +151,7 @@ namespace App3
                             if (isCtrlPressed && SettingsBackControl.Visibility == Visibility.Collapsed)
                             {
                                 AddTab();
+                                args.Handled = true;
                             }
                             break;
                         }
@@ -163,6 +169,7 @@ namespace App3
                                 }
 
                                 MicrosoftEdge.TabItems.RemoveAt(MicrosoftEdge.SelectedIndex);
+                                args.Handled = true;
                             }
                             break;
                         }

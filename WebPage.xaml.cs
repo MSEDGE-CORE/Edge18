@@ -269,7 +269,11 @@ namespace App3
 
         public void Back(object sender, RoutedEventArgs e)
         {
-            if (EdgeWebView.CanGoBack == true)
+            if(DownloadBack.Visibility == Visibility.Visible)
+            {
+                DownloadBack_Click(null, null);
+            }
+            else if (EdgeWebView.CanGoBack == true)
             {
                 EdgeWebView.GoBack();
             }
