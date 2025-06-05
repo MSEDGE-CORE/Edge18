@@ -55,7 +55,7 @@
                     <StackPanel Name="DownloadPanel" HorizontalAlignment="Stretch">
                         <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                             <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "下载的文件将会保存至 “下载 / Edge 18” 中" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "下载的文件将会保存至 “下载 / Fringe” 中" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                             <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </StackPanel>

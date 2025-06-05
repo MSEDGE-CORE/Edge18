@@ -464,8 +464,9 @@ namespace App3
                     args.State = CoreWebView2PermissionState.Deny;
                 }
             }
-            catch { }
-            args.Handled = true;*/
+            catch { }*/
+            args.State = CoreWebView2PermissionState.Allow;
+            args.Handled = true;
         }
 
         private void CoreWebView2_FaviconChanged(CoreWebView2 sender, object args)

@@ -401,7 +401,7 @@ namespace App3
             }
             catch 
             {
-                CollectionList.Clear();
+                //CollectionList.Clear();
             }
         }
         public async void GetHistory()
@@ -420,7 +420,7 @@ namespace App3
             }
             catch 
             {
-                HistoryList.Clear();
+                //HistoryList.Clear();
             }
         }
 

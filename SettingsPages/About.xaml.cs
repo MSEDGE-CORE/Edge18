@@ -32,19 +32,19 @@ namespace App3.SettingsPages
         private void ProjectHome_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Edge18");
+            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Fringe");
         }
 
         private void CheckForUpdate_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Edge18/releases");
+            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Fringe/releases");
         }
 
         private void SendFeedBack_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Edge18/issues");
+            MainPage.Browser.AddTab("https://github.com/MSEDGE-CORE/Fringe/issues");
         }
 
         private void LinkWinUI_Click(object sender, RoutedEventArgs e)
@@ -56,7 +56,7 @@ namespace App3.SettingsPages
         private void LinkGxapSpartan_Click(object sender, RoutedEventArgs e)
         {
             Browser.SettingsBack_Click(sender, e);
-            MainPage.Browser.AddTab("https://space.bilibili.com/1103393397");
+            MainPage.Browser.AddTab("https://github.com/ZJH365");
         }
 
         private void LinkHtmlPack_Click(object sender, RoutedEventArgs e)

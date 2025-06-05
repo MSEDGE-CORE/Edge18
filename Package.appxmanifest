@@ -15,7 +15,7 @@
   <mp:PhoneIdentity PhoneProductId="19fde23a-700f-4086-a465-39a33c31f435" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Edge 18</DisplayName>
+    <DisplayName>Fringe</DisplayName>
     <PublisherDisplayName>MSEDGE</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -33,10 +33,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="App3.App">
       <uap:VisualElements
-        DisplayName="Edge 18"
+        DisplayName="浏海"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Edge 18"
+        Description="Fringe"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
@@ -48,27 +48,27 @@
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="msedge-edge18">
+          <uap:Protocol Name="fringe">
             <uap:Logo>Assets/WindowIcon.png</uap:Logo>
-            <uap:DisplayName>Edge 18</uap:DisplayName>
+            <uap:DisplayName>浏海</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="http">
             <uap:Logo>Assets/WindowIcon.png</uap:Logo>
-            <uap:DisplayName>Edge 18</uap:DisplayName>
+            <uap:DisplayName>浏海</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="https">
             <uap:Logo>Assets/WindowIcon.png</uap:Logo>
-            <uap:DisplayName>Edge 18</uap:DisplayName>
+            <uap:DisplayName>浏海</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="microsoft-edge">
             <uap:Logo>Assets/WindowIcon.png</uap:Logo>
-            <uap:DisplayName>Edge 18</uap:DisplayName>
+            <uap:DisplayName>浏海</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.fileTypeAssociation">
@@ -78,7 +78,7 @@
             </uap:SupportedFileTypes>
             <uap:EditFlags OpenIsSafe="true"/>
             <uap:InfoTip>PDF</uap:InfoTip>
-            <uap:DisplayName>Edge 18</uap:DisplayName>
+            <uap:DisplayName>浏海</uap:DisplayName>
             <uap:Logo>Assets/PDF.png</uap:Logo>
           </uap:FileTypeAssociation>
         </uap:Extension>

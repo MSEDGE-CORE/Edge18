@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <Grid HorizontalAlignment="Stretch" AutomationProperties.Name="关于 Edge 18">
+    <Grid HorizontalAlignment="Stretch" AutomationProperties.Name="关于 浏海">
         <Grid HorizontalAlignment="Stretch" Margin="40,32,40,0" MaxWidth="720">
             <TextBlock x:Name="PageTitle" Text="关于" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
         </Grid>
@@ -18,7 +18,7 @@
                     <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "90" MaxHeight = "90" Height = "90">
                         <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsTabStop="False"/>
                         <Image Source="../Assets/StoreLogo.scale-400.png" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="24,0,0,0" Height="40" Width="40" Stretch="UniformToFill"/>
-                        <TextBlock Text="Edge 18" FontSize = "16" Margin = "80,24,0,0" VerticalAlignment = "Top" HorizontalAlignment = "Left" FontFamily="HarmonyOS Sans SC" />
+                        <TextBlock Text="浏海" FontSize = "16" Margin = "80,24,0,0" VerticalAlignment = "Top" HorizontalAlignment = "Left" FontFamily="HarmonyOS Sans SC" />
                         <TextBlock Name = "TextVersion" FontSize = "14" Margin = "80,48,0,0" VerticalAlignment = "Top" HorizontalAlignment = "Left" FontFamily="HarmonyOS Sans SC" />
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                     </Grid>

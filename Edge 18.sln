@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edge 18", "Edge 18.csproj", "{57A34572-3D24-4367-8F27-998146B5345F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fringe", "Fringe.csproj", "{57A34572-3D24-4367-8F27-998146B5345F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

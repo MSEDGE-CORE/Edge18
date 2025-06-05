@@ -25,6 +25,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.ApplicationModel.Contacts;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -370,31 +371,38 @@ namespace App3
         private async void WebView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args)
         {
             //Trace.WriteLine(args.PermissionRequest.PermissionType.ToString());
-
-            try
+            
+            while(true)
             {
-                string PermissionKind = args.PermissionRequest.PermissionType.ToString();
-                /*if (PermissionKind == "Camera")
-                    PermissionKind = "相机";*/
-                ContentDialog dialog = new ContentDialog();
-                dialog.Title = PermissionKind;
-                dialog.PrimaryButtonText = "允许";
-                dialog.SecondaryButtonText = "禁止";
-                dialog.DefaultButton = ContentDialogButton.Secondary;
-                dialog.Content = "\"" + EdgeWebView.DocumentTitle + "\" 正在访问 " + PermissionKind;
-                dialog.FontFamily = new FontFamily("HarmonyOS Sans SC");
+                try
+                {
+                    string PermissionKind = args.PermissionRequest.PermissionType.ToString();
+                    /*if (PermissionKind == "Camera")
+                        PermissionKind = "相机";*/
+                    ContentDialog dialog = new ContentDialog();
+                    dialog.Title = PermissionKind;
+                    dialog.PrimaryButtonText = "允许";
+                    dialog.SecondaryButtonText = "禁止";
+                    dialog.DefaultButton = ContentDialogButton.Secondary;
+                    dialog.Content = "\"" + EdgeWebView.DocumentTitle + "\" 正在访问 " + PermissionKind;
+                    dialog.FontFamily = new FontFamily("HarmonyOS Sans SC");
 
-                var result = await dialog.ShowAsync();
-                if (result.Equals(ContentDialogResult.Primary))
-                {
-                    args.PermissionRequest.Allow();
+                    var result = await dialog.ShowAsync();
+                    if (result.Equals(ContentDialogResult.Primary))
+                    {
+                        args.PermissionRequest.Allow();
+                    }
+                    else if (result.Equals(ContentDialogResult.Secondary))
+                    {
+                        args.PermissionRequest.Deny();
+                    }
+                    break;
                 }
-                else if (result.Equals(ContentDialogResult.Secondary))
+                catch
                 {
-                    args.PermissionRequest.Deny();
+                    await Task.Delay(100);
                 }
             }
-            catch { }
         }
 
         private void SearchChanged(object sender, KeyRoutedEventArgs e)
