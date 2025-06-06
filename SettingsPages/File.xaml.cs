@@ -168,7 +168,7 @@ namespace App3.SettingsPages
             SavePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Downloads;
             SavePicker.FileTypeChoices.Add("HTML", new List<string>() { ".html" });
             SavePicker.DefaultFileExtension = ".html";
-            SavePicker.SuggestedFileName = "EdgeCollections " + DateTime.Now;
+            SavePicker.SuggestedFileName = "FringeCollections " + DateTime.Now;
             CollectionFile = await SavePicker.PickSaveFileAsync();
             if (CollectionFile != null)
             {
@@ -211,7 +211,7 @@ namespace App3.SettingsPages
             SavePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Downloads;
             SavePicker.FileTypeChoices.Add("JSON", new List<string>() { ".json" });
             SavePicker.DefaultFileExtension = ".json";
-            SavePicker.SuggestedFileName = "EdgeCollections " + DateTime.Now;
+            SavePicker.SuggestedFileName = "FringeCollections " + DateTime.Now;
             CollectionFile = await SavePicker.PickSaveFileAsync();
             if (CollectionFile != null)
             {
@@ -254,7 +254,7 @@ namespace App3.SettingsPages
             SavePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.Downloads;
             SavePicker.FileTypeChoices.Add("JSON", new List<string>() { ".json" });
             SavePicker.DefaultFileExtension = ".json";
-            SavePicker.SuggestedFileName = "EdgeHistory " + DateTime.Now;
+            SavePicker.SuggestedFileName = "FringeHistory " + DateTime.Now;
             HistoryFile = await SavePicker.PickSaveFileAsync();
             if (HistoryFile != null)
             {

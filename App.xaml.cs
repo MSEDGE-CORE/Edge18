@@ -426,6 +426,9 @@ namespace App3
 
         public async void GetColHisFromOldVer()
         {
+            if (CollectionList.Count != 0)
+                return;
+
             //读取
             Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             int CollectionCount = 0;
