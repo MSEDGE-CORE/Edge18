@@ -380,9 +380,6 @@ namespace App3
             }
 
             GetCollection();
-            GetHistory();
-            if (CollectionList.Count == 0 && HistoryList.Count == 0)
-                GetColHisFromOldVer();
         }
 
         public async void GetCollection()
@@ -403,11 +400,8 @@ namespace App3
             {
                 //CollectionList.Clear();
             }
-        }
-        public async void GetHistory()
-        {
+
             this.HistoryList.Clear();
-            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             try
             {
                 Windows.Storage.StorageFile CollectionFile = await StorageFolder.GetFileAsync("LocalStorage2\\History.json");
@@ -418,19 +412,23 @@ namespace App3
                     HistoryList = JsonConvert.DeserializeObject<ObservableCollection<History_List>>(text);
                 }
             }
-            catch 
+            catch
             {
                 //HistoryList.Clear();
             }
-        }
 
-        public async void GetColHisFromOldVer()
-        {
-            if (CollectionList.Count != 0)
+
+
+
+
+
+
+
+            //旧版本读取
+            if (CollectionList.Count != 0 || HistoryList.Count != 0)
                 return;
 
             //读取
-            Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             int CollectionCount = 0;
             Windows.Storage.StorageFile file;
             try

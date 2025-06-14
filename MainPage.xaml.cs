@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -215,7 +216,7 @@ namespace App3
             }
         }
 
-        private void MainPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
+        private async void MainPage_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
         {
             for (int i = 0; i < MicrosoftEdge.TabItems.Count; i++)
             {
@@ -229,6 +230,27 @@ namespace App3
                 }
             }
             Timer.Stop();
+
+            try
+            {
+                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
+                string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
+                Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
+            }
+            catch
+            {
+                Windows.Storage.StorageFolder StorageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+                string CollectionJson = JsonConvert.SerializeObject((Application.Current as App).CollectionList);
+                Windows.Storage.StorageFile CollectionFile = await StorageFolder.CreateFileAsync("LocalStorage2\\Collections.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(CollectionFile, CollectionJson);
+                string HistoryJson = JsonConvert.SerializeObject((Application.Current as App).HistoryList);
+                Windows.Storage.StorageFile HistoryFile = await StorageFolder.CreateFileAsync("LocalStorage2\\History.json", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                await Windows.Storage.FileIO.WriteTextAsync(HistoryFile, HistoryJson);
+            }
         }
 
         public void SetTitleBar()
