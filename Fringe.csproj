@@ -298,7 +298,7 @@
   <ItemGroup>
     <None Include=".github\ISSUE_TEMPLATE\功能建议.md" />
     <None Include=".github\ISSUE_TEMPLATE\报告问题.md" />
-    <None Include="Edge 18_TemporaryKey.pfx" />
+    <None Include="Fringe_TemporaryKey.pfx" />
     <None Include="LICENSE" />
     <None Include="README.md" />
   </ItemGroup>
