@@ -2,8 +2,9 @@
 下载地址
 1. 蓝奏云：https://msedge.lanzoul.com/b02kwki2f
 （密码：MSEDGE）
-2. 依赖：https://msedge.lanzoul.com/iGrfL27ttpra
-3. 图标：https://aka.ms/SegoeFluentIcons
+2. 微软商店：https://apps.microsoft.com/store/detail/9N5WFD8J7P5G?cid=DevShareMCLPCS
+3. 依赖：https://msedge.lanzoul.com/iGrfL27ttpra
+4. 图标：https://aka.ms/SegoeFluentIcons
 
 功能特色
 1. UWP底层，WinUI界面
