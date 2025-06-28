@@ -147,6 +147,15 @@
   <data name="T发送反馈.Text" xml:space="preserve">
     <value>发送反馈</value>
   </data>
+	<data name="AGithub 项目主页.AutomationProperties.Name" xml:space="preserve">
+    <value>Github 项目主页</value>
+  </data>
+	<data name="A检查更新.AutomationProperties.Name" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+	<data name="A发送反馈.AutomationProperties.Name" xml:space="preserve">
+    <value>发送反馈</value>
+  </data>
   <data name="T依赖 &amp; 参考.Text" xml:space="preserve">
     <value>依赖 &amp; 参考</value>
   </data>
@@ -527,5 +536,8 @@
   </data>
   <data name="D重启.Content" xml:space="preserve">
     <value>重启</value>
+  </data>
+  <data name="A关于 浏海.AutomationProperties.Name" xml:space="preserve">
+    <value>关于 浏海</value>
   </data>
 </root>

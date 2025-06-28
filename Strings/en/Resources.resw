@@ -147,6 +147,15 @@
   <data name="T发送反馈.Text" xml:space="preserve">
     <value>Send Feedback</value>
   </data>
+  <data name="AGithub 项目主页.AutomationProperties.Name" xml:space="preserve">
+    <value>Github project home</value>
+  </data>
+  <data name="A检查更新.AutomationProperties.Name" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="A发送反馈.AutomationProperties.Name" xml:space="preserve">
+    <value>Send Feedback</value>
+  </data>
   <data name="T依赖 &amp; 参考.Text" xml:space="preserve">
     <value>References</value>
   </data>
@@ -527,5 +536,8 @@
   </data>
   <data name="D重启.Content" xml:space="preserve">
     <value>Restart</value>
+  </data>
+  <data name="A关于 浏海.AutomationProperties.Name" xml:space="preserve">
+    <value>About Fringe Browser</value>
   </data>
 </root>
