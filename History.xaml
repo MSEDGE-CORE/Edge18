@@ -8,10 +8,10 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid Name="Grid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,20,20,0" AutomationProperties.Name="历史记录">
-        <TextBlock x:Name="PageTitle" Text="历史记录" FontWeight="Bold" FontSize="20" Margin="12,0,0,0"/>
+    <Grid Name="Grid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,20,20,0" x:Uid="A历史记录">
+        <TextBlock x:Name="PageTitle" x:Uid="T历史记录" FontWeight="Bold" FontSize="20" Margin="12,0,0,0"/>
         <StackPanel x:Name="DefaultToolBar" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-3,0,0">
-            <Button Height="32" Name="Close" Click="Close_Click" AutomationProperties.Name="关闭" Content="&#xE8BB;" ToolTipService.ToolTip="关闭" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
+            <Button Height="32" Name="Close" Click="Close_Click" Content="&#xE8BB;" x:Uid="O关闭" FontFamily="Segoe Fluent Icons" Background="Transparent" BorderBrush="Transparent" IsEnabled="True" FontSize="12" Margin="4,0,2,0">
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Escape"/>
                 </Button.KeyboardAccelerators>

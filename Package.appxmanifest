@@ -10,12 +10,12 @@
   <Identity
     Name="MSEDGE.Edge18"
     Publisher="CN=MSEDGE"
-    Version="2.0.42.0" />
+    Version="2.0.43.0" />
 
   <mp:PhoneIdentity PhoneProductId="19fde23a-700f-4086-a465-39a33c31f435" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Fringe</DisplayName>
+    <DisplayName>ms-resource:AppDisplayName</DisplayName>
     <PublisherDisplayName>MSEDGE</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -33,10 +33,10 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="App3.App">
       <uap:VisualElements
-        DisplayName="浏海"
+        DisplayName="ms-resource:AppDisplayName"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Fringe"
+        Description="ms-resource:AppDisplayName"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
@@ -64,23 +64,6 @@
             <uap:Logo>Assets/WindowIcon.png</uap:Logo>
             <uap:DisplayName>浏海</uap:DisplayName>
           </uap:Protocol>
-        </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="microsoft-edge">
-            <uap:Logo>Assets/WindowIcon.png</uap:Logo>
-            <uap:DisplayName>浏海</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="pdf">
-            <uap:SupportedFileTypes>
-              <uap:FileType>.pdf</uap:FileType>
-            </uap:SupportedFileTypes>
-            <uap:EditFlags OpenIsSafe="true"/>
-            <uap:InfoTip>PDF</uap:InfoTip>
-            <uap:DisplayName>浏海</uap:DisplayName>
-            <uap:Logo>Assets/PDF.png</uap:Logo>
-          </uap:FileTypeAssociation>
         </uap:Extension>
       </Extensions>
     </Application>

@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDisplayName" xml:space="preserve">
+    <value>Fringe G</value>
+  </data>
+  <data name="T关于.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="T关于2.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="T外观2.Text" xml:space="preserve">
+    <value>Appear.</value>
+  </data>
+  <data name="T浏览2.Text" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="T存储2.Text" xml:space="preserve">
+    <value>Storag.</value>
+  </data>
+  <data name="T版本.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="TGithub 项目主页.Text" xml:space="preserve">
+    <value>Github project home</value>
+  </data>
+  <data name="T检查更新.Text" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="T发送反馈.Text" xml:space="preserve">
+    <value>Send Feedback</value>
+  </data>
+  <data name="T依赖 &amp; 参考.Text" xml:space="preserve">
+    <value>References</value>
+  </data>
+  <data name="T收藏夹.Text" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="T历史记录.Text" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="T下载.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="T全屏.Text" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="T标签页.Text" xml:space="preserve">
+    <value>Tabs</value>
+  </data>
+  <data name="T外观.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="T应用程序主题.Text" xml:space="preserve">
+    <value>Application Theme</value>
+  </data>
+  <data name="T标签页列表.Text" xml:space="preserve">
+    <value>Show Tablist button</value>
+  </data>
+  <data name="T工具栏.Text" xml:space="preserve">
+    <value>Toolbar</value>
+  </data>
+  <data name="T显示收藏夹.Text" xml:space="preserve">
+    <value>Show Collection button</value>
+  </data>
+  <data name="T显示历史记录.Text" xml:space="preserve">
+    <value>Show History button</value>
+  </data>
+  <data name="T显示下载.Text" xml:space="preserve">
+    <value>Show Download button</value>
+  </data>
+  <data name="T显示全屏按钮.Text" xml:space="preserve">
+    <value>Show fullscreen button</value>
+  </data>
+  <data name="T浏览.Text" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="T浏览器内核.Text" xml:space="preserve">
+    <value>Browser core</value>
+  </data>
+  <data name="A依赖 &amp; 参考.AutomationProperties.Name" xml:space="preserve">
+    <value>References</value>
+  </data>
+  <data name="T浏海.Text" xml:space="preserve">
+    <value>Fringe</value>
+  </data>
+  <data name="C版本" xml:space="preserve">
+    <value>Version: </value>
+  </data>
+  <data name="A外观.AutomationProperties.Name" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="A应用程序主题.AutomationProperties.Name" xml:space="preserve">
+    <value>Application Theme</value>
+  </data>
+  <data name="T语言 / Language.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="A语言 / Language.AutomationProperties.Name" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="A标签页列表.AutomationProperties.Name" xml:space="preserve">
+    <value>Show Tablist button</value>
+  </data>
+  <data name="A显示收藏夹.AutomationProperties.Name" xml:space="preserve">
+    <value>Show Collection button</value>
+  </data>
+  <data name="A显示历史记录.AutomationProperties.Name" xml:space="preserve">
+    <value>Show History button</value>
+  </data>
+  <data name="A显示下载.AutomationProperties.Name" xml:space="preserve">
+    <value>Show Download button</value>
+  </data>
+  <data name="A显示全屏按钮.AutomationProperties.Name" xml:space="preserve">
+    <value>Show fullscreen button</value>
+  </data>
+  <data name="A浏览.AutomationProperties.Name" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="A浏览器内核.AutomationProperties.Name" xml:space="preserve">
+    <value>Browser core</value>
+  </data>
+  <data name="T确定.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="T起始页.Text" xml:space="preserve">
+    <value>Startup page</value>
+  </data>
+  <data name="A起始页.AutomationProperties.Name" xml:space="preserve">
+    <value>Home page</value>
+  </data>
+  <data name="A更改起始页.Content" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="A更改起始页.AutomationProperties.Name" xml:space="preserve">
+    <value>Change home page</value>
+  </data>
+  <data name="A链接.AutomationProperties.Name" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="T完成.Text" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="T默认搜索引擎.Text" xml:space="preserve">
+    <value>Default search engine</value>
+  </data>
+  <data name="A默认搜索引擎.AutomationProperties.Name" xml:space="preserve">
+    <value>Default search engine</value>
+  </data>
+  <data name="A更改搜索引擎.AutomationProperties.Name" xml:space="preserve">
+    <value>Change search engine</value>
+  </data>
+  <data name="A更改搜索引擎.Content" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="T隐私设置.Text" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="T禁用 JavaScript.Text" xml:space="preserve">
+    <value>Forbid JavaScript</value>
+  </data>
+  <data name="A禁用JavaScript.AutomationProperties.Name" xml:space="preserve">
+    <value>Forbid JavaScript</value>
+  </data>
+  <data name="T自动保存密码.Text" xml:space="preserve">
+    <value>Auto save password</value>
+  </data>
+  <data name="A自动保存密码.AutomationProperties.Name" xml:space="preserve">
+    <value>Auto save password</value>
+  </data>
+  <data name="C新标签页" xml:space="preserve">
+    <value>New tab page</value>
+  </data>
+  <data name="A设置.AutomationProperties.Name" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="C360" xml:space="preserve">
+    <value>360</value>
+  </data>
+  <data name="C必应" xml:space="preserve">
+    <value>Bing</value>
+  </data>
+  <data name="C搜狗" xml:space="preserve">
+    <value>Sougou</value>
+  </data>
+  <data name="C浅色" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="C深色" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="C百度" xml:space="preserve">
+    <value>Baidu</value>
+  </data>
+  <data name="C自定义" xml:space="preserve">
+    <value>Customize</value>
+  </data>
+  <data name="C谷歌" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="C跟随系统" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="T链接.Text" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="A存储.AutomationProperties.Name" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="T存储.Text" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="A导入收藏夹.AutomationProperties.Name" xml:space="preserve">
+    <value>Import Collection</value>
+  </data>
+  <data name="A导出收藏夹.AutomationProperties.Name" xml:space="preserve">
+    <value>Export Colletion</value>
+  </data>
+  <data name="A导入收藏夹.Content" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="A导入历史记录.AutomationProperties.Name" xml:space="preserve">
+    <value>Import History</value>
+  </data>
+  <data name="A导出历史记录.AutomationProperties.Name" xml:space="preserve">
+    <value>Export History</value>
+  </data>
+  <data name="A导入历史记录.Content" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="T确定清空历史记录.Text" xml:space="preserve">
+    <value>Clear History</value>
+  </data>
+  <data name="T下载的文件将会保存至.Text" xml:space="preserve">
+    <value>Download to "Download / Fringe"</value>
+  </data>
+  <data name="D清空.Content" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="D完成.Content" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="A导入历史记录.Width" xml:space="preserve">
+    <value>68</value>
+  </data>
+  <data name="A导入收藏夹.Width" xml:space="preserve">
+    <value>68</value>
+  </data>
+  <data name="A导出历史记录.Content" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="A导出历史记录.Width" xml:space="preserve">
+    <value>68</value>
+  </data>
+  <data name="A导出收藏夹.Content" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="A导出收藏夹.Width" xml:space="preserve">
+    <value>68</value>
+  </data>
+  <data name="D确定.Content" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="A地址栏.AutomationProperties.Name" xml:space="preserve">
+    <value>Link bar</value>
+  </data>
+  <data name="O刷新.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="O刷新.AutomationProperties.Name" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="O返回.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="O返回.AutomationProperties.Name" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="O前进.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="O前进.AutomationProperties.Name" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="O新建标签页.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add new tab</value>
+  </data>
+  <data name="O新建标签页.AutomationProperties.Name" xml:space="preserve">
+    <value>Add new tab</value>
+  </data>
+  <data name="O标签页.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Tabs</value>
+  </data>
+  <data name="O标签页.AutomationProperties.Name" xml:space="preserve">
+    <value>Tabs</value>
+  </data>
+  <data name="A更多.AutomationProperties.Name" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="O收藏夹.AutomationProperties.Name" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="O收藏夹.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="O历史记录.AutomationProperties.Name" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="O历史记录.ToolTipService.ToolTip" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="O下载.AutomationProperties.Name" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="O下载.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="O全屏.AutomationProperties.Name" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="O全屏.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="T移动设备视图.Text" xml:space="preserve">
+    <value>Mobile webpage view</value>
+  </data>
+  <data name="T新建标签页.Text" xml:space="preserve">
+    <value>Add new tab</value>
+  </data>
+  <data name="T新建窗口.Text" xml:space="preserve">
+    <value>New window</value>
+  </data>
+  <data name="T在新窗口中打开.Text" xml:space="preserve">
+    <value>Open in new window</value>
+  </data>
+  <data name="T笔记.Text" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="T设置.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="P搜索网络.PlaceholderText" xml:space="preserve">
+    <value>Search Web</value>
+  </data>
+  <data name="T关闭.Text" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="C桌面视图" xml:space="preserve">
+    <value>Desktop webpage view</value>
+  </data>
+  <data name="C移动设备视图" xml:space="preserve">
+    <value>Mobile webpage view</value>
+  </data>
+  <data name="O上移.AutomationProperties.Name" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="T添加到收藏夹.Text" xml:space="preserve">
+    <value>Add to Collection</value>
+  </data>
+  <data name="O完成.AutomationProperties.Name" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="O删除.AutomationProperties.Name" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="O下移.AutomationProperties.Name" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="O关闭.AutomationProperties.Name" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="O编辑.AutomationProperties.Name" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="O添加.AutomationProperties.Name" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="O添加.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="O编辑.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="O关闭.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="O上移.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="O下移.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="O删除.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="O完成.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="T名称.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="A名称.AutomationProperties.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="A收藏夹.AutomationProperties.Name" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="A历史记录.AutomationProperties.Name" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="D重启.Content" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+</root>

@@ -28,6 +28,7 @@ using System.Linq.Expressions;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json;
+using Windows.ApplicationModel.Resources;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -420,21 +421,29 @@ namespace App3
             EdgeWebView.Close();
         }
 
-        private void EdgeWebView_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        private async void EdgeWebView_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            sender.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
-            sender.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
-            sender.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-            sender.CoreWebView2.ContainsFullScreenElementChanged += CoreWebView2_ContainsFullScreenElementChanged;
-            sender.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
-            sender.CoreWebView2.WindowCloseRequested += CoreWebView2_WindowCloseRequested;
-            sender.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
-            sender.CoreWebView2.PermissionRequested += CoreWebView2_PermissionRequested;
+            try
+            {
+                sender.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+                sender.CoreWebView2.NavigationStarting += CoreWebView2_NavigationStarting;
+                sender.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
+                sender.CoreWebView2.ContainsFullScreenElementChanged += CoreWebView2_ContainsFullScreenElementChanged;
+                sender.CoreWebView2.DocumentTitleChanged += CoreWebView2_DocumentTitleChanged;
+                sender.CoreWebView2.WindowCloseRequested += CoreWebView2_WindowCloseRequested;
+                sender.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
+                sender.CoreWebView2.PermissionRequested += CoreWebView2_PermissionRequested;
 
-            LinkBox.Focus(FocusState.Keyboard);
-            EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
-            EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
-            EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
+                LinkBox.Focus(FocusState.Keyboard);
+                EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
+                EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
+                EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
+            }
+            catch 
+            {
+                await CoreApplication.RequestRestartAsync("");
+            }
+
         }
 
         private void CoreWebView2_PermissionRequested(CoreWebView2 sender, CoreWebView2PermissionRequestedEventArgs args)
@@ -637,9 +646,9 @@ namespace App3
                 LoadingBar.VerticalAlignment = VerticalAlignment.Top;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Top;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = 50;
-                if(MobilePageButton.Text == "桌面视图")
+                if(MobilePageButton.Text == ResourceLoader.GetForCurrentView().GetString("C桌面视图"))
                 {
-                    MobilePageButton.Text = "移动设备视图";
+                    MobilePageButton.Text = ResourceLoader.GetForCurrentView().GetString("C移动设备视图");
                     if (isLoaded)
                     {
                         EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
@@ -692,9 +701,9 @@ namespace App3
 
         private void MobilePage_Click(object sender, RoutedEventArgs e)
         {
-            if((sender as MenuFlyoutItem).Text == "移动设备视图")
+            if((sender as MenuFlyoutItem).Text == ResourceLoader.GetForCurrentView().GetString("C移动设备视图"))
             {
-                (sender as MenuFlyoutItem).Text = "桌面视图";
+                (sender as MenuFlyoutItem).Text = ResourceLoader.GetForCurrentView().GetString("C桌面视图");
                 if (isLoaded)
                 {
                     EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1";
@@ -703,7 +712,7 @@ namespace App3
             }
             else
             {
-                (sender as MenuFlyoutItem).Text = "移动设备视图";
+                (sender as MenuFlyoutItem).Text = ResourceLoader.GetForCurrentView().GetString("C移动设备视图");
                 if (isLoaded)
                 {
                     EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";

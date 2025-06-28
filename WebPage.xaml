@@ -12,75 +12,75 @@
 
     <Grid>
         <Grid Name="EdgeLinkGrid" MinHeight="50" MaxHeight="50" Height="50" HorizontalAlignment="Stretch" Margin="0,0,0,50">
-            <TextBox Name="LinkBox" AutomationProperties.Name="地址栏" FontFamily="HarmonyOS Sans SC" Height="32" HorizontalAlignment="Stretch" KeyDown="LinkChanged" TextCompositionStarted="LinkIME" GotFocus="LinkToChanging" LostFocus="LinkToChanged" IsSpellCheckEnabled="False" VerticalAlignment="Center" AllowDrop="True" AllowFocusOnInteraction="True"/>
+            <TextBox Name="LinkBox" x:Uid="A地址栏" FontFamily="HarmonyOS Sans SC" Height="32" HorizontalAlignment="Stretch" KeyDown="LinkChanged" TextCompositionStarted="LinkIME" GotFocus="LinkToChanging" LostFocus="LinkToChanged" IsSpellCheckEnabled="False" VerticalAlignment="Center" AllowDrop="True" AllowFocusOnInteraction="True"/>
         </Grid>
         <Grid Name="EdgeBottomBar" VerticalAlignment="Bottom" MinHeight="100" MaxHeight="100" Height="100" HorizontalAlignment="Stretch">
-            <Button Height="38" AutomationProperties.Name="刷新" Name="ButtonM_Refresh" Click="Refresh" ToolTipService.ToolTip="刷新" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,10,0">
+            <Button Height="38" Name="ButtonM_Refresh" Click="Refresh" x:Uid="O刷新" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,10,0">
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE149;" FontSize="16"/>
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="F5"/>
                 </Button.KeyboardAccelerators>
             </Button>
             <StackPanel Height="40" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,6">
-                <Button Name="ButtonM_Back" Click="Back" AutomationProperties.Name="返回" ToolTipService.ToolTip="返回" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
+                <Button Name="ButtonM_Back" Click="Back" x:Uid="O返回" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE112;" FontSize="18"/>
                 </Button>
-                <Button Name="ButtonM_Forward" Click="Forward" AutomationProperties.Name="前进" ToolTipService.ToolTip="前进" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
+                <Button Name="ButtonM_Forward" Click="Forward" x:Uid="O前进" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE111;" FontSize="18"/>
                 </Button>
-                <Button CornerRadius="20" Width="50" Height="40" AutomationProperties.Name="新建标签页" Name="ButtonM_NewTab" Style="{StaticResource AccentButtonStyle}" Click="NewTab_Click" ToolTipService.ToolTip="新建标签页" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="12,0,12,0">
+                <Button CornerRadius="20" Width="50" Height="40" Name="ButtonM_NewTab" Style="{StaticResource AccentButtonStyle}" Click="NewTab_Click" x:Uid="O新建标签页" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="12,0,12,0">
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE109;" FontSize="22"/>
                 </Button>
-                <Button Name="ButtonM_TabList" Click="TabList_Click" AutomationProperties.Name="标签页" ToolTipService.ToolTip="标签页" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
+                <Button Name="ButtonM_TabList" Click="TabList_Click" x:Uid="O标签页" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE175;" FontSize="18"/>
                 </Button>
-                <Button Name="ButtonM_More" Click="MoreButton_Click" AutomationProperties.Name="更多" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
+                <Button Name="ButtonM_More" Click="MoreButton_Click" x:Uid="A更多" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="4,0,4,0">
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" FontSize="18"/>
                     <Button.Flyout>
                         <MenuFlyout Placement="TopEdgeAlignedRight" >
-                            <MenuFlyoutItem Text="新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="全屏" Click="FullScreen" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T全屏" Click="FullScreen" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE740;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
                             <MenuFlyoutSeparator/>
-                            <MenuFlyoutItem Text="收藏夹" Click="Collection" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T收藏夹" Click="Collection" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1CE;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="笔记" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
+                            <MenuFlyoutItem x:Uid="T笔记" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE70B;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="历史记录" Click="History" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T历史记录" Click="History" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE81C;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="下载" Click="Download" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T下载" Click="Download" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE118;"/>
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
                             <MenuFlyoutSeparator/>
-                            <MenuFlyoutItem Text="设置" Click="Settings" FontFamily="HarmonyOS Sans SC">
+                            <MenuFlyoutItem x:Uid="T设置" Click="Settings" FontFamily="HarmonyOS Sans SC">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE115;"/>
                                 </MenuFlyoutItem.Icon>
@@ -93,55 +93,55 @@
         <Grid Name="EdgeTitleBar" VerticalAlignment="Top" MinHeight="50" MaxHeight="50" Height="50" HorizontalAlignment="Stretch">
             <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="36">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Stretch">
-                    <Button Name="Button_Back" Click="Back" AutomationProperties.Name="返回" ToolTipService.ToolTip="返回" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Button Name="Button_Back" Click="Back" x:Uid="O返回" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE112;" FontSize="16"/>
                     </Button>
-                    <Button Name="Button_Forward" Click="Forward" AutomationProperties.Name="前进" ToolTipService.ToolTip="前进" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Button Name="Button_Forward" Click="Forward" x:Uid="O前进" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE111;" FontSize="16"/>
                     </Button>
-                    <Button Name="Button_Refresh" Click="Refresh" AutomationProperties.Name="刷新" ToolTipService.ToolTip="刷新" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Button Name="Button_Refresh" Click="Refresh" x:Uid="O刷新" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE149;" FontSize="16"/>
                         <Button.KeyboardAccelerators>
                         </Button.KeyboardAccelerators>
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Stretch">
-                    <Button Name="CollectionButton" Click="Collection" AutomationProperties.Name="收藏夹" ToolTipService.ToolTip="收藏夹" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                    <Button Name="CollectionButton" Click="Collection" x:Uid="O收藏夹" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1CE;" FontSize="16"/>
                     </Button>
-                    <Button Name="HistoryButton" Click="History" AutomationProperties.Name="历史记录" ToolTipService.ToolTip="历史记录" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                    <Button Name="HistoryButton" Click="History" x:Uid="O历史记录" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE81C;" FontSize="16"/>
                     </Button>
-                    <Button Name="DownloadButton" Click="Download" ToolTipService.ToolTip="下载" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                    <Button Name="DownloadButton" Click="Download" x:Uid="O下载" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE118;" FontSize="16"/>
                     </Button>
-                    <Button Name="FullScreenButton" ToolTipService.ToolTip="全屏" AutomationProperties.Name="全屏" Click="FullScreen" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                    <Button Name="FullScreenButton" x:Uid="O全屏" Click="FullScreen" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1D9;" FontSize="16"/>
                     </Button>
-                    <Button Name="MoreButton" Click="MoreButton_Click" AutomationProperties.Name="更多" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                    <Button Name="MoreButton" Click="MoreButton_Click" x:Uid="A更多" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch">
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE10C;" FontSize="16"/>
                         <Button.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight" >
-                                <MenuFlyoutItem Text="新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+T">
+                                <MenuFlyoutItem x:Uid="T新建标签页" Click="NewTab_Click" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+T">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+N">
+                                <MenuFlyoutItem x:Uid="T新建窗口" Click="NewWindow_Click" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+N">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem x:Uid="T在新窗口中打开" Click="NewWindowOpen_Click" FontFamily="HarmonyOS Sans SC">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;"/>
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="全屏" Click="FullScreen" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem x:Uid="T全屏" Click="FullScreen" FontFamily="HarmonyOS Sans SC">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE740;"/>
                                     </MenuFlyoutItem.Icon>
@@ -149,14 +149,14 @@
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutSeparator/>
-                                <MenuFlyoutItem Text="收藏夹" Click="Collection" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+O">
+                                <MenuFlyoutItem x:Uid="T收藏夹" Click="Collection" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+O">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE1CE;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="笔记" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
+                                <MenuFlyoutItem x:Uid="T笔记" Click="MoreMenuItem_Click" FontFamily="HarmonyOS Sans SC" Visibility="Collapsed">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE70B;"/>
                                     </MenuFlyoutItem.Icon>
@@ -164,14 +164,14 @@
                                         <KeyboardAccelerator Key="P" Modifiers="Control"/>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="历史记录" Click="History" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+H">
+                                <MenuFlyoutItem x:Uid="T历史记录" Click="History" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+H">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE81C;"/>
                                     </MenuFlyoutItem.Icon>
                                     <MenuFlyoutItem.KeyboardAccelerators>
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="下载" Click="Download" FontFamily="HarmonyOS Sans SC">
+                                <MenuFlyoutItem x:Uid="T下载" Click="Download" FontFamily="HarmonyOS Sans SC">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE118;"/>
                                     </MenuFlyoutItem.Icon>
@@ -179,7 +179,7 @@
                                     </MenuFlyoutItem.KeyboardAccelerators>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutSeparator/>
-                                <MenuFlyoutItem Text="设置" Click="Settings" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+I">
+                                <MenuFlyoutItem x:Uid="T设置" Click="Settings" FontFamily="HarmonyOS Sans SC" KeyboardAcceleratorTextOverride="Ctrl+I">
                                     <MenuFlyoutItem.Icon>
                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE115;"/>
                                     </MenuFlyoutItem.Icon>
@@ -193,7 +193,7 @@
             </Grid>
         </Grid>
         <Grid Name="NewTabPage">
-            <TextBox FontFamily="HarmonyOS Sans SC"  Name="SearchBox" Height="48" FontSize="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="180,-128,180,0" KeyDown="SearchChanged" IsSpellCheckEnabled="True" PlaceholderText="搜索网络" AllowDrop="True"/>
+            <TextBox FontFamily="HarmonyOS Sans SC"  Name="SearchBox" Height="48" FontSize="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="180,-128,180,0" KeyDown="SearchChanged" IsSpellCheckEnabled="True" x:Uid="P搜索网络" AllowDrop="True"/>
         </Grid>
         <WebView x:Name="EdgeWebView" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,50,0,0" NavigationStarting="WebNavStart" NavigationCompleted="WebNavComplete" NewWindowRequested="NewTabRequest" ContainsFullScreenElementChanged="FullScreenRequest" Source="about:blank" PermissionRequested="WebView_PermissionRequested" Loaded="EdgeWebView_Loaded" />
 
@@ -213,7 +213,7 @@
             </Frame.Resources>
         </Frame>
         <StackPanel x:Name="DownloadBackControl" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed" Margin="10,7,0,0">
-            <Button Name="DownloadBack" ToolTipService.ToolTip="返回" AutomationProperties.Name="返回" Click="DownloadBack_Click" Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe Fluent Icons" Content="&#xE112;" FontSize="16" Height="36" >
+            <Button Name="DownloadBack" x:Uid="O返回" Click="DownloadBack_Click" Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe Fluent Icons" Content="&#xE112;" FontSize="16" Height="36" >
                 <Button.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Escape"/>
                 </Button.KeyboardAccelerators>

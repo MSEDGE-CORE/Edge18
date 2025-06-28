@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -28,6 +29,16 @@ namespace App3.SettingsPages
         public Browse()
         {
             this.InitializeComponent();
+
+            Home_Selection.Items[0] = ResourceLoader.GetForCurrentView().GetString("C新标签页");
+            Home_Selection.Items[1] = ResourceLoader.GetForCurrentView().GetString("C自定义");
+
+            Search_Selection.Items[0] = ResourceLoader.GetForCurrentView().GetString("C必应");
+            Search_Selection.Items[1] = ResourceLoader.GetForCurrentView().GetString("C百度");
+            Search_Selection.Items[2] = ResourceLoader.GetForCurrentView().GetString("C谷歌");
+            Search_Selection.Items[3] = ResourceLoader.GetForCurrentView().GetString("C搜狗");
+            Search_Selection.Items[4] = ResourceLoader.GetForCurrentView().GetString("C360");
+            Search_Selection.Items[5] = ResourceLoader.GetForCurrentView().GetString("C自定义");
 
 
             ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -243,8 +254,9 @@ namespace App3.SettingsPages
 
         private void SetHome_Complete(object sender, RoutedEventArgs e)
         {
-            string Link = Home_Link.Text;
+            Set_HomeLink_Flyout.Hide();
 
+            string Link = Home_Link.Text;
             MatchCollection IsMatch = Regex.Matches(Link, @"^(https?)://");
 
             int CanWebNav = 0;

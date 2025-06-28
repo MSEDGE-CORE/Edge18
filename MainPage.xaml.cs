@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -181,7 +182,7 @@ namespace App3
 
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if(SettingsBackControl.Visibility == Visibility.Visible)
+            if (SettingsBackControl.Visibility == Visibility.Visible)
             {
                 SettingsBack_Click(null, null);
                 if(e != null)
@@ -345,7 +346,7 @@ namespace App3
                 frame.Navigate(typeof(WebPage));
             }
             NewTabPage.Content = frame;
-            NewTabPage.Header = "新标签页";
+            NewTabPage.Header = ResourceLoader.GetForCurrentView().GetString("C新标签页");
             //newItem.IconSource = new Microsoft.UI.Xaml.Controls.SymbolIconSource() { Symbol = Symbol.Stop };
 
             MicrosoftEdge.TabItems.Add(NewTabPage);

@@ -8,9 +8,9 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <Grid HorizontalAlignment="Stretch" AutomationProperties.Name="文件">
+    <Grid HorizontalAlignment="Stretch" x:Uid="A存储">
         <Grid HorizontalAlignment="Stretch" Margin="40,32,40,0" MaxWidth="720">
-            <TextBlock x:Name="PageTitle" Text="存储" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
+            <TextBlock x:Name="PageTitle" x:Uid="T存储" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
         </Grid>
         <ScrollViewer Name="ScrollViewer" IsTabStop="False" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="0,116,0,0">
             <Grid>
@@ -18,11 +18,11 @@
                     <StackPanel Name="CollectionPanel" HorizontalAlignment="Stretch">
                         <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                             <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "收藏夹" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T收藏夹" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                             <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             <StackPanel Orientation="Horizontal" Margin="0,0,26,0" VerticalAlignment = "Center" HorizontalAlignment = "Right">
-                                <Button AutomationProperties.Name="导入收藏夹" FontFamily="HarmonyOS Sans SC" x:Name="Collection_Import_Button" Click="Collection_Import" Content="导入" Width="56" Margin="0,0,4,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
-                                <Button AutomationProperties.Name="导出收藏夹" FontFamily="HarmonyOS Sans SC" x:Name="Collection_Export_Button" Content="导出" Width="56" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                <Button x:Uid="A导入收藏夹" FontFamily="HarmonyOS Sans SC" x:Name="Collection_Import_Button" Click="Collection_Import" Width="56" Margin="0,0,4,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                                <Button x:Uid="A导出收藏夹" FontFamily="HarmonyOS Sans SC" x:Name="Collection_Export_Button" Width="56" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
                                     <Button.Flyout>
                                         <MenuFlyout Placement="BottomEdgeAlignedRight">
                                             <MenuFlyoutItem Text="HTML" Click="Collection_ExportToHtml"/>
@@ -36,16 +36,16 @@
                     <StackPanel Name="HistoryPanel" HorizontalAlignment="Stretch">
                         <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                             <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "历史记录" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T历史记录" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                             <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             <StackPanel Orientation="Horizontal" Margin="0,0,26,0" VerticalAlignment = "Center" HorizontalAlignment = "Right">
-                                <Button AutomationProperties.Name="导入历史记录" FontFamily="HarmonyOS Sans SC" x:Name="History_Import_Button" Click="History_Import_Button_Click" Content="导入" Width="56" Margin="0,0,4,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
-                                <Button AutomationProperties.Name="导出历史记录" FontFamily="HarmonyOS Sans SC" x:Name="History_Export_Button" Click="History_Export_Button_Click" Content="导出" Width="56" Margin="0,0,4,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                <Button x:Uid="A导入历史记录" FontFamily="HarmonyOS Sans SC" x:Name="History_Import_Button" Click="History_Import_Button_Click" Width="56" Margin="0,0,4,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                                <Button x:Uid="A导出历史记录" FontFamily="HarmonyOS Sans SC" x:Name="History_Export_Button" Click="History_Export_Button_Click" Width="56" Margin="0,0,4,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
                                 </Button>
-                                <Button FontFamily="HarmonyOS Sans SC" Content="清空" Width="56" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right">
+                                <Button FontFamily="HarmonyOS Sans SC" x:Uid="D清空" Width="56" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right">
                                     <Button.Flyout>
                                         <MenuFlyout x:Name="HistoryClearFlyout" Placement="BottomEdgeAlignedRight">
-                                            <MenuFlyoutItem Text="确定清空历史记录" Click="History_Clear" HorizontalContentAlignment="Center" Margin="0" FontFamily="HarmonyOS Sans SC"/>
+                                            <MenuFlyoutItem x:Uid="T确定清空历史记录" Click="History_Clear" HorizontalContentAlignment="Center" Margin="0" FontFamily="HarmonyOS Sans SC"/>
                                         </MenuFlyout>
                                     </Button.Flyout>
                                 </Button>
@@ -55,7 +55,7 @@
                     <StackPanel Name="DownloadPanel" HorizontalAlignment="Stretch">
                         <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                             <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "下载的文件将会保存至 “下载 / Fringe” 中" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                            <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T下载的文件将会保存至" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                             <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </StackPanel>

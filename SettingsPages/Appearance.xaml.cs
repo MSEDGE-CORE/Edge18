@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Core;
 
 namespace App3.SettingsPages
 {
@@ -25,12 +27,22 @@ namespace App3.SettingsPages
         {
             this.InitializeComponent();
 
+            Theme_Selection.Items[0] = ResourceLoader.GetForCurrentView().GetString("C跟随系统");
+            Theme_Selection.Items[1] = ResourceLoader.GetForCurrentView().GetString("C浅色");
+            Theme_Selection.Items[2] = ResourceLoader.GetForCurrentView().GetString("C深色");
+            Lang_Selection.Items[0] = ResourceLoader.GetForCurrentView().GetString("C跟随系统");
+            Lang_Selection.Items[1] = "中文";
+            Lang_Selection.Items[2] = "English";
+
             Theme_Selection.SelectedIndex = (Application.Current as App).ThemeSelected;
             ShowCollection_Switch.IsOn = (Application.Current as App).ShowCollection;
             ShowHistory_Switch.IsOn = (Application.Current as App).ShowHistory;
             ShowDownload_Switch.IsOn = (Application.Current as App).ShowDownload;
             ShowFullScreen_Switch.IsOn = (Application.Current as App).ShowFullScreen;
             ShowTabList_Switch.IsOn = (Application.Current as App).ShowTabList;
+            Lang_Selection.SelectedIndex = (Application.Current as App).CustomLang;
+            Restart_Button.Visibility = Visibility.Collapsed;
+
         }
 
         private void Theme_SelectionChanged(object sender, RoutedEventArgs e)
@@ -130,6 +142,23 @@ namespace App3.SettingsPages
             Windows.Storage.ApplicationDataCompositeValue ShowTabListSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ShowTabListSwitch["ShowTabListSwitch"] = ShowTabList_Switch.IsOn;
             LocalSettings.Values["ShowTabListSwitch"] = ShowTabListSwitch;
+        }
+
+        private void Lang_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int LangSelected = Lang_Selection.SelectedIndex;
+            (Application.Current as App).CustomLang = LangSelected;
+
+            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            Windows.Storage.ApplicationDataCompositeValue Custom_Lang = new Windows.Storage.ApplicationDataCompositeValue();
+            Custom_Lang["CustomLang"] = LangSelected;
+            LocalSettings.Values["CustomLang"] = Custom_Lang;
+            Restart_Button.Visibility = Visibility.Visible;
+        }
+
+        private async void Restart(object sender, RoutedEventArgs e)
+        {
+            await CoreApplication.RequestRestartAsync(string.Empty);
         }
     }
 }

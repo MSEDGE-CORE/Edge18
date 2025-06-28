@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,7 +27,7 @@ namespace App3.SettingsPages
         public About()
         {
             this.InitializeComponent();
-            TextVersion.Text = string.Format("版本：{0}.{1}.{2}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build);
+            TextVersion.Text = string.Format(ResourceLoader.GetForCurrentView().GetString("C版本") + "{0}.{1}.{2}", Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build);
         }
 
         private void ProjectHome_Click(object sender, RoutedEventArgs e)

@@ -29,6 +29,9 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using Newtonsoft.Json;
 using System.Reflection.PortableExecutable;
+using Windows.Globalization;
+using System.Diagnostics;
+using Windows.System.UserProfile;
 
 
 namespace App3
@@ -70,6 +73,9 @@ namespace App3
         public bool ForbidJavaScript = false;
         public bool AutoSavePassword = false;
         public string HomePageLink = "about:blank";
+        public string UserLang = "zh-Hans-CN";
+        public int UserLangIndex = 0;
+        public int CustomLang = 0; //default zh-cn en-us
 
         public App()
         {
@@ -378,6 +384,43 @@ namespace App3
             {
                 HomePageLink = HomeLink["HomePageLink"].ToString();
             }
+
+            UserLang = GlobalizationPreferences.Languages.FirstOrDefault();
+            Windows.Storage.ApplicationDataCompositeValue CustomLangSet = (ApplicationDataCompositeValue)LocalSettings.Values["CustomLang"];
+            if (CustomLangSet != null)
+            {
+                CustomLang = (int)CustomLangSet["CustomLang"];
+                
+            }
+            if (CustomLang == 0)
+            {
+                if (UserLang.Contains("zh"))
+                {
+                    UserLang = "zh-Hans-CN";
+                    UserLangIndex = 1;
+                }
+                else if(UserLang.Contains("en"))
+                {
+                    UserLang = "en";
+                    UserLangIndex = 1;
+                }
+                else
+                {
+                    UserLang = "en";
+                    UserLangIndex = 1;
+                }
+            }
+            else if (CustomLang == 1)
+            {
+                UserLang = "zh-Hans-CN";
+                UserLangIndex = 1;
+            }
+            else if (CustomLang == 2)
+            {
+                UserLang = "en";
+                UserLangIndex = 2;
+            }
+            ApplicationLanguages.PrimaryLanguageOverride = UserLang;
 
             GetCollection();
         }

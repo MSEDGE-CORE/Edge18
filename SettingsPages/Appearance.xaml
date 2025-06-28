@@ -8,53 +8,66 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
-    <Grid HorizontalAlignment="Stretch" AutomationProperties.Name="外观">
+    <Grid HorizontalAlignment="Stretch" x:Uid="A外观">
         <Grid HorizontalAlignment="Stretch" Margin="40,32,40,0" MaxWidth="720">
-            <TextBlock x:Name="PageTitle" Text="外观" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
+            <TextBlock x:Name="PageTitle" x:Uid="T外观" FontWeight="Medium" Margin="4,32,0,0" FontSize="32" FontFamily="HarmonyOS Sans SC"/>
         </Grid>
         <ScrollViewer Name="ScrollViewer" IsTabStop="False" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Margin="0,116,0,0">
             <Grid>
                 <StackPanel MaxWidth="720" Margin="40,0,40,32">
                     <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                         <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "应用程序主题" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T应用程序主题" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <ComboBox FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="应用程序主题" Name = "Theme_Selection" SelectionChanged="Theme_SelectionChanged" Width="150" Margin="0,0,26,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
-                            <x:String>跟随系统</x:String>
-                            <x:String>浅色</x:String>
-                            <x:String>深色</x:String>
+                        <ComboBox FontFamily="HarmonyOS Sans SC" x:Uid="A应用程序主题" Name = "Theme_Selection" SelectionChanged="Theme_SelectionChanged" Width="150" Margin="0,0,26,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                            <x:String></x:String>
+                            <x:String></x:String>
+                            <x:String></x:String>
                         </ComboBox>
                     </Grid>
                     <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
-                        <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "标签页列表" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T语言 / Language" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="标签页列表" Name="ShowTabList_Switch" Toggled="ShowTabList_Switch_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
-                    </Grid>
-                    <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "14" FontWeight = "Bold" Text = "工具栏" Margin = "6,12,0,0" />
-                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
-                        <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "显示收藏夹" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
-                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="显示收藏夹" Name="ShowCollection_Switch" Toggled="Collection_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
-                    </Grid>
-                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
-                        <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "显示历史记录" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
-                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="显示历史记录" Name="ShowHistory_Switch" Toggled="History_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                        <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
+                            <ComboBox FontFamily="HarmonyOS Sans SC" x:Uid="A语言 / Language" Name = "Lang_Selection" SelectionChanged="Lang_Selection_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                <x:String></x:String>
+                                <x:String></x:String>
+                                <x:String></x:String>
+                            </ComboBox>
+                            <Button FontFamily="HarmonyOS Sans SC"  Name="Restart_Button" Visibility="Collapsed" Style="{StaticResource AccentButtonStyle}" Margin="4,0,0,0" x:Uid="D重启" Click="Restart"/>
+                        </StackPanel>
                     </Grid>
                     <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                         <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "显示下载" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T标签页列表" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="显示下载" Name="ShowDownload_Switch" Toggled="Download_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" x:Uid="A标签页列表" Name="ShowTabList_Switch" Toggled="ShowTabList_Switch_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                    </Grid>
+                    <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "14" FontWeight = "Bold" x:Uid="T工具栏" Margin = "6,12,0,0" />
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T显示收藏夹" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" x:Uid="A显示收藏夹" Name="ShowCollection_Switch" Toggled="Collection_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
                     </Grid>
                     <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
                         <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" Text = "显示全屏按钮" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T显示历史记录" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
                         <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" AutomationProperties.Name="显示全屏按钮" Name="ShowFullScreen_Switch" Toggled="FullScreen_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" x:Uid="A显示历史记录" Name="ShowHistory_Switch" Toggled="History_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                    </Grid>
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T显示下载" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" x:Uid="A显示下载" Name="ShowDownload_Switch" Toggled="Download_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
+                    </Grid>
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T显示全屏按钮" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <ToggleSwitch FontFamily="HarmonyOS Sans SC" x:Uid="A显示全屏按钮" Name="ShowFullScreen_Switch" Toggled="FullScreen_Toggled" Margin="0,0,-52,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" />
                     </Grid>
                 </StackPanel>
             </Grid>
