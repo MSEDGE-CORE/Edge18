@@ -185,11 +185,11 @@ namespace App3
         private void LinkToChanging(object sender, RoutedEventArgs e)
         {
             LinkTyping = true;
-            (sender as TextBox).SelectAll();
+            //(sender as TextBox).SelectAll();
         }
         private void LinkToChanged(object sender, RoutedEventArgs e)
         {
-            LinkTyping = false;
+            //LinkTyping = false;
         }
         private void LinkIME(object sender, TextCompositionStartedEventArgs e)
         {
@@ -265,6 +265,12 @@ namespace App3
             else if(LinkBox.Text == "" && e.Key == Windows.System.VirtualKey.Enter && EdgeWebView.VerticalAlignment == VerticalAlignment.Stretch && WebNavigating == false)
             {
                 LinkBox.Text = EdgeWebView.Source.ToString();
+            }
+            else if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                LinkTyping = false;
+                if (EdgeWebView.Source.ToString() != "about:blank")
+                    LinkBox.Text = EdgeWebView.Source.ToString();
             }
         }
 
@@ -469,7 +475,9 @@ namespace App3
                 Timer.Start();
             }
 
-            LinkBox.Focus(FocusState.Keyboard);
+            if (StartupLink == "about:blank")
+                LinkBox.Focus(FocusState.Keyboard);
+
         }
 
         private void DownloadBack_Click(object sender, RoutedEventArgs e)

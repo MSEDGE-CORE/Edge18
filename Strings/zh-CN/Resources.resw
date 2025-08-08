@@ -147,13 +147,13 @@
   <data name="T发送反馈.Text" xml:space="preserve">
     <value>发送反馈</value>
   </data>
-	<data name="AGithub 项目主页.AutomationProperties.Name" xml:space="preserve">
+  <data name="AGithub 项目主页.AutomationProperties.Name" xml:space="preserve">
     <value>Github 项目主页</value>
   </data>
-	<data name="A检查更新.AutomationProperties.Name" xml:space="preserve">
+  <data name="A检查更新.AutomationProperties.Name" xml:space="preserve">
     <value>检查更新</value>
   </data>
-	<data name="A发送反馈.AutomationProperties.Name" xml:space="preserve">
+  <data name="A发送反馈.AutomationProperties.Name" xml:space="preserve">
     <value>发送反馈</value>
   </data>
   <data name="T依赖 &amp; 参考.Text" xml:space="preserve">
@@ -539,5 +539,39 @@
   </data>
   <data name="A关于 浏海.AutomationProperties.Name" xml:space="preserve">
     <value>关于 浏海</value>
+  </data>
+  <data name="W导航栏.Width" xml:space="preserve">
+    <value>70</value>
+  </data>
+  <data name="W外观.AutomationProperties.Name" xml:space="preserve">
+    <value>外观</value>
+  </data>
+
+	<data name="W外观.Width" xml:space="preserve">
+    <value>64</value>
+  </data>
+
+	<data name="W浏览.AutomationProperties.Name" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+
+	<data name="W浏览.Width" xml:space="preserve">
+    <value>64</value>
+  </data>
+
+	<data name="W存储.AutomationProperties.Name" xml:space="preserve">
+    <value>存储</value>
+  </data>
+
+	<data name="W存储.Width" xml:space="preserve">
+    <value>64</value>
+  </data>
+
+	<data name="W关于.AutomationProperties.Name" xml:space="preserve">
+    <value>关于</value>
+  </data>
+
+	<data name="W关于.Width" xml:space="preserve">
+    <value>64</value>
   </data>
 </root>

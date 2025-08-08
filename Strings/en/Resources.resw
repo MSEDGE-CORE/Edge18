@@ -127,13 +127,13 @@
     <value>About</value>
   </data>
   <data name="T外观2.Text" xml:space="preserve">
-    <value>Appear.</value>
+    <value>Appear</value>
   </data>
   <data name="T浏览2.Text" xml:space="preserve">
     <value>Browse</value>
   </data>
   <data name="T存储2.Text" xml:space="preserve">
-    <value>Storag.</value>
+    <value>Storage</value>
   </data>
   <data name="T版本.Text" xml:space="preserve">
     <value>Version</value>
@@ -539,5 +539,32 @@
   </data>
   <data name="A关于 浏海.AutomationProperties.Name" xml:space="preserve">
     <value>About Fringe Browser</value>
+  </data>
+  <data name="W导航栏.Width" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="W外观.AutomationProperties.Name" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="W外观.Width" xml:space="preserve">
+    <value>74</value>
+  </data>
+  <data name="W浏览.AutomationProperties.Name" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="W浏览.Width" xml:space="preserve">
+    <value>74</value>
+  </data>
+  <data name="W存储.AutomationProperties.Name" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="W存储.Width" xml:space="preserve">
+    <value>74</value>
+  </data>
+  <data name="W关于.AutomationProperties.Name" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="W关于.Width" xml:space="preserve">
+    <value>74</value>
   </data>
 </root>

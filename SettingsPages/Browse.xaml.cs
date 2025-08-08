@@ -41,8 +41,7 @@ namespace App3.SettingsPages
             Search_Selection.Items[5] = ResourceLoader.GetForCurrentView().GetString("C自定义");
 
 
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            Windows.Storage.ApplicationDataCompositeValue WebView_Mode = (ApplicationDataCompositeValue)LocalSettings.Values["WebView_Mode"];
+            Windows.Storage.ApplicationDataCompositeValue WebView_Mode = (ApplicationDataCompositeValue)(Application.Current as App).LocalSettings.Values["WebView_Mode"];
             if (WebView_Mode != null)
             {
                 WebView_Selection.SelectedIndex = (int)WebView_Mode["WebView_Mode"];
@@ -141,10 +140,9 @@ namespace App3.SettingsPages
 
                 }
             }
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue SearchLink = new Windows.Storage.ApplicationDataCompositeValue();
             SearchLink["SearchLink"] = (Application.Current as App).SearchToolLink;
-            LocalSettings.Values["SearchLink"] = SearchLink;
+            (Application.Current as App).LocalSettings.Values["SearchLink"] = SearchLink;
         }
 
         int SearchTool = 0;
@@ -180,10 +178,9 @@ namespace App3.SettingsPages
             {
                 (Application.Current as App).SearchToolLink = "https://www.so.com/s?q=";
             }
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue SearchLink = new Windows.Storage.ApplicationDataCompositeValue();
             SearchLink["SearchLink"] = (Application.Current as App).SearchToolLink;
-            LocalSettings.Values["SearchLink"] = SearchLink;
+            (Application.Current as App).LocalSettings.Values["SearchLink"] = SearchLink;
         }
 
 
@@ -200,10 +197,9 @@ namespace App3.SettingsPages
             int WebViewSelected = WebView_Selection.SelectedIndex;
             //(Application.Current as App).WebViewSelected = WebViewSelected;
 
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue WebView_Mode = new Windows.Storage.ApplicationDataCompositeValue();
             WebView_Mode["WebView_Mode"] = WebView_Selection.SelectedIndex;
-            LocalSettings.Values["WebView_Mode"] = WebView_Mode;
+            (Application.Current as App).LocalSettings.Values["WebView_Mode"] = WebView_Mode;
 
             Restart_Button.Visibility = Visibility.Visible;
         }
@@ -211,19 +207,17 @@ namespace App3.SettingsPages
         private void AutoSavePassword_Switch_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).AutoSavePassword = AutoSavePassword_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue AutoSavePasswordSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             AutoSavePasswordSwitch["AutoSavePasswordSwitch"] = AutoSavePassword_Switch.IsOn;
-            LocalSettings.Values["AutoSavePasswordSwitch"] = AutoSavePasswordSwitch;
+            (Application.Current as App).LocalSettings.Values["AutoSavePasswordSwitch"] = AutoSavePasswordSwitch;
         }
 
         private void ForbidJavaScript_Switch_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).ForbidJavaScript = ForbidJavaScript_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue ForbidJavaScriptSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ForbidJavaScriptSwitch["ForbidJavaScriptSwitch"] = ForbidJavaScript_Switch.IsOn;
-            LocalSettings.Values["ForbidJavaScriptSwitch"] = ForbidJavaScriptSwitch;
+            (Application.Current as App).LocalSettings.Values["ForbidJavaScriptSwitch"] = ForbidJavaScriptSwitch;
         }
 
         private void Home_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -241,10 +235,9 @@ namespace App3.SettingsPages
             {
                 (Application.Current as App).HomePageLink = "about:blank";
             }
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue HomeLink = new Windows.Storage.ApplicationDataCompositeValue();
             HomeLink["HomePageLink"] = (Application.Current as App).HomePageLink;
-            LocalSettings.Values["HomePageLink"] = HomeLink;
+            (Application.Current as App).LocalSettings.Values["HomePageLink"] = HomeLink;
         }
 
         private void SetHome_Button_Click(object sender, RoutedEventArgs e)
@@ -289,10 +282,9 @@ namespace App3.SettingsPages
 
                 }
             }
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue HomeLink = new Windows.Storage.ApplicationDataCompositeValue();
             HomeLink["HomePageLink"] = (Application.Current as App).HomePageLink;
-            LocalSettings.Values["HomePageLink"] = HomeLink;
+            (Application.Current as App).LocalSettings.Values["HomePageLink"] = HomeLink;
         }
     }
 }

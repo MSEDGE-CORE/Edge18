@@ -39,8 +39,8 @@
         </muxc:TabView>
         <Button Name="ExitFS" IsTabStop="False" PointerEntered="ExitFS_PointerEntered" PointerMoved="ExitFS_PointerEntered" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" Height="16" BorderThickness="0" Opacity="0" Visibility="Collapsed" />
 
-        <Button x:Name="SideWindowBackground" IsTabStop="False" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" Click="SideWindowBackground_Click" Visibility="Collapsed">
-        </Button>
+        <Grid x:Name="SideWindowBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,90,0,0" PointerPressed="SideWindowBackground_PointerPressed" PointerReleased="SideWindowBackground_PointerReleased" Visibility="Collapsed">
+        </Grid>
         <Grid x:Name="SideGrid" ManipulationDelta="SideGrid_ManipulationDelta" ManipulationMode="TranslateX" ManipulationCompleted="SideGrid_ManipulationCompleted" ManipulationStarted="SideGrid_ManipulationStarted" Margin="0,90,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Visibility="Collapsed" Opacity="1">
             <Grid.Resources>
                 <Storyboard x:Name="SideStoryBoard">
@@ -59,9 +59,9 @@
             </Frame>
             <AppBarSeparator Name="SideSeparateBar" Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="-3,-8,-8,-8"/>
         </Grid>
-        
-        <Button x:Name="TabListBackground" IsTabStop="False" HorizontalAlignment="Stretch" ClickMode="Press" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,40,0,0" Click="TabListBackground_Click" Visibility="Collapsed">
-        </Button>
+
+        <Grid x:Name="TabListBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="0" Background="Transparent" BorderBrush="Transparent" Margin="0,40,0,0" PointerPressed="TabListBackground_PointerPressed" PointerReleased="TabListBackground_PointerReleased" Visibility="Collapsed">
+        </Grid>
         <Grid x:Name="TabListGrid" Margin="0,40,0,0" ManipulationMode="TranslateX" ManipulationCompleted="TabListGrid_ManipulationCompleted" ManipulationStarted="TabListGrid_ManipulationStarted"  ManipulationDelta="TabListGrid_ManipulationDelta" VerticalAlignment="Stretch" HorizontalAlignment="Left" Visibility="Collapsed" Opacity="1">
             <Grid.Resources>
                 <Storyboard x:Name="TabListStoryBoard">

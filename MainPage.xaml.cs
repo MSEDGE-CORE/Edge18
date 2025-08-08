@@ -90,7 +90,7 @@ namespace App3
                     case VirtualKey.Escape:
                         {
                             MainPage_BackRequested(null, null);
-                            args.Handled = true;
+                            //args.Handled = true;
                             break;
                         }
                     case VirtualKey.O:
@@ -790,6 +790,34 @@ namespace App3
 
                 (sender as Button).Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void SideWindowBackground_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Pen || true)
+            {
+                ShowSideWindow(0);
+                ShowTabListWindow(0);
+            }
+        }
+
+        private void SideWindowBackground_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {/*
+            ShowSideWindow(0);
+            ShowTabListWindow(0);*/
+        }
+
+        private void TabListBackground_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Pen || true)
+            {
+                ShowTabListWindow(0);
+            }
+        }
+
+        private void TabListBackground_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            //ShowTabListWindow(0);
         }
     }
 }

@@ -95,64 +95,56 @@ namespace App3.SettingsPages
             }
             (Application.Current as App).ThemeSelected = ThemeSelected;
 
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue App_Theme = new Windows.Storage.ApplicationDataCompositeValue();
             App_Theme["App_Theme"] = Theme_Selection.SelectedIndex;
-            LocalSettings.Values["App_Theme"] = App_Theme;
+            (Application.Current as App).LocalSettings.Values["App_Theme"] = App_Theme;
         }
 
         private void Collection_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).ShowCollection = ShowCollection_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue ShowCollectionSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ShowCollectionSwitch["ShowCollectionSwitch"] = ShowCollection_Switch.IsOn;
-            LocalSettings.Values["ShowCollectionSwitch"] = ShowCollectionSwitch;
+            (Application.Current as App).LocalSettings.Values["ShowCollectionSwitch"] = ShowCollectionSwitch;
         }
         private void History_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).ShowHistory = ShowHistory_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue ShowHistorySwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ShowHistorySwitch["ShowHistorySwitch"] = ShowHistory_Switch.IsOn;
-            LocalSettings.Values["ShowHistorySwitch"] = ShowHistorySwitch;
+            (Application.Current as App).LocalSettings.Values["ShowHistorySwitch"] = ShowHistorySwitch;
         }
         private void Download_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).ShowDownload = ShowDownload_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue ShowDownloadSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ShowDownloadSwitch["ShowDownloadSwitch"] = ShowDownload_Switch.IsOn;
-            LocalSettings.Values["ShowDownloadSwitch"] = ShowDownloadSwitch;
+            (Application.Current as App).LocalSettings.Values["ShowDownloadSwitch"] = ShowDownloadSwitch;
         }
 
         private void FullScreen_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).ShowFullScreen = ShowFullScreen_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue ShowFullScreenSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ShowFullScreenSwitch["ShowFullScreenSwitch"] = ShowFullScreen_Switch.IsOn;
-            LocalSettings.Values["ShowFullScreenSwitch"] = ShowFullScreenSwitch;
+            (Application.Current as App).LocalSettings.Values["ShowFullScreenSwitch"] = ShowFullScreenSwitch;
         }
 
         private void ShowTabList_Switch_Toggled(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).ShowTabList = ShowTabList_Switch.IsOn;
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue ShowTabListSwitch = new Windows.Storage.ApplicationDataCompositeValue();
             ShowTabListSwitch["ShowTabListSwitch"] = ShowTabList_Switch.IsOn;
-            LocalSettings.Values["ShowTabListSwitch"] = ShowTabListSwitch;
+            (Application.Current as App).LocalSettings.Values["ShowTabListSwitch"] = ShowTabListSwitch;
         }
 
         private void Lang_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int LangSelected = Lang_Selection.SelectedIndex;
             (Application.Current as App).CustomLang = LangSelected;
-
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue Custom_Lang = new Windows.Storage.ApplicationDataCompositeValue();
             Custom_Lang["CustomLang"] = LangSelected;
-            LocalSettings.Values["CustomLang"] = Custom_Lang;
+            (Application.Current as App).LocalSettings.Values["CustomLang"] = Custom_Lang;
             Restart_Button.Visibility = Visibility.Visible;
         }
 

@@ -29,6 +29,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json;
 using Windows.ApplicationModel.Resources;
+using System.Threading.Tasks;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -221,11 +222,11 @@ namespace App3
             if (isLoaded)
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
             LinkTyping = true;
-            (sender as TextBox).SelectAll();
+            //(sender as TextBox).SelectAll();
         }
         private void LinkToChanged(object sender, RoutedEventArgs e)
         {
-            LinkTyping = false;
+            //LinkTyping = false;
         }
         private void LinkIME(object sender, TextCompositionStartedEventArgs e)
         {
@@ -286,9 +287,15 @@ namespace App3
                 }
                 
             }
-            else if(LinkBox.Text == "" && e.Key == Windows.System.VirtualKey.Enter && EdgeWebView.Opacity == 1 && WebNavigating == false)
+            else if((LinkBox.Text == "" && e.Key == Windows.System.VirtualKey.Enter) && EdgeWebView.Opacity == 1 && WebNavigating == false)
             {
                 LinkBox.Text = EdgeWebView.Source.ToString();
+            }
+            else if(e.Key == Windows.System.VirtualKey.Escape)
+            {
+                LinkTyping = false;
+                if(EdgeWebView.Source.ToString() != "about:blank")
+                    LinkBox.Text = EdgeWebView.Source.ToString();
             }
         }
 
@@ -434,15 +441,24 @@ namespace App3
                 sender.CoreWebView2.FaviconChanged += CoreWebView2_FaviconChanged;
                 sender.CoreWebView2.PermissionRequested += CoreWebView2_PermissionRequested;
 
-                LinkBox.Focus(FocusState.Keyboard);
+                if(StartupLink == "about:blank")
+                    LinkBox.Focus(FocusState.Keyboard);
+
                 EdgeWebView.CoreWebView2.Settings.IsPasswordAutosaveEnabled = (Application.Current as App).AutoSavePassword;
                 EdgeWebView.CoreWebView2.Settings.IsScriptEnabled = !(Application.Current as App).ForbidJavaScript;
                 EdgeWebView.CoreWebView2.Settings.IsReputationCheckingRequired = true;
             }
-            catch 
+            catch
             {
-                await CoreApplication.RequestRestartAsync("");
-            }
+                CloseWebView();
+                this.Frame.Navigate(typeof(WebPage),null, new SuppressNavigationTransitionInfo());
+                (this.Frame.Content as WebPage).WebLink = StartupLink;
+            }/*
+            Timer.Stop();
+            EdgeWebView.Close();
+
+            this.Frame.Navigate(typeof(WebPage), null, new SuppressNavigationTransitionInfo());
+            (this.Frame.Content as WebPage).WebLink = StartupLink;*/
 
         }
 

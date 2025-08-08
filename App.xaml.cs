@@ -58,6 +58,7 @@ namespace App3
         public ObservableCollection<History_List> HistoryList { get; set; } = new ObservableCollection<History_List>();
 
         public Frame RootFrame;
+        public ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
         DispatcherTimer Timer;
         public string WebLink = "";
         public int ThemeSelected = 0;
@@ -280,7 +281,6 @@ namespace App3
 
         private void GetSettings()
         {
-            ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             Windows.Storage.ApplicationDataCompositeValue App_Theme = (ApplicationDataCompositeValue)LocalSettings.Values["App_Theme"];
             if (App_Theme != null)
             {
