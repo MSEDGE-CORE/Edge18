@@ -190,6 +190,12 @@ namespace App3
         private void LinkToChanged(object sender, RoutedEventArgs e)
         {
             //LinkTyping = false;
+
+            if (LinkBox.Text == EdgeWebView.Source.ToString())
+            {
+                //LinkBox.Text = EdgeWebView.Source.ToString();
+                LinkTyping = false;
+            }
         }
         private void LinkIME(object sender, TextCompositionStartedEventArgs e)
         {
