@@ -73,13 +73,13 @@ namespace App3
             Page_SizeChanged();
             isLoaded = true;
 
-            if (EdgeWebView.Opacity == 1)
+            if (EdgeWebView.VerticalAlignment == VerticalAlignment.Stretch)
             {
                 EdgeWebView.Visibility = Visibility.Visible;
             }
-            else if(EdgeWebView.Opacity == 0)
+            else if(EdgeWebView.VerticalAlignment == VerticalAlignment.Top)
             {
-                EdgeWebView.Visibility = Visibility.Collapsed;
+                //EdgeWebView.Visibility = Visibility.Collapsed;
             }
 
             if (WebNavigating == true && (EdgeWebView.Source.ToString() != "about:blank"))
@@ -111,18 +111,18 @@ namespace App3
 
             if (EdgeWebView.Source.ToString() != "about:blank")
             {
-                if (EdgeWebView.Opacity != 1)
+                if (EdgeWebView.VerticalAlignment != VerticalAlignment.Stretch)
                 {
-                    EdgeWebView.Opacity = 1;
+                    EdgeWebView.VerticalAlignment = VerticalAlignment.Stretch;
                 }
             }
-            else if (EdgeWebView.Opacity != 0 && WebNavigating == false)
+            else if (EdgeWebView.VerticalAlignment != VerticalAlignment.Top && WebNavigating == false)
             {
-                EdgeWebView.Opacity = 0;
+                EdgeWebView.VerticalAlignment = VerticalAlignment.Top;
                 EdgeWebView.CoreWebView2.Reload();
             }
 
-            if (EdgeWebView.Opacity == 1)
+            if (EdgeWebView.VerticalAlignment == VerticalAlignment.Stretch)
             {
                 SearchBox.Text = "";
             }
@@ -150,6 +150,7 @@ namespace App3
         private void CoreWebView2_NavigationStarting(CoreWebView2 sender, CoreWebView2NavigationStartingEventArgs args)
         {
             WebNavigating = true;
+            EdgeWebView.CoreWebView2.Settings.UserAgent = (Application.Current as App).BrowserUA;
         }
         private async void CoreWebView2_NavigationCompleted(CoreWebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
         {
@@ -204,7 +205,7 @@ namespace App3
                             }
                         }
                     }
-                    EdgeWebView.Opacity = 1;
+                    EdgeWebView.VerticalAlignment = VerticalAlignment.Stretch;
                 }
                 StartupLink = "about:blank";
             }
@@ -246,7 +247,7 @@ namespace App3
                 EdgeWebView.CoreWebView2.CloseDefaultDownloadDialog();
 
             LinkTyping = true;
-            if ((EdgeWebView.Opacity != 1 || LinkBox.Text.ToString() != EdgeWebView.Source.ToString()) && LinkBox.Text != "" && e.Key == Windows.System.VirtualKey.Enter)
+            if ((EdgeWebView.VerticalAlignment != VerticalAlignment.Stretch || LinkBox.Text.ToString() != EdgeWebView.Source.ToString()) && LinkBox.Text != "" && e.Key == Windows.System.VirtualKey.Enter)
             {
                 Browser.ShowSideWindow(0);
                 Browser.ShowTabListWindow(0);
@@ -291,7 +292,7 @@ namespace App3
                 }
                 
             }
-            else if((LinkBox.Text == "" && e.Key == Windows.System.VirtualKey.Enter) && EdgeWebView.Opacity == 1 && WebNavigating == false)
+            else if((LinkBox.Text == "" && e.Key == Windows.System.VirtualKey.Enter) && EdgeWebView.VerticalAlignment == VerticalAlignment.Stretch && WebNavigating == false)
             {
                 LinkBox.Text = EdgeWebView.Source.ToString();
             }
@@ -370,7 +371,7 @@ namespace App3
             {
                 IsDownloadPageOpening = EdgeWebView.CoreWebView2.IsDefaultDownloadDialogOpen;
 
-                if (EdgeWebView.Visibility == Visibility.Collapsed)
+                if (EdgeWebView.Visibility == Visibility.Collapsed && false)
                 {
                     EdgeWebView.CoreWebView2.Navigate("edge://downloads");
                 }
@@ -418,7 +419,7 @@ namespace App3
 
         private void SearchChanged(object sender, KeyRoutedEventArgs e)
         {
-            if (SearchBox.Text != "" && e.Key == Windows.System.VirtualKey.Enter && EdgeWebView.Opacity != 1)
+            if (SearchBox.Text != "" && e.Key == Windows.System.VirtualKey.Enter && EdgeWebView.VerticalAlignment != VerticalAlignment.Stretch)
             {
                 string Link = (Application.Current as App).SearchToolLink + SearchBox.Text;
                 LinkBox.Text = Link;
@@ -666,14 +667,6 @@ namespace App3
                 LoadingBar.VerticalAlignment = VerticalAlignment.Top;
                 EdgeLinkGrid.VerticalAlignment = VerticalAlignment.Top;
                 SeparateLineLight.Y1 = SeparateLineLight.Y2 = SeparateLineDark.Y1 = SeparateLineDark.Y2 = 50;
-                if(MobilePageButton.Text == ResourceLoader.GetForCurrentView().GetString("C桌面视图"))
-                {
-                    MobilePageButton.Text = ResourceLoader.GetForCurrentView().GetString("C移动设备视图");
-                    if (isLoaded)
-                    {
-                        EdgeWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
-                    }
-                }
                 
             }
             else if(LayoutState == 2)

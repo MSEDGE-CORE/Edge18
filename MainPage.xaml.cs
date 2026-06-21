@@ -50,6 +50,12 @@ namespace App3
             ApplicationView.GetForCurrentView().Consolidated += MainPage_Consolidated;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
             Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+            ApplicationView.GetForCurrentView().VisibleBoundsChanged += MainPage_VisibleBoundsChanged;
+        }
+
+        private void MainPage_VisibleBoundsChanged(ApplicationView sender, object args)
+        {
+           
         }
 
         private void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)

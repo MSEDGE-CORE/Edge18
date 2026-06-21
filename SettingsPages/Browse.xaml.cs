@@ -40,6 +40,10 @@ namespace App3.SettingsPages
             Search_Selection.Items[4] = ResourceLoader.GetForCurrentView().GetString("C360");
             Search_Selection.Items[5] = ResourceLoader.GetForCurrentView().GetString("C自定义");
 
+            UA_Selection.Items[0] = ResourceLoader.GetForCurrentView().GetString("C桌面");
+            UA_Selection.Items[1] = ResourceLoader.GetForCurrentView().GetString("C移动");
+            UA_Selection.Items[2] = ResourceLoader.GetForCurrentView().GetString("C自定义");
+
 
             Windows.Storage.ApplicationDataCompositeValue WebView_Mode = (ApplicationDataCompositeValue)(Application.Current as App).LocalSettings.Values["WebView_Mode"];
             if (WebView_Mode != null)
@@ -82,6 +86,22 @@ namespace App3.SettingsPages
             {
                 Search_Selection.SelectedIndex = 5;
                 SetSearch_Button.Visibility = Visibility.Visible;
+            }
+
+            if ((Application.Current as App).BrowserUA == "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36")
+            {
+                UA_Selection.SelectedIndex = 0;
+                SetUA_Button.Visibility = Visibility.Collapsed;
+            }
+            else if ((Application.Current as App).BrowserUA == "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1")
+            {
+                UA_Selection.SelectedIndex = 1;
+                SetUA_Button.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                UA_Selection.SelectedIndex = 2;
+                SetUA_Button.Visibility = Visibility.Visible;
             }
 
             if ((Application.Current as App).HomePageLink == "about:blank")
@@ -285,6 +305,45 @@ namespace App3.SettingsPages
             Windows.Storage.ApplicationDataCompositeValue HomeLink = new Windows.Storage.ApplicationDataCompositeValue();
             HomeLink["HomePageLink"] = (Application.Current as App).HomePageLink;
             (Application.Current as App).LocalSettings.Values["HomePageLink"] = HomeLink;
+        }
+
+        private void UA_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int UAIndex = UA_Selection.SelectedIndex;
+            if (UA_Selection.SelectedIndex == 2)
+            {
+                SetUA_Button.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SetUA_Button.Visibility = Visibility.Collapsed;
+            }
+
+            if (UA_Selection.SelectedIndex == 0)
+            {
+                (Application.Current as App).BrowserUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
+            }
+            else if (UA_Selection.SelectedIndex == 1)
+            {
+                (Application.Current as App).BrowserUA = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1";
+            }
+            Windows.Storage.ApplicationDataCompositeValue BrUASet = new Windows.Storage.ApplicationDataCompositeValue();
+            BrUASet["BrowserUA"] = (Application.Current as App).BrowserUA;
+            (Application.Current as App).LocalSettings.Values["BrowserUA"] = BrUASet;
+        }
+
+        private void SetUA_Button_Click(object sender, RoutedEventArgs e)
+        {
+            UA_Tag.Text = (Application.Current as App).BrowserUA;
+        }
+
+        private void SetUATag_Click(object sender, RoutedEventArgs e)
+        {
+            (Application.Current as App).BrowserUA = UA_Tag.Text;
+            Windows.Storage.ApplicationDataCompositeValue BrUASet = new Windows.Storage.ApplicationDataCompositeValue();
+            BrUASet["BrowserUA"] = (Application.Current as App).BrowserUA;
+            (Application.Current as App).LocalSettings.Values["BrowserUA"] = BrUASet;
+            Set_UA_Flyout.Hide();
         }
     }
 }

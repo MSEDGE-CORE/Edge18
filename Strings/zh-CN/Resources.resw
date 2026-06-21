@@ -264,17 +264,32 @@
   <data name="A链接.AutomationProperties.Name" xml:space="preserve">
     <value>链接</value>
   </data>
+  <data name="AUA标识.AutomationProperties.Name" xml:space="preserve">
+    <value>UA</value>
+  </data>
   <data name="T完成.Text" xml:space="preserve">
     <value>完成</value>
   </data>
   <data name="T默认搜索引擎.Text" xml:space="preserve">
     <value>默认搜索引擎</value>
   </data>
+  <data name="TA浏览器UA标识选项.Text" xml:space="preserve">
+    <value>浏览器 UA 标识</value>
+  </data>
   <data name="A默认搜索引擎.AutomationProperties.Name" xml:space="preserve">
     <value>默认搜索引擎</value>
   </data>
+  <data name="A浏览器UA标识选项.AutomationProperties.Name" xml:space="preserve">
+    <value>浏览器 UA 标识</value>
+  </data>
+  <data name="A浏览器UA标识.AutomationProperties.Name" xml:space="preserve">
+    <value>更改浏览器UA标识</value>
+  </data>
   <data name="A更改搜索引擎.AutomationProperties.Name" xml:space="preserve">
     <value>更改搜索引擎</value>
+  </data>
+  <data name="A浏览器UA标识.Content" xml:space="preserve">
+    <value>更改</value>
   </data>
   <data name="A更改搜索引擎.Content" xml:space="preserve">
     <value>更改</value>
@@ -315,6 +330,9 @@
   <data name="C深色" xml:space="preserve">
     <value>深色</value>
   </data>
+  <data name="C桌面" xml:space="preserve">
+    <value>桌面</value>
+  </data>
   <data name="C百度" xml:space="preserve">
     <value>百度</value>
   </data>
@@ -330,6 +348,12 @@
   <data name="T链接.Text" xml:space="preserve">
     <value>链接</value>
   </data>
+  <data name="TUA标识.Text" xml:space="preserve">
+    <value>UA</value>
+  </data>
+  <data name="T浏览器UA标识.Text" xml:space="preserve">
+    <value>浏览器 UA 标识</value>
+  </data>
   <data name="A存储.AutomationProperties.Name" xml:space="preserve">
     <value>存储</value>
   </data>
@@ -343,7 +367,7 @@
     <value>导出收藏夹</value>
   </data>
   <data name="A导入收藏夹.Content" xml:space="preserve">
-    <value>导出</value>
+    <value>导入</value>
   </data>
   <data name="A导入历史记录.AutomationProperties.Name" xml:space="preserve">
     <value>导入历史记录</value>
@@ -546,32 +570,28 @@
   <data name="W外观.AutomationProperties.Name" xml:space="preserve">
     <value>外观</value>
   </data>
-
-	<data name="W外观.Width" xml:space="preserve">
+  <data name="W外观.Width" xml:space="preserve">
     <value>64</value>
   </data>
-
-	<data name="W浏览.AutomationProperties.Name" xml:space="preserve">
+  <data name="W浏览.AutomationProperties.Name" xml:space="preserve">
     <value>浏览</value>
   </data>
-
-	<data name="W浏览.Width" xml:space="preserve">
+  <data name="W浏览.Width" xml:space="preserve">
     <value>64</value>
   </data>
-
-	<data name="W存储.AutomationProperties.Name" xml:space="preserve">
+  <data name="W存储.AutomationProperties.Name" xml:space="preserve">
     <value>存储</value>
   </data>
-
-	<data name="W存储.Width" xml:space="preserve">
+  <data name="W存储.Width" xml:space="preserve">
     <value>64</value>
   </data>
-
-	<data name="W关于.AutomationProperties.Name" xml:space="preserve">
+  <data name="W关于.AutomationProperties.Name" xml:space="preserve">
     <value>关于</value>
   </data>
-
-	<data name="W关于.Width" xml:space="preserve">
+  <data name="W关于.Width" xml:space="preserve">
     <value>64</value>
+  </data>
+  <data name="C移动" xml:space="preserve">
+    <value>移动</value>
   </data>
 </root>

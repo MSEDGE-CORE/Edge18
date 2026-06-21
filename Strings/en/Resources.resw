@@ -264,17 +264,32 @@
   <data name="A链接.AutomationProperties.Name" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="AUA标识.AutomationProperties.Name" xml:space="preserve">
+    <value>UA</value>
+  </data>
   <data name="T完成.Text" xml:space="preserve">
     <value>Done</value>
   </data>
   <data name="T默认搜索引擎.Text" xml:space="preserve">
     <value>Default search engine</value>
   </data>
+  <data name="TA浏览器UA标识选项.Text" xml:space="preserve">
+    <value>Browser UA</value>
+  </data>
   <data name="A默认搜索引擎.AutomationProperties.Name" xml:space="preserve">
     <value>Default search engine</value>
   </data>
+  <data name="A浏览器UA标识选项.AutomationProperties.Name" xml:space="preserve">
+    <value>Browser UA</value>
+  </data>
+  <data name="A浏览器UA标识.AutomationProperties.Name" xml:space="preserve">
+    <value>Change browser UA</value>
+  </data>
   <data name="A更改搜索引擎.AutomationProperties.Name" xml:space="preserve">
     <value>Change search engine</value>
+  </data>
+  <data name="A浏览器UA标识.Content" xml:space="preserve">
+    <value>Change</value>
   </data>
   <data name="A更改搜索引擎.Content" xml:space="preserve">
     <value>Change</value>
@@ -315,6 +330,9 @@
   <data name="C深色" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="C桌面" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
   <data name="C百度" xml:space="preserve">
     <value>Baidu</value>
   </data>
@@ -329,6 +347,12 @@
   </data>
   <data name="T链接.Text" xml:space="preserve">
     <value>Link</value>
+  </data>
+  <data name="TUA标识.Text" xml:space="preserve">
+    <value>UA</value>
+  </data>
+  <data name="T浏览器UA标识.Text" xml:space="preserve">
+    <value>Browser UA</value>
   </data>
   <data name="A存储.AutomationProperties.Name" xml:space="preserve">
     <value>Storage</value>
@@ -566,5 +590,8 @@
   </data>
   <data name="W关于.Width" xml:space="preserve">
     <value>74</value>
+  </data>
+  <data name="C移动" xml:space="preserve">
+    <value>Mobile</value>
   </data>
 </root>

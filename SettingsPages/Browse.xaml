@@ -85,7 +85,34 @@
                             </Button>
                         </StackPanel>
 					</Grid>
-					<TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "14" FontWeight = "Bold" x:Uid="T隐私设置" Margin = "6,12,0,0" />
+                    <Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
+                        <Button IsTabStop="False" HorizontalAlignment="Stretch" MinHeight="68" MaxHeight="68" Height="68" Margin="0,0,0,0"/>
+                        <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T浏览器UA标识" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />
+                        <Grid Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <StackPanel Orientation="Horizontal"  Margin="0,0,26,0" HorizontalAlignment="Right">
+                            <Grid>
+                                <ComboBox FontFamily="HarmonyOS Sans SC" x:Uid="A浏览器UA标识选项" Name = "UA_Selection" SelectionChanged="UA_Selection_SelectionChanged" Width="150" Margin="0,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Right" >
+                                    <x:String></x:String>
+                                    <x:String></x:String>
+                                    <x:String></x:String>
+                                </ComboBox>
+                            </Grid>
+                            <Button FontFamily="HarmonyOS Sans SC" x:Uid="A浏览器UA标识" Name="SetUA_Button" Visibility="Collapsed" Margin="4,0,0,0" Click="SetUA_Button_Click">
+                                <Button.Flyout>
+                                    <Flyout x:Name="Set_UA_Flyout" Placement="TopEdgeAlignedRight">
+                                        <StackPanel MinWidth="400" MaxWidth="400" Width="400">
+                                            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,12">
+                                                <TextBlock FontFamily="HarmonyOS Sans SC" x:Uid="TUA标识" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                <TextBox FontFamily="HarmonyOS Sans SC" x:Uid="AUA标识" Name="UA_Tag" HorizontalAlignment="Right" Width="360" MinWidth="360" MaxWidth="360" />
+                                            </Grid>
+                                            <Button FontFamily="HarmonyOS Sans SC" x:Uid="D完成" Width="64" IsEnabled="True" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Name="SetUATag" Click="SetUATag_Click" Style="{StaticResource AccentButtonStyle}"/>
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "14" FontWeight = "Bold" x:Uid="T隐私设置" Margin = "6,12,0,0" />
 					<Grid HorizontalAlignment = "Stretch" Margin = "0,6,0,0" MinHeight = "68" MaxHeight = "68" Height = "68">
 						<Button IsTabStop="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
 						<TextBlock FontFamily="HarmonyOS Sans SC" FontSize = "16" x:Uid="T禁用 JavaScript" Margin = "26,0,0,0" VerticalAlignment = "Center" HorizontalAlignment = "Left" />

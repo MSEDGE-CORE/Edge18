@@ -71,6 +71,7 @@ namespace App3
         public string SearchToolLink = "https://cn.bing.com/search?q=";
         public int LayoutState = 0;
         public int WebViewUA = 0;
+        public string BrowserUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36";
         public bool ForbidJavaScript = false;
         public bool AutoSavePassword = false;
         public string HomePageLink = "about:blank";
@@ -368,6 +369,11 @@ namespace App3
             if (SearchLink != null)
             {
                 SearchToolLink = SearchLink["SearchLink"].ToString();
+            }
+            Windows.Storage.ApplicationDataCompositeValue BrowserUASet = (ApplicationDataCompositeValue)LocalSettings.Values["BrowserUA"];
+            if (BrowserUASet != null)
+            {
+                BrowserUA = BrowserUASet["BrowserUA"].ToString();
             }
             Windows.Storage.ApplicationDataCompositeValue ForbidJavaScriptSet = (ApplicationDataCompositeValue)LocalSettings.Values["ForbidJavaScriptSwitch"];
             if (ForbidJavaScriptSet != null)
